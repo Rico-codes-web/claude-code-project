@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MMITS Hiraya Transit — Bagong Galaw v16</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════
+   THEME TOKENS — DARK (default) + LIGHT
+═══════════════════════════════════════════ */
+:root {
+  --gold:#f5a623; --teal:#3ecfcf; --purple:#7c5cbf;
+  --green:#3ecf8e; --red:#ff4f4f; --orange:#ff7a3a;
+  --bg:#080810; --phone-bg:#060610; --phone-border:rgba(255,255,255,0.12);
+  --surface:rgba(18,18,26,0.88); --surface2:rgba(26,26,42,0.82); --surface3:rgba(30,30,48,0.9);
+  --glass-blur:28px; --glass-saturate:saturate(1.9); --border:rgba(255,255,255,0.18);
+  --text:#e8e8f0; --text2:#b8b8cc; --muted:#60608a;
+  --map-bg-a:#0e1c26; --map-bg-b:#0a1520;
+  --map-bay-a:#0a3050; --map-bay-b:#082540;
+  --map-road-major:#2a4060; --map-road-minor:#1a3050;
+  --map-label:rgba(255,255,255,0.5); --map-area:rgba(255,255,255,0.25);
+  --map-city-block:#1a2a1a;
+  --bottom-sheet-bg:rgba(10,10,20,0.97);
+  --notif-bg:rgba(10,10,22,0.96); --notif-blur:20px;
+  --toast-bg:rgba(16,16,26,0.97); --input-ph:rgba(255,255,255,0.18);
+  --shadow-heavy:rgba(0,0,0,0.6); --shadow-card:rgba(0,0,0,0.4);
+  --em-bg:rgba(5,5,15,0.98); --toggle-off:rgba(60,60,90,0.6);
+  --body-glow-a:rgba(62,207,207,0.04); --body-glow-b:rgba(124,92,191,0.05);
+  --seg-active-bg:rgba(245,166,35,0.15);
+  --seg-active-glow:0 0 12px rgba(245,166,35,0.35),0 2px 8px rgba(245,166,35,0.2);
+  --mode-banner-bg:rgba(8,8,16,0.97);
+  --stack-bottom:134px;
+  --lrt1-color:#3ecf8e; --lrt2-color:#4a90ff; --mrt3-color:#f5a623;
+}
+
+html.light {
+  --bg:#e8edf5; --phone-bg:#f0f4fa; --phone-border:rgba(0,0,0,0.1);
+  --surface:rgba(255,255,255,0.9); --surface2:rgba(242,245,252,0.92); --surface3:rgba(235,239,248,0.95);
+  --border:rgba(0,0,0,0.08); --text:#1a1a2e; --text2:#3a3a5c; --muted:#8888aa;
+  --map-bg-a:#c8d8e8; --map-bg-b:#b8cce0; --map-bay-a:#6fa8c8; --map-bay-b:#5898bc;
+  --map-road-major:#8aaac8; --map-road-minor:#a8c0d8;
+  --map-label:rgba(30,50,80,0.6); --map-area:rgba(30,50,80,0.3); --map-city-block:#c8d8c0;
+  --bottom-sheet-bg:rgba(248,250,255,0.98);
+  --notif-bg:rgba(255,255,255,0.97); --toast-bg:rgba(255,255,255,0.97); --input-ph:rgba(0,0,0,0.2);
+  --shadow-heavy:rgba(0,0,0,0.15); --shadow-card:rgba(0,0,0,0.08);
+  --em-bg:rgba(248,248,255,0.99); --toggle-off:rgba(200,200,220,0.8);
+  --body-glow-a:rgba(62,180,200,0.08); --body-glow-b:rgba(100,80,180,0.06);
+  --seg-active-bg:rgba(245,166,35,0.18);
+  --seg-active-glow:0 0 10px rgba(245,166,35,0.25),0 2px 6px rgba(245,166,35,0.15);
+  --mode-banner-bg:rgba(248,250,255,0.98);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--text);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:24px 16px;
+  background-image:radial-gradient(ellipse 60% 50% at 20% 20%,var(--body-glow-a) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 80%,var(--body-glow-b) 0%,transparent 60%);
+  transition:background 0.4s ease,color 0.4s ease;
+}
+
+/* ── THEME TOGGLE ── */
+.theme-toggle-wrap{position:fixed;top:24px;right:24px;z-index:9999;}
+.theme-btn{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:8px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);cursor:pointer;backdrop-filter:blur(var(--glass-blur));transition:all 0.3s ease;box-shadow:0 4px 16px var(--shadow-card);}
+.theme-btn:hover{border-color:var(--gold);color:var(--gold);}
+.theme-icon{font-size:14px;}
+
+/* ── PHONE SHELL ── */
+.phone-shell{width:360px;height:760px;background:var(--phone-bg);border-radius:40px;border:1.5px solid var(--phone-border);box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 40px 80px var(--shadow-heavy),inset 0 1px 0 rgba(255,255,255,0.08);overflow:hidden;display:flex;flex-direction:column;position:relative;transition:background 0.4s ease,border-color 0.4s ease;}
+
+/* ── DYNAMIC ISLAND ── */
+.dynamic-island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:100px;height:28px;background:#000;border-radius:20px;z-index:100;display:flex;align-items:center;justify-content:center;}
+.di-time{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,0.75);letter-spacing:0.5px;}
+
+/* ── STATUS BAR ── */
+.status-bar{height:52px;background:var(--surface);backdrop-filter:blur(var(--glass-blur));display:flex;align-items:flex-end;justify-content:space-between;padding:0 22px 8px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:10;transition:background 0.4s;}
+.status-left{font-size:9px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:1px;}
+.status-right{display:flex;gap:5px;align-items:center;}
+.status-icon{font-size:10px;color:var(--muted);}
+
+/* ── SCREENS ── */
+.screens{flex:1;overflow:hidden;position:relative;}
+.screen{position:absolute;inset:0;overflow-y:auto;display:none;flex-direction:column;scrollbar-width:none;}
+.screen::-webkit-scrollbar{display:none;}
+.screen.active{display:flex;animation:screenIn 0.28s cubic-bezier(0.22,1,0.36,1);}
+@keyframes screenIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{display:flex;background:rgba(8,8,20,0.72);backdrop-filter:blur(28px) saturate(1.9);-webkit-backdrop-filter:blur(28px) saturate(1.9);padding:8px 8px 14px;gap:2px;flex-shrink:0;z-index:20;transition:background 0.4s;}
+html.light .bottom-nav{background:rgba(255,255,255,0.72);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 4px;border-radius:999px;cursor:pointer;transition:all 0.28s cubic-bezier(0.22,1,0.36,1);-webkit-tap-highlight-color:transparent;}
+.nav-item:active{transform:scale(0.9);}
+.nav-item.active{background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+html.light .nav-item.active{background:rgba(245,166,35,0.18);}
+.nav-icon{font-size:18px;line-height:1;}
+.nav-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:7px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);transition:color 0.2s;}
+.nav-item.active .nav-lbl{color:var(--gold);}
+
+/* ══════════════════════════════════════════
+   ONBOARDING
+══════════════════════════════════════════ */
+.onboarding-overlay{position:absolute;inset:0;z-index:10000;background:linear-gradient(160deg,rgba(5,5,18,0.98) 0%,rgba(8,8,28,0.99) 100%);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 22px;transition:opacity 0.5s ease,transform 0.5s cubic-bezier(0.22,1,0.36,1);}
+.onboarding-overlay.hidden{opacity:0;transform:scale(0.97);pointer-events:none;}
+.ob-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,0.12) 0%,transparent 70%);pointer-events:none;}
+.ob-logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:800;color:#e8e8f0;letter-spacing:-1px;margin-bottom:4px;}
+.ob-logo span{color:var(--gold);}
+.ob-tagline{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:rgba(184,184,204,0.7);margin-bottom:30px;text-align:center;letter-spacing:0.5px;}
+.ob-step{width:100%;margin-bottom:16px;}
+.ob-q-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:rgba(245,166,35,0.7);margin-bottom:7px;}
+.ob-q-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:#e8e8f0;margin-bottom:10px;}
+.ob-pills{display:flex;gap:7px;width:100%;}
+.ob-pill{flex:1;padding:11px 6px;border-radius:14px;text-align:center;background:rgba(26,26,42,0.8);border:1px solid rgba(255,255,255,0.08);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(184,184,204,0.7);cursor:pointer;transition:all 0.22s;}
+.ob-pill.selected{background:rgba(245,166,35,0.12);border-color:rgba(245,166,35,0.5);color:var(--gold);}
+.ob-pill-icon{font-size:18px;display:block;margin-bottom:5px;}
+.ob-input{width:100%;background:rgba(26,26,42,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:13px 15px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:#e8e8f0;outline:none;transition:border-color 0.22s;-webkit-appearance:none;}
+.ob-input:focus{border-color:rgba(245,166,35,0.45);}
+.ob-input::placeholder{color:rgba(96,96,138,0.8);}
+.ob-start-btn{width:100%;background:linear-gradient(135deg,var(--gold),#e8940f);color:#000;border:none;border-radius:16px;padding:15px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 6px 22px rgba(245,166,35,0.35);}
+.ob-start-btn:disabled{opacity:0.35;cursor:default;}
+.ob-skip{margin-top:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:rgba(96,96,138,0.7);cursor:pointer;text-align:center;letter-spacing:0.5px;text-decoration:underline;text-underline-offset:3px;}
+
+/* ══════════════════════════════════════════
+   MAP SCREEN
+══════════════════════════════════════════ */
+#screen-map{overflow:hidden !important;}
+.map-full{position:absolute;inset:0;background:linear-gradient(160deg,var(--map-bg-a) 0%,var(--map-bg-b) 100%);cursor:grab;user-select:none;overflow:hidden;}
+.map-full:active{cursor:grabbing;}
+.map-viewport{position:absolute;inset:0;transform-origin:center center;transition:transform 0.12s ease;}
+.map-bg{position:absolute;inset:0;background:radial-gradient(ellipse 40% 60% at 5% 50%,var(--map-bay-a) 0%,transparent 70%);}
+.bay-water{position:absolute;left:0;top:20%;width:18%;height:65%;background:linear-gradient(135deg,var(--map-bay-a),var(--map-bay-b));border-radius:0 40% 20% 0;opacity:0.8;}
+.block{position:absolute;border-radius:2px;opacity:0.45;background:var(--map-city-block);}
+.road{position:absolute;border-radius:1px;}
+.road.major-h{height:6px;}.road.major-v{width:6px;}
+.road.minor-h{height:3px;}.road.minor-v{width:3px;}
+.cong-overlay{position:absolute;border-radius:3px;opacity:0.7;}
+.mpin{position:absolute;transform:translate(-50%,-50%);z-index:10;cursor:pointer;}
+.mpin-dot{width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,0.85);transition:transform 0.15s;}
+.mpin:hover .mpin-dot{transform:scale(1.5);}
+.mpin-label{position:absolute;top:15px;left:50%;transform:translateX(-50%);font-size:8px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;white-space:nowrap;color:rgba(255,255,255,0.9);text-shadow:0 1px 4px rgba(0,0,0,0.9);pointer-events:none;}
+html.light .mpin-label{color:rgba(20,40,80,0.9);text-shadow:0 1px 3px rgba(255,255,255,0.8);}
+.mpin.incident .mpin-dot{background:var(--red);box-shadow:0 0 0 5px rgba(255,79,79,0.25);}
+.mpin.station .mpin-dot{background:var(--teal);box-shadow:0 0 0 4px rgba(62,207,207,0.2);}
+.mpin.parking .mpin-dot{background:#7c5cbf;box-shadow:0 0 0 4px rgba(124,92,191,0.2);}
+.mpin.construction .mpin-dot{background:var(--orange);box-shadow:0 0 0 4px rgba(255,122,58,0.2);}
+.user-pulse{position:absolute;width:28px;height:28px;border-radius:50%;border:2px solid #4a9eff;transform:translate(-50%,-50%);animation:mapPulse 2s ease-out infinite;pointer-events:none;}
+@keyframes mapPulse{0%{opacity:0.8;transform:translate(-50%,-50%) scale(0.5);}100%{opacity:0;transform:translate(-50%,-50%) scale(2.8);}}
+.user-loc-dot{position:absolute;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle,#74b9ff,#0984e3);border:2px solid #fff;box-shadow:0 0 0 4px rgba(74,158,255,0.25),0 2px 8px rgba(9,132,227,0.5);transform:translate(-50%,-50%);z-index:11;animation:locPulse 2.5s ease-in-out infinite;}
+@keyframes locPulse{0%,100%{box-shadow:0 0 0 4px rgba(74,158,255,0.25),0 2px 8px rgba(9,132,227,0.5);}50%{box-shadow:0 0 0 8px rgba(74,158,255,0.1),0 2px 12px rgba(9,132,227,0.6);}}
+
+/* ── FLOATING HEADER ── */
+.map-header-float{position:absolute;top:0;left:0;right:0;z-index:40;padding:8px 16px 10px;background:rgba(255,255,255,0.08);backdrop-filter:blur(28px) saturate(1.9);-webkit-backdrop-filter:blur(28px) saturate(1.9);border-bottom:1px solid rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:space-between;transition:background 0.4s;}
+html.light .map-header-float{background:rgba(255,255,255,0.72);border-bottom-color:rgba(0,0,0,0.08);}
+.app-wordmark{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.5px;}
+.app-wordmark span{color:var(--gold);}
+.header-right{display:flex;gap:8px;align-items:center;}
+.header-badge{background:rgba(62,207,142,0.12);border:1px solid rgba(62,207,142,0.28);border-radius:8px;padding:4px 10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;color:var(--green);text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:5px;}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.4s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.15;}}
+.eco-btn{width:28px;height:28px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:all 0.22s;background:rgba(62,207,142,0.06);border:1px solid rgba(62,207,142,0.18);position:relative;-webkit-tap-highlight-color:transparent;}
+.eco-btn.active{background:rgba(62,207,142,0.2);border-color:rgba(62,207,142,0.55);animation:ecoGlow 2.2s ease-in-out infinite;}
+@keyframes ecoGlow{0%,100%{box-shadow:0 0 0 4px rgba(62,207,142,0.12);}50%{box-shadow:0 0 0 8px rgba(62,207,142,0.06);}}
+.eco-badge{position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:var(--green);border:1.5px solid var(--phone-bg);display:none;}
+.eco-btn.active .eco-badge{display:block;}
+
+/* ── FLOATING SEARCH ── */
+.search-float{position:absolute;top:58px;left:16px;right:16px;z-index:39;background:rgba(255,255,255,0.08);backdrop-filter:blur(28px) saturate(1.9);-webkit-backdrop-filter:blur(28px) saturate(1.9);border:1px solid rgba(255,255,255,0.18);border-radius:999px;padding:9px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;box-shadow:0 4px 20px var(--shadow-card);transition:border-color 0.2s,background 0.4s;}
+html.light .search-float{background:rgba(255,255,255,0.72);border-color:rgba(0,0,0,0.08);}
+.search-float:hover{border-color:rgba(245,166,35,0.35);}
+.search-icon{font-size:13px;opacity:0.45;}
+.search-placeholder{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--muted);flex:1;}
+.search-filter{font-size:13px;opacity:0.35;}
+
+/* ── FLOATING MODE PILL ── */
+.mode-pill-float{position:absolute;top:108px;left:50%;transform:translateX(-50%);z-index:42;display:flex;align-items:center;background:rgba(8,8,20,0.55);backdrop-filter:blur(22px) saturate(1.8);-webkit-backdrop-filter:blur(22px) saturate(1.8);border:1px solid rgba(255,255,255,0.13);border-radius:28px;padding:4px;gap:2px;box-shadow:0 8px 32px rgba(0,0,0,0.45);white-space:nowrap;transition:background 0.4s;}
+html.light .mode-pill-float{background:rgba(255,255,255,0.62);border-color:rgba(0,0,0,0.1);}
+.seg-pill{padding:6px 13px;border-radius:22px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.4px;color:var(--muted);cursor:pointer;transition:all 0.28s cubic-bezier(0.22,1,0.36,1);border:1px solid transparent;-webkit-tap-highlight-color:transparent;}
+.seg-pill.active{background:var(--seg-active-bg);border-color:rgba(245,166,35,0.45);color:var(--gold);box-shadow:var(--seg-active-glow);}
+html.light .seg-pill.active{background:rgba(245,166,35,0.18);color:#c47a0a;}
+
+/* ══════════════════════════════════════════
+   V15: RIGHT CONTROL ZONE — FIXED, z-index:9999
+══════════════════════════════════════════ */
+.ctrl-zone{position:absolute;right:12px;z-index:9999;bottom:var(--stack-bottom,134px);transition:bottom 0.38s cubic-bezier(0.22,1,0.36,1);}
+.ctrl-zone.no-transition{transition:none !important;}
+.right-stack{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.rcmd-btn{width:36px;height:36px;background:rgba(255,255,255,0.08);backdrop-filter:blur(28px) saturate(1.9);-webkit-backdrop-filter:blur(28px) saturate(1.9);border:1px solid rgba(255,255,255,0.18);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--text);cursor:pointer;transition:all 0.15s;box-shadow:0 2px 10px var(--shadow-card);-webkit-tap-highlight-color:transparent;position:relative;flex-shrink:0;}
+.rcmd-btn:active{transform:scale(0.88);background:rgba(245,166,35,0.12);}
+.rcmd-btn.active-state{border-color:rgba(62,207,207,0.5);color:var(--teal);background:rgba(62,207,207,0.08);}
+.rcmd-btn svg{display:block;stroke:currentColor;}
+.bell-notif-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;border-radius:50%;background:var(--red);border:1.5px solid var(--phone-bg);animation:blink 1.4s ease-in-out infinite;}
+.rcmd-div{width:24px;height:1px;background:var(--border);flex-shrink:0;margin:1px 0;}
+.sos-stack-btn{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,#ff2a2a,#bb0000);border:2.5px solid rgba(255,100,100,0.45);box-shadow:0 0 0 5px rgba(255,50,50,0.14),0 5px 18px rgba(200,0,0,0.45);display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;animation:emergencyPulse 3s ease-in-out infinite;transition:transform 0.15s;-webkit-tap-highlight-color:transparent;flex-shrink:0;}
+.sos-stack-btn:active{transform:scale(0.9);}
+.sos-stack-btn span{font-size:15px;line-height:1;}
+.sos-stack-btn small{font-family:'Plus Jakarta Sans',sans-serif;font-size:5.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.85);margin-top:1px;}
+@keyframes emergencyPulse{0%,100%{box-shadow:0 0 0 5px rgba(255,50,50,0.14),0 5px 18px rgba(200,0,0,0.45);}50%{box-shadow:0 0 0 10px rgba(255,50,50,0.06),0 7px 24px rgba(200,0,0,0.55);}}
+
+/* ── LAYER MENU + MAP KEY ── */
+.layer-menu{position:absolute;right:calc(100% + 8px);bottom:0;z-index:10000;background:var(--surface);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--border);border-radius:18px;padding:10px;box-shadow:0 8px 28px var(--shadow-heavy);min-width:180px;transform:scale(0.88) translateX(8px);transform-origin:bottom right;opacity:0;pointer-events:none;transition:all 0.22s cubic-bezier(0.22,1,0.36,1);}
+.layer-menu.open{transform:scale(1) translateX(0);opacity:1;pointer-events:all;}
+.lm-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);padding:4px 6px 8px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.lm-row{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:12px;cursor:pointer;transition:background 0.15s;}
+.lm-row:hover{background:rgba(255,255,255,0.04);}
+.lm-icon{font-size:14px;flex-shrink:0;width:20px;text-align:center;}
+.lm-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:500;color:var(--text);flex:1;}
+.lm-toggle{width:30px;height:16px;border-radius:8px;background:var(--toggle-off);border:1px solid var(--border);cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0;}
+.lm-toggle.on{background:rgba(62,207,142,0.35);border-color:rgba(62,207,142,0.45);}
+.lm-knob{position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--muted);transition:all 0.2s;}
+.lm-toggle.on .lm-knob{left:16px;background:var(--green);}
+.map-key-popup{position:absolute;right:calc(100% + 8px);bottom:52px;z-index:10000;background:var(--surface);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--border);border-radius:14px;padding:9px 13px;display:flex;align-items:center;gap:12px;box-shadow:0 6px 20px var(--shadow-heavy);transform:scale(0.88) translateX(8px);transform-origin:bottom right;opacity:0;pointer-events:none;white-space:nowrap;transition:all 0.22s cubic-bezier(0.22,1,0.36,1);}
+.map-key-popup.open{transform:scale(1) translateX(0);opacity:1;pointer-events:all;}
+.leg-row{display:flex;align-items:center;gap:5px;}
+.leg-dot{width:8px;height:8px;border-radius:3px;}
+.leg-txt{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);}
+
+/* ══════════════════════════════════════════
+   3-STATE BOTTOM SHEET
+══════════════════════════════════════════ */
+.bottom-sheet{position:absolute;bottom:0;left:0;right:0;z-index:25;height:62vh;min-height:360px;background:var(--bottom-sheet-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);border-radius:24px 24px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,0.5),0 -2px 0 rgba(255,255,255,0.04);display:flex;flex-direction:column;transform:translateY(calc(100% - 118px));transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),background 0.4s;touch-action:none;will-change:transform;}
+.bottom-sheet.state-expanded{transform:translateY(0);}
+.bottom-sheet.state-peek{transform:translateY(calc(100% - 118px));}
+.bottom-sheet.state-collapsed{transform:translateY(calc(100% - 22px));}
+.bottom-sheet.dragging{transition:none !important;}
+.sheet-handle{width:100%;padding:12px 0 6px;display:flex;align-items:center;justify-content:center;cursor:ns-resize;flex-shrink:0;touch-action:none;-webkit-tap-highlight-color:transparent;}
+.sheet-handle-bar{width:40px;height:4px;border-radius:3px;background:rgba(255,255,255,0.18);transition:background 0.2s,width 0.2s;}
+html.light .sheet-handle-bar{background:rgba(0,0,0,0.15);}
+.bottom-sheet:hover .sheet-handle-bar{background:rgba(255,255,255,0.3);width:52px;}
+.sheet-peek-row{display:flex;align-items:center;justify-content:space-between;padding:0 18px 12px;flex-shrink:0;border-bottom:1px solid var(--border);}
+.peek-stat{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.peek-stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:var(--gold);line-height:1;transition:color 0.25s ease;}
+.peek-stat-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:7px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+.peek-divider{width:1px;height:32px;background:var(--border);}
+.peek-mode-pill{display:flex;align-items:center;gap:5px;background:var(--seg-active-bg);border:1px solid rgba(245,166,35,0.35);border-radius:12px;padding:5px 10px;}
+.peek-mode-icon{font-size:12px;}
+.peek-mode-txt{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;color:var(--gold);}
+.peek-expand-hint{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:400;color:var(--muted);display:flex;align-items:center;gap:3px;}
+.peek-expand-hint::before{content:'↑';color:var(--teal);font-size:10px;}
+.sheet-body{overflow-y:auto;padding:12px 16px 20px;flex:1;scrollbar-width:none;overscroll-behavior:contain;touch-action:pan-y;}
+.sheet-body::-webkit-scrollbar{display:none;}
+.alert-strip{display:flex;align-items:center;gap:8px;padding:8px 0 10px;border-bottom:1px solid var(--border);margin-bottom:10px;}
+.alert-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;animation:blink 1.2s ease-in-out infinite;}
+.alert-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:400;color:var(--red);flex:1;line-height:1.4;}
+.alert-text strong{font-weight:500;display:block;}
+.mode-notif-banner{position:absolute;bottom:0;left:0;right:0;z-index:40;background:var(--mode-banner-bg);backdrop-filter:blur(var(--glass-blur));border-top:1px solid var(--border);padding:12px 16px;transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.22,1,0.36,1),background 0.4s;}
+.mode-notif-banner.show{transform:translateY(0);}
+.mnb-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:800;color:var(--gold);margin-bottom:6px;}
+.mnb-items{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+.mnb-item{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--muted);display:flex;align-items:center;gap:5px;}
+.mnb-item::before{content:'→';color:var(--teal);font-size:9px;}
+
+/* ── NOTIFICATIONS ── */
+.notif-panel{position:absolute;top:52px;left:0;right:0;z-index:80;pointer-events:none;padding:8px 12px;display:flex;flex-direction:column;gap:5px;}
+.notif-card{background:var(--notif-bg);backdrop-filter:blur(var(--notif-blur));border-radius:16px;padding:9px 12px;display:flex;align-items:flex-start;gap:8px;pointer-events:all;box-shadow:0 4px 24px var(--shadow-card);border:1px solid var(--border);transform:translateY(-110%);opacity:0;transition:transform 0.38s cubic-bezier(0.22,1,0.36,1),opacity 0.3s ease;cursor:pointer;}
+.notif-card.show{transform:translateY(0);opacity:1;}
+.notif-card.notif-red{border-left:3px solid var(--red);}
+.notif-card.notif-gold{border-left:3px solid var(--gold);}
+.notif-card.notif-teal{border-left:3px solid var(--teal);}
+.notif-card.notif-green{border-left:3px solid var(--green);}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.notif-body{flex:1;}
+.notif-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;color:var(--text);margin-bottom:1px;}
+.notif-desc{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--muted);line-height:1.3;}
+.notif-time{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;color:var(--muted);opacity:0.65;flex-shrink:0;margin-top:2px;}
+
+/* ── RESPONDERS ALERT ── */
+.responders-alert{position:absolute;top:0;left:0;right:0;z-index:950;background:linear-gradient(135deg,rgba(220,30,30,0.97),rgba(160,0,0,0.97));backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,100,100,0.3);padding:14px 16px;display:flex;align-items:center;gap:10px;transform:translateY(-110%);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);box-shadow:0 8px 24px rgba(200,0,0,0.4);}
+.responders-alert.show{transform:translateY(0);}
+.ra-icon{font-size:22px;flex-shrink:0;}
+.ra-body{flex:1;}
+.ra-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;color:#fff;margin-bottom:2px;}
+.ra-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:rgba(255,255,255,0.75);line-height:1.4;}
+.ra-dots{display:flex;gap:4px;align-items:center;}
+.ra-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.6);animation:dotBounce 1.1s ease-in-out infinite;}
+.ra-dot:nth-child(2){animation-delay:0.18s;}.ra-dot:nth-child(3){animation-delay:0.36s;}
+@keyframes dotBounce{0%,100%{transform:translateY(0);opacity:0.4;}50%{transform:translateY(-6px);opacity:1;}}
+
+/* ══════════════════════════════════════════
+   NON-MAP SCREENS
+══════════════════════════════════════════ */
+.section-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.screen-header{background:var(--surface);backdrop-filter:blur(var(--glass-blur));padding:14px 16px 12px;border-bottom:1px solid var(--border);flex-shrink:0;transition:background 0.4s;}
+.screen-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:800;color:var(--text);margin-bottom:2px;}
+.screen-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:400;color:var(--muted);}
+.screen-body{padding:16px;flex:1;}
+.spacer{height:16px;}
+
+/* ══════════════════════════════════════════
+   V15: OPERATIONAL BADGE
+══════════════════════════════════════════ */
+.transit-ops-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(62,207,142,0.07);border:1px solid rgba(62,207,142,0.22);border-radius:10px;padding:5px 11px;font-family:'Plus Jakarta Sans',sans-serif;font-size:8.5px;font-weight:500;color:var(--green);letter-spacing:0.4px;margin-bottom:10px;}
+.ops-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;animation:opsPulse 2.2s ease-out infinite;}
+@keyframes opsPulse{0%{box-shadow:0 0 0 0 rgba(62,207,142,0.55);}65%{box-shadow:0 0 0 7px rgba(62,207,142,0);}100%{box-shadow:0 0 0 0 rgba(62,207,142,0);}}
+
+/* ══════════════════════════════════════════
+   V15: LINE TABS
+══════════════════════════════════════════ */
+.transit-line-tabs{display:flex;gap:5px;margin-bottom:8px;position:relative;z-index:2;}
+.tlt-btn{flex:1;padding:6px 3px;border-radius:10px;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:0.3px;text-transform:uppercase;cursor:pointer;border:1px solid var(--border);color:var(--muted);background:rgba(255,255,255,0.04);transition:all 0.22s;-webkit-tap-highlight-color:transparent;}
+html.light .tlt-btn{background:rgba(0,0,0,0.04);}
+.tlt-btn:active{transform:scale(0.95);}
+.tlt-btn.all-active{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.3);color:var(--text);}
+.tlt-btn.lrt1-active{background:rgba(62,207,142,0.14);border-color:rgba(62,207,142,0.55);color:#3ecf8e;box-shadow:0 0 10px rgba(62,207,142,0.2);}
+.tlt-btn.lrt2-active{background:rgba(74,144,255,0.14);border-color:rgba(74,144,255,0.55);color:#4a90ff;box-shadow:0 0 10px rgba(74,144,255,0.2);}
+.tlt-btn.mrt3-active{background:rgba(245,166,35,0.14);border-color:rgba(245,166,35,0.55);color:var(--gold);box-shadow:0 0 10px rgba(245,166,35,0.2);}
+
+/* ══════════════════════════════════════════
+   V15: SVG MACRO MAP
+══════════════════════════════════════════ */
+.transit-map-wrap{display:block;position:relative;margin-bottom:12px;transition:opacity 0.35s ease;}
+.transit-map-wrap.morphing-out{opacity:0;pointer-events:none;}
+.transit-svg-wrap{position:relative;width:100%;background:rgba(8,10,24,0.6);border:1px solid rgba(255,255,255,0.05);border-radius:14px;overflow:hidden;}
+html.light .transit-svg-wrap{background:rgba(210,220,240,0.5);}
+#transitSVG{width:100%;height:230px;display:block;}
+.transit-tooltip{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);background:rgba(10,10,22,0.96);border:1px solid var(--border);border-radius:10px;padding:5px 10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;color:var(--text);white-space:nowrap;opacity:0;transition:opacity 0.2s;pointer-events:none;z-index:5;}
+html.light .transit-tooltip{background:rgba(250,252,255,0.98);}
+.transit-tooltip.show{opacity:1;}
+
+/* ══════════════════════════════════════════
+   V15: LINEAR ROUTE CONTAINER
+══════════════════════════════════════════ */
+.linear-route-container{display:none;flex-direction:column;gap:8px;margin-bottom:12px;opacity:0;transform:scale(0.96);transition:opacity 0.35s ease,transform 0.35s cubic-bezier(0.22,1,0.36,1);}
+.linear-route-container.morphing-in{display:flex;opacity:1;transform:scale(1);}
+.linear-route-container.morphing-out{opacity:0;transform:scale(0.96);pointer-events:none;}
+
+/* V15: Back button */
+.back-all-lines{display:inline-flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:8px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:600;color:var(--text);cursor:pointer;transition:all 0.2s;align-self:flex-start;margin-bottom:2px;-webkit-tap-highlight-color:transparent;letter-spacing:0.2px;box-shadow:0 2px 8px var(--shadow-card);}
+.back-all-lines:hover{border-color:var(--gold);color:var(--gold);background:rgba(245,166,35,0.06);}
+.back-all-lines:active{transform:scale(0.95);}
+.back-arrow{font-size:14px;line-height:1;}
+
+/* V15: Follow mode badge — now clickable as toggle */
+.follow-mode-badge{display:none;align-items:center;gap:5px;padding:4px 10px;background:rgba(62,207,207,0.08);border:1px solid rgba(62,207,207,0.28);border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:600;color:var(--teal);letter-spacing:0.5px;align-self:flex-end;margin-bottom:2px;cursor:pointer;transition:all 0.2s;-webkit-tap-highlight-color:transparent;}
+.follow-mode-badge.active{display:flex;animation:followBlink 1.6s ease-in-out infinite;}
+.follow-mode-badge.resume{display:flex;animation:none;background:rgba(245,166,35,0.1);border-color:rgba(245,166,35,0.35);color:var(--gold);}
+.follow-mode-badge.resume:hover{background:rgba(245,166,35,0.18);}
+@keyframes followBlink{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* ══════════════════════════════════════════
+   V15: HORIZONTAL SCROLL TRACK
+   PIXEL-PERFECT ALIGNMENT:
+   — Line at top:50% translateY(-50%)
+   — Station at top:50% translate(-50%,-50%)  (dot center = line center)
+   — Train at top:50% translate(-50%,-50%)   (train center = line center)
+   — Label positioned absolutely ABOVE the dot
+══════════════════════════════════════════ */
+.hscroll-wrap{position:relative;width:100%;overflow-x:auto;overflow-y:visible;scrollbar-width:none;-webkit-overflow-scrolling:touch;background:rgba(5,7,18,0.75);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:38px 20px 20px;cursor:grab;}
+.hscroll-wrap:active{cursor:grabbing;}
+html.light .hscroll-wrap{background:rgba(200,215,240,0.55);}
+.hscroll-wrap::-webkit-scrollbar{display:none;}
+
+.hscroll-track{position:relative;height:40px;display:block;flex-shrink:0;min-width:100%;}
+
+/* V15: The colored route line — exactly at 50% of track */
+.hscroll-line{position:absolute;top:50%;left:0;right:0;height:4px;border-radius:3px;z-index:1;transform:translateY(-50%);box-shadow:0 0 10px rgba(255,255,255,0.15);}
+
+/* V15: Station node — container centered on line, label absolutely above */
+.hs-station{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:2;display:flex;flex-direction:column;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+
+/* V15: Station label — absolutely positioned ABOVE the dot, rotated -42deg */
+.hs-st-label{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) rotate(-42deg);transform-origin:bottom center;font-family:'Plus Jakarta Sans',sans-serif;font-size:7.5px;font-weight:600;color:#ffffff;white-space:nowrap;line-height:1;text-align:center;text-shadow:0 1px 3px rgba(0,0,0,0.7),0 0 6px rgba(0,0,0,0.5);transition:color 0.2s;pointer-events:none;}
+html.light .hs-st-label{color:#1a1a2e;text-shadow:0 1px 2px rgba(255,255,255,0.6);}
+.hs-station:hover .hs-st-label{color:#fff;}
+html.light .hs-station:hover .hs-st-label{color:#000;}
+
+/* V15: Station dot — now the visual anchor, centered on line via parent translate */
+.hs-st-dot{width:12px;height:12px;border-radius:50%;background:rgba(5,7,18,0.92);border:2.5px solid rgba(255,255,255,0.5);transition:all 0.2s;flex-shrink:0;z-index:3;}
+html.light .hs-st-dot{background:rgba(220,228,248,0.95);}
+.hs-st-dot.interchange-dot{width:15px;height:15px;border-width:3px;border-color:rgba(255,255,255,0.9);box-shadow:0 0 10px rgba(255,255,255,0.2);}
+.hs-station:hover .hs-st-dot{transform:scale(1.45);border-color:#fff;}
+
+/* Crowd states */
+.hs-station.crowd-high .hs-st-dot{border-color:var(--red);box-shadow:0 0 8px rgba(255,79,79,0.55);}
+.hs-station.crowd-high .hs-st-label{color:#ff6b6b;font-weight:700;text-shadow:0 1px 4px rgba(255,0,0,0.5);}
+.hs-station.crowd-medium .hs-st-dot{border-color:var(--gold);box-shadow:0 0 6px rgba(245,166,35,0.4);}
+.hs-station.crowd-medium .hs-st-label{color:#ffcc60;font-weight:600;text-shadow:0 1px 3px rgba(245,166,35,0.4);}
+
+/* V15: Train dot — EXACT same center as station dots */
+.hs-train{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:10;width:20px;height:20px;border-radius:50%;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:width 0.15s,height 0.15s;}
+.hs-train:hover{width:24px;height:24px;}
+.hs-train.selected-train{width:24px;height:24px;animation:hsTrainSelPulse 0.75s ease-in-out infinite;}
+@keyframes hsTrainSelPulse{0%,100%{box-shadow:0 0 0 4px rgba(255,255,255,0.38),0 0 16px rgba(255,255,255,0.2);}50%{box-shadow:0 0 0 9px rgba(255,255,255,0.1),0 0 28px rgba(255,255,255,0.3);}}
+.hs-train-inner{width:100%;height:100%;border-radius:50%;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:7px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;transition:background 0.45s ease;}
+
+/* ══════════════════════════════════════════
+   V15: TRAIN INFO CARD
+══════════════════════════════════════════ */
+.train-info-card{background:var(--surface);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--border);border-radius:16px;padding:12px 14px;margin-top:6px;display:none;animation:trainCardIn 0.3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 8px 28px var(--shadow-heavy);}
+.train-info-card.show{display:block;}
+@keyframes trainCardIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.tic-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.tic-train-id{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:800;color:var(--text);}
+.tic-close{width:26px;height:26px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;color:var(--muted);transition:all 0.15s;}
+.tic-close:hover{color:var(--red);border-color:rgba(255,79,79,0.4);}
+.tic-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;}
+.tic-cell{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:8px 6px;text-align:center;}
+.tic-cell-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:800;line-height:1;}
+.tic-cell-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:6.5px;font-weight:500;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-top:2px;}
+.tic-next-station{background:rgba(62,207,207,0.05);border:1px solid rgba(62,207,207,0.18);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:8px;}
+.tic-ns-icon{font-size:14px;}
+.tic-ns-info{flex:1;}
+.tic-ns-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;color:var(--teal);}
+.tic-ns-eta{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--muted);}
+.tic-ns-eta.arriving{color:var(--green);font-weight:700;animation:arrivingPulse 0.75s ease-in-out infinite;}
+@keyframes arrivingPulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+/* ══════════════════════════════════════════
+   V15: ETA GRID
+══════════════════════════════════════════ */
+.transit-eta-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:12px;}
+.teta-card{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:10px 8px;text-align:center;transition:all 0.2s;cursor:pointer;}
+.teta-card:active{transform:scale(0.96);}
+.teta-card.synced-train{border-color:rgba(245,166,35,0.45);box-shadow:0 0 0 3px rgba(245,166,35,0.1);}
+.teta-line{font-family:'Plus Jakarta Sans',sans-serif;font-size:7.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;}
+.teta-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;line-height:1;transition:all 0.3s ease;}
+.teta-val.arriving{font-size:9px;color:var(--green) !important;animation:arrivingPulse 0.75s ease-in-out infinite;letter-spacing:0.5px;}
+.teta-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:7px;color:var(--muted);margin-top:2px;}
+
+/* SVG selection ring */
+.train-selected-ring{animation:svgSelRingPulse 0.75s ease-in-out infinite;}
+@keyframes svgSelRingPulse{0%,100%{stroke-opacity:0.9;}50%{stroke-opacity:0.35;}}
+
+/* ══════════════════════════════════════════
+   REPORT, PROFILE etc.
+══════════════════════════════════════════ */
+.pts-earn-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(62,207,142,0.08);border:1px solid rgba(62,207,142,0.2);border-radius:12px;padding:6px 12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:14px;}
+.report-section-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+.incident-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;}
+.incident-btn{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.18s;}
+.incident-btn:active{transform:scale(0.96);}
+.incident-btn.selected{background:rgba(255,79,79,0.08);border-color:rgba(255,79,79,0.38);}
+.ib-icon{font-size:20px;margin-bottom:5px;}
+.ib-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;}
+.incident-btn.selected .ib-label{color:rgba(255,130,130,0.9);}
+.severity-row{display:flex;gap:6px;margin-bottom:14px;}
+.sev-btn{flex:1;padding:8px 4px;border-radius:12px;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.8px;cursor:pointer;border:1px solid;transition:all 0.2s;}
+.sev-btn.low{background:rgba(62,207,142,0.07);color:var(--green);border-color:rgba(62,207,142,0.22);}
+.sev-btn.medium{background:rgba(245,166,35,0.09);color:var(--gold);border-color:rgba(245,166,35,0.28);}
+.sev-btn.high{background:rgba(255,79,79,0.09);color:var(--red);border-color:rgba(255,79,79,0.28);}
+.sev-btn.selected{filter:brightness(1.35);box-shadow:inset 0 0 0 1px currentColor;}
+.photo-zone{height:60px;background:rgba(62,207,207,0.03);border:1.5px dashed rgba(62,207,207,0.22);border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;margin-bottom:12px;cursor:pointer;}
+.photo-zone-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--teal);opacity:0.65;}
+.text-input-fake{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:10px 14px;margin-bottom:12px;cursor:text;}
+.input-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:3px;}
+.input-placeholder{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--input-ph);}
+.submit-btn{width:100%;background:var(--gold);color:#000;border:none;border-radius:16px;padding:14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.18s;}
+.submit-btn:active{transform:scale(0.98);}
+.verify-note{margin-top:10px;padding:10px 12px;background:rgba(124,92,191,0.06);border:1px solid rgba(124,92,191,0.15);border-radius:14px;}
+.verify-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--purple);margin-bottom:3px;}
+.verify-txt{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--muted);line-height:1.5;}
+.traffic-card{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color 0.2s,background 0.4s;}
+.tc-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.tc-info{flex:1;}
+.tc-road{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.tc-detail{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--muted);}
+.tc-badge{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;letter-spacing:0.8px;padding:3px 8px;border-radius:8px;text-transform:uppercase;}
+.tc-badge.red{background:rgba(255,79,79,0.1);color:var(--red);}
+.tc-badge.gold{background:rgba(245,166,35,0.1);color:var(--gold);}
+.tc-badge.green{background:rgba(62,207,142,0.1);color:var(--green);}
+.coding-widget{background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.16);border-radius:16px;padding:10px 12px;margin-bottom:6px;}
+.coding-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.coding-nums{display:flex;gap:4px;}
+.coding-num{width:22px;height:22px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:800;}
+.coding-num.active{background:var(--gold);color:#000;}
+.coding-num.inactive{background:var(--surface3);color:var(--muted);border:1px solid var(--border);}
+.coding-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;color:var(--muted);margin-top:4px;}
+.parking-card{background:rgba(124,92,191,0.06);border:1px solid rgba(124,92,191,0.18);border-radius:16px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+.pk-icon{font-size:18px;flex-shrink:0;}
+.pk-info{flex:1;}
+.pk-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.pk-detail{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--muted);}
+.pk-badge{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;color:#a87de8;}
+.nudge-card{background:rgba(62,207,207,0.05);border:1px solid rgba(62,207,207,0.2);border-radius:16px;padding:12px;margin-bottom:10px;}
+.nudge-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:800;color:var(--teal);margin-bottom:6px;}
+.nudge-desc{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--text2);line-height:1.5;margin-bottom:8px;}
+.nudge-action{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;color:var(--teal);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+.custom-toggles{background:var(--surface2);border:1px solid var(--border);border-radius:18px;padding:6px;}
+.toggle-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;transition:background 0.15s;}
+.toggle-row:hover{background:rgba(255,255,255,0.04);}
+.toggle-icon{font-size:14px;flex-shrink:0;width:22px;text-align:center;}
+.toggle-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:500;color:var(--text);flex:1;}
+.toggle-switch{width:30px;height:16px;border-radius:8px;background:var(--toggle-off);border:1px solid var(--border);cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0;}
+.toggle-switch.on{background:rgba(62,207,142,0.35);border-color:rgba(62,207,142,0.45);}
+.toggle-knob{position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--muted);transition:all 0.2s;}
+.toggle-switch.on .toggle-knob{left:16px;background:var(--green);}
+.pred-card{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:14px;margin-bottom:12px;}
+.pred-card-hdr{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.pred-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);}
+.pred-row:last-child{border-bottom:none;}
+.pred-time{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;color:var(--muted);width:42px;flex-shrink:0;}
+.pred-bar-outer{flex:1;height:7px;background:rgba(127,127,200,0.08);border-radius:4px;overflow:hidden;}
+.pred-bar-inner{height:100%;border-radius:4px;}
+.pred-bar-inner.low{background:var(--green);width:25%;}
+.pred-bar-inner.mid{background:var(--gold);width:55%;}
+.pred-bar-inner.high{background:var(--orange);width:82%;}
+.pred-bar-inner.peak{background:var(--red);width:97%;}
+.pred-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;width:40px;text-align:right;flex-shrink:0;}
+.pred-lbl.low{color:var(--green);}.pred-lbl.mid{color:var(--gold);}.pred-lbl.high{color:var(--orange);}.pred-lbl.peak{color:var(--red);}
+
+/* ── PROFILE ── */
+.profile-header{background:var(--surface2);padding:20px 16px 16px;border-bottom:1px solid var(--border);text-align:center;flex-shrink:0;}
+.avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--teal));display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#fff;border:2px solid rgba(255,255,255,0.14);}
+.profile-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;color:var(--text);margin-bottom:3px;}
+.profile-rank{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:500;color:var(--gold);}
+.profile-body{padding:14px 16px;flex:1;}
+.pts-card{background:rgba(245,166,35,0.05);border:1px solid rgba(245,166,35,0.18);border-radius:20px;padding:16px;text-align:center;margin-bottom:12px;}
+.pts-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:38px;font-weight:800;color:var(--gold);line-height:1;}
+.pts-sublbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-top:4px;margin-bottom:10px;}
+.prog-wrap{background:rgba(127,127,200,0.08);border-radius:4px;height:5px;overflow:hidden;margin-bottom:5px;}
+.prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),#ffcc60);}
+.prog-labels{display:flex;justify-content:space-between;font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;color:var(--muted);}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
+.stat-cell{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:10px 8px;text-align:center;}
+.stat-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;margin-bottom:3px;}
+.stat-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);}
+.lb-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
+.lb-row:last-child{border-bottom:none;}
+.lb-rank{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;width:20px;text-align:center;flex-shrink:0;}
+.lb-rank.gold{color:#fbbf24;}.lb-rank.silver{color:#9ca3af;}.lb-rank.bronze{color:#b45309;}.lb-rank.you{color:var(--gold);}
+.lb-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;flex-shrink:0;color:#fff;}
+.lb-info{flex:1;}
+.lb-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:500;color:var(--text);}
+.lb-area{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;color:var(--muted);}
+.lb-pts{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;color:var(--green);}
+.lb-pts.you{color:var(--gold);}
+.redeem-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;}
+.reward-item{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:11px 12px;display:flex;align-items:center;gap:10px;margin-bottom:7px;cursor:pointer;transition:all 0.18s;}
+.reward-item:hover{border-color:rgba(245,166,35,0.3);}
+.reward-ico{font-size:16px;}
+.reward-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--text);flex:1;}
+.reward-cost{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;color:var(--gold);background:rgba(245,166,35,0.09);padding:3px 8px;border-radius:8px;border:1px solid rgba(245,166,35,0.18);}
+.settings-section{margin-top:16px;}
+.settings-hdr{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.settings-hdr::after{content:'';flex:1;height:1px;background:var(--border);}
+.settings-item{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:13px 14px;display:flex;align-items:center;gap:12px;margin-bottom:7px;cursor:pointer;transition:all 0.18s;}
+.si-icon{font-size:16px;flex-shrink:0;}
+.si-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--text);flex:1;}
+.si-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;color:var(--muted);margin-top:1px;}
+.si-arrow{font-size:11px;color:var(--muted);}
+
+/* ── EMERGENCY ── */
+.emergency-modal{position:absolute;inset:0;z-index:200;background:var(--em-bg);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px;animation:fadeInUp 0.3s ease;}
+.emergency-modal.show{display:flex;}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.em-close{align-self:flex-end;width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;color:var(--muted);margin-bottom:12px;}
+.em-legal{width:100%;background:rgba(255,79,79,0.08);border:1px solid rgba(255,79,79,0.3);border-radius:14px;padding:10px 12px;margin-bottom:14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:9.5px;color:rgba(255,160,160,0.95);line-height:1.55;}
+.em-legal strong{font-weight:700;display:block;margin-bottom:3px;color:var(--red);font-size:10px;}
+.em-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;color:var(--red);margin-bottom:4px;text-align:center;}
+.em-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--muted);text-align:center;margin-bottom:14px;line-height:1.5;}
+.em-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-bottom:16px;}
+.em-type{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:14px 10px;text-align:center;cursor:pointer;transition:all 0.18s;}
+.em-type.selected{background:rgba(255,79,79,0.09);border-color:rgba(255,79,79,0.4);}
+.em-type-icon{font-size:22px;margin-bottom:6px;}
+.em-type-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;}
+.em-type.selected .em-type-lbl{color:rgba(255,130,130,0.95);}
+.em-submit{width:100%;background:var(--red);color:#fff;border:none;border-radius:16px;padding:14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.18s;box-shadow:0 4px 18px rgba(255,50,50,0.35);}
+.em-disclaimer{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5;opacity:0.7;}
+
+/* ── MOCK CALL ── */
+.mock-call-screen{position:absolute;inset:0;z-index:300;background:#030308;display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;}
+.mock-call-screen.show{display:flex;}
+.mock-call-blur-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(255,30,30,0.15) 0%,transparent 70%);pointer-events:none;}
+.mock-call-icon{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#ff2222,#8b0000);border:3px solid rgba(255,80,80,0.4);display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:28px;animation:callPulse 1.2s ease-in-out infinite;}
+@keyframes callPulse{0%{box-shadow:0 0 0 0 rgba(255,50,50,0.5);}50%{box-shadow:0 0 0 20px rgba(255,50,50,0);}100%{box-shadow:0 0 0 0 rgba(255,50,50,0);}}
+.mock-call-status{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;color:#fff;text-align:center;margin-bottom:10px;min-height:44px;}
+.mock-call-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:rgba(255,255,255,0.45);text-align:center;margin-bottom:40px;line-height:1.5;}
+.mock-call-dots{display:flex;gap:8px;}
+.mcd{width:8px;height:8px;border-radius:50%;background:rgba(255,80,80,0.5);animation:dotBounce 1.2s ease-in-out infinite;}
+.mcd:nth-child(2){animation-delay:0.2s;}.mcd:nth-child(3){animation-delay:0.4s;}
+.mock-call-success{display:none;flex-direction:column;align-items:center;animation:fadeInUp 0.4s ease;}
+.mock-call-success.show{display:flex;}
+.mc-success-icon{font-size:48px;margin-bottom:16px;}
+.mc-success-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:800;color:#ff6b6b;text-align:center;margin-bottom:8px;}
+.mc-success-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:rgba(255,255,255,0.5);text-align:center;line-height:1.55;margin-bottom:28px;}
+.mc-dismiss{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:11px 28px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:all 0.2s;}
+
+/* ── TOAST ── */
+.toast{position:absolute;bottom:88px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--toast-bg);backdrop-filter:blur(12px);border:1px solid rgba(62,207,142,0.38);border-radius:16px;padding:9px 16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.8px;color:var(--green);opacity:0;transition:all 0.3s;z-index:600;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.toast-red{color:var(--red);border-color:rgba(255,79,79,0.38);}
+.toast.toast-gold{color:var(--gold);border-color:rgba(245,166,35,0.38);}
+.toast.toast-teal{color:var(--teal);border-color:rgba(62,207,207,0.38);}
+
+/* ── ECO KILL ── */
+body.eco-mode .user-pulse,body.eco-mode .user-loc-dot,body.eco-mode .alert-dot,body.eco-mode .live-dot,body.eco-mode .bell-notif-dot,body.eco-mode .mcd,body.eco-mode .ra-dot,body.eco-mode .sos-stack-btn{animation:none !important;}
+body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s linear,opacity 0.15s linear,background 0.15s !important;}
+
+</style>
+</head>
+
+<body>
+
+<!-- Theme Toggle -->
+<div class="theme-toggle-wrap">
+  <div class="theme-btn" id="themeBtn" onclick="toggleTheme()">
+    <span class="theme-icon" id="themeIcon">☀️</span>
+    <span id="themeLabel">Light Mode</span>
+  </div>
+</div>
+
+<div class="phone-shell">
+
+  <!-- ONBOARDING -->
+  <div class="onboarding-overlay" id="onboardingOverlay">
+    <div class="ob-glow"></div>
+    <div class="ob-logo">MM<span>ITS</span></div>
+    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:400;color:rgba(184,184,204,0.6);margin-top:-6px;margin-bottom:4px;letter-spacing:0.3px;">Hiraya Transit</div>
+    <div class="ob-tagline">Bagong Galaw · Metro Manila Intelligent Transit</div>
+    <div class="ob-step">
+      <div class="ob-q-label">01 · Identity</div>
+      <div class="ob-q-text">Who are you?</div>
+      <div class="ob-pills">
+        <div class="ob-pill" data-role="driver" onclick="selectRole(this)"><span class="ob-pill-icon">🚗</span>Driver</div>
+        <div class="ob-pill" data-role="commuter" onclick="selectRole(this)"><span class="ob-pill-icon">🚌</span>Commuter</div>
+        <div class="ob-pill" data-role="both" onclick="selectRole(this)"><span class="ob-pill-icon">🗺️</span>Both</div>
+      </div>
+    </div>
+    <div class="ob-step">
+      <div class="ob-q-label">02 · Profile</div>
+      <div class="ob-q-text">What is your age?</div>
+      <input class="ob-input" id="obAge" type="number" min="1" max="120" placeholder="e.g. 28">
+    </div>
+    <div class="ob-step" style="margin-bottom:24px;">
+      <div class="ob-q-label">03 · Commute</div>
+      <div class="ob-q-text">Where do you usually go?</div>
+      <input class="ob-input" id="obDest" type="text" placeholder="e.g. BGC, Ortigas, Makati…">
+    </div>
+    <button class="ob-start-btn" id="obStartBtn" onclick="startJourney()" disabled>Start My Journey →</button>
+    <div class="ob-skip" onclick="startJourney(true)">Skip for now</div>
+  </div>
+
+  <div class="dynamic-island"><div class="di-time" id="clock">9:41</div></div>
+
+  <div class="status-bar">
+    <div class="status-left">Metro Manila</div>
+    <div class="status-right">
+      <span class="status-icon">▲▲▲</span>
+      <span class="status-icon">📶</span>
+      <span class="status-icon">🔋</span>
+    </div>
+  </div>
+
+  <div class="screens">
+
+    <!-- ═══ MAP SCREEN ═══ -->
+    <div class="screen active" id="screen-map">
+      <div class="map-full" id="mapWrapper">
+        <div class="map-viewport" id="mapVP">
+          <div class="map-bg"></div>
+          <div class="bay-water"></div>
+          <div class="block" style="left:20%;top:10%;width:12%;height:8%;"></div>
+          <div class="block" style="left:35%;top:15%;width:18%;height:6%;"></div>
+          <div class="block" style="left:55%;top:8%;width:14%;height:10%;"></div>
+          <div class="block" style="left:70%;top:12%;width:16%;height:7%;"></div>
+          <div class="block" style="left:22%;top:35%;width:10%;height:18%;"></div>
+          <div class="block" style="left:50%;top:30%;width:12%;height:14%;"></div>
+          <div class="block" style="left:65%;top:40%;width:18%;height:12%;"></div>
+          <div class="block" style="left:30%;top:58%;width:20%;height:10%;"></div>
+          <div class="block" style="left:55%;top:62%;width:22%;height:14%;"></div>
+          <div class="block" style="left:20%;top:70%;width:16%;height:12%;"></div>
+          <div class="road major-h" style="top:30%;left:15%;width:75%;background:var(--map-road-major);"></div>
+          <div class="road major-h" style="top:45%;left:10%;width:80%;background:var(--map-road-major);"></div>
+          <div class="road major-h" style="top:62%;left:15%;width:72%;background:var(--map-road-major);"></div>
+          <div class="road major-v" style="left:38%;top:0;height:100%;background:var(--map-road-major);"></div>
+          <div class="road major-v" style="left:60%;top:0;height:100%;background:var(--map-road-major);"></div>
+          <div class="road minor-h" style="top:55%;left:15%;width:70%;background:var(--map-road-minor);opacity:0.6;"></div>
+          <div class="road minor-v" style="left:48%;top:30%;height:55%;background:var(--map-road-minor);opacity:0.6;"></div>
+          <div style="position:absolute;left:40%;top:0;width:4px;height:100%;background:linear-gradient(180deg,#2980b9,#1a5276);opacity:0.85;border-radius:2px;"></div>
+          <div style="position:absolute;left:25%;top:30%;width:4px;height:70%;background:linear-gradient(180deg,#e74c3c,#c0392b);opacity:0.85;border-radius:2px;"></div>
+          <div style="position:absolute;left:18%;top:31.5%;width:55%;height:3px;background:linear-gradient(90deg,#8e44ad,#6c3483);opacity:0.85;border-radius:2px;"></div>
+          <div class="cong-overlay" id="edsa-cong" style="top:28%;left:37%;width:4%;height:20%;background:var(--red);opacity:0.7;"></div>
+          <div class="cong-overlay" id="c5-cong" style="top:43%;left:55%;width:7%;height:4%;background:var(--gold);opacity:0.5;"></div>
+          <div style="position:absolute;left:39%;top:4%;font-size:7px;color:var(--map-label);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;writing-mode:vertical-rl;letter-spacing:1px;">EDSA</div>
+          <div style="position:absolute;left:52%;top:42%;font-size:7px;color:var(--map-label);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">C5 Road</div>
+          <div style="position:absolute;left:58%;top:30%;font-size:8px;color:var(--map-area);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">QUEZON CITY</div>
+          <div style="position:absolute;left:60%;top:55%;font-size:8px;color:var(--map-area);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">MANDALUYONG</div>
+          <div style="position:absolute;left:20%;top:60%;font-size:8px;color:var(--map-area);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">MANILA</div>
+          <div style="position:absolute;left:62%;top:75%;font-size:8px;color:var(--map-area);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">MAKATI</div>
+          <div class="mpin station" style="top:28%;left:38%;"><div class="mpin-dot"></div><div class="mpin-label">Cubao MRT</div></div>
+          <div class="mpin station" style="top:38%;left:38%;"><div class="mpin-dot"></div><div class="mpin-label">Ortigas</div></div>
+          <div class="mpin station" style="top:48%;left:38%;"><div class="mpin-dot"></div><div class="mpin-label">Shaw Blvd</div></div>
+          <div class="mpin incident" style="top:40%;left:37%;" onclick="showIncidentInfo('Accident · EDSA-Ortigas','2 vehicles · Dispatcher en route')"><div class="mpin-dot"></div><div class="mpin-label">⚠ Accident</div></div>
+          <div class="mpin incident" style="top:54%;left:48%;" onclick="showIncidentInfo('Flooding · C5 Libis','Water level rising · Avoid area')"><div class="mpin-dot"></div><div class="mpin-label">⚠ Flood</div></div>
+          <div class="mpin construction" style="top:22%;left:55%;" onclick="showIncidentInfo('Road Works · Marcos Hwy','Lane closure 7AM–6PM today')"><div class="mpin-dot"></div><div class="mpin-label">🚧 Works</div></div>
+          <div class="mpin parking" style="top:50%;left:60%;" onclick="showIncidentInfo('SM Megamall Parking','Available: 340 slots · B1-B4')"><div class="mpin-dot"></div><div class="mpin-label">P Megamall</div></div>
+          <div class="user-pulse" style="top:44%;left:44%;"></div>
+          <div class="user-loc-dot" style="top:44%;left:44%;"></div>
+        </div>
+
+        <!-- V15: RIGHT CONTROL ZONE — z-index:9999 -->
+        <div class="ctrl-zone" id="ctrlZone">
+          <div class="layer-menu" id="layerMenu">
+            <div class="lm-title">Map Layers</div>
+            <div class="lm-row"><div class="lm-icon">🔴</div><div class="lm-label">Traffic</div><div class="lm-toggle on" id="lt-traffic" onclick="toggleLmLayer(this,'traffic')"><div class="lm-knob"></div></div></div>
+            <div class="lm-row"><div class="lm-icon">🚇</div><div class="lm-label">Stations</div><div class="lm-toggle" id="lt-stations" onclick="toggleLmLayer(this,'station')"><div class="lm-knob"></div></div></div>
+            <div class="lm-row"><div class="lm-icon">🅿️</div><div class="lm-label">Parking</div><div class="lm-toggle" id="lt-parking" onclick="toggleLmLayer(this,'parking')"><div class="lm-knob"></div></div></div>
+            <div class="lm-row"><div class="lm-icon">🚧</div><div class="lm-label">Construction</div><div class="lm-toggle on" id="lt-construction" onclick="toggleLmLayer(this,'construction')"><div class="lm-knob"></div></div></div>
+            <div class="lm-row"><div class="lm-icon">🚶</div><div class="lm-label">Pedestrian</div><div class="lm-toggle" id="lt-pedestrian" onclick="toggleLmLayer(this,'pedestrian')"><div class="lm-knob"></div></div></div>
+          </div>
+          <div class="map-key-popup" id="mapKeyPopup">
+            <div class="leg-row"><div class="leg-dot" style="background:var(--red);"></div><span class="leg-txt">Heavy</span></div>
+            <div class="leg-row"><div class="leg-dot" style="background:var(--gold);"></div><span class="leg-txt">Moderate</span></div>
+            <div class="leg-row"><div class="leg-dot" style="background:var(--green);"></div><span class="leg-txt">Clear</span></div>
+          </div>
+          <div class="right-stack">
+            <div class="rcmd-btn" id="bellBtn" onclick="triggerBell()" title="Notifications">🔔<div class="bell-notif-dot"></div></div>
+            <div class="rcmd-div"></div>
+            <div class="rcmd-btn" onclick="zoomMap(1)" title="Zoom In" style="font-size:18px;">+</div>
+            <div class="rcmd-btn" onclick="zoomMap(-1)" title="Zoom Out" style="font-size:18px;">−</div>
+            <div class="rcmd-div"></div>
+            <div class="rcmd-btn" id="layerBtn" onclick="toggleLayerMenu()" title="Map Layers">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5.5L8 2.5L14 5.5L8 8.5L2 5.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/><path d="M2 9L8 12L14 9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M2 12.5L8 15.5L14 12.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="rcmd-btn" id="mapKeyBtn" onclick="toggleMapKey()" title="Map Key">🗝️</div>
+            <div class="rcmd-div"></div>
+            <div class="sos-stack-btn" onclick="openEmergency()"><span>🚨</span><small>SOS</small></div>
+          </div>
+        </div>
+
+        <div class="notif-panel" id="notifPanel"></div>
+        <div class="mode-notif-banner" id="modeBanner"></div>
+
+        <!-- 3-STATE BOTTOM SHEET -->
+        <div class="bottom-sheet state-peek" id="bottomSheet">
+          <div class="sheet-handle" id="sheetHandle"><div class="sheet-handle-bar"></div></div>
+          <div class="sheet-peek-row">
+            <div class="peek-stat"><div class="peek-stat-val" id="peekMetricVal">14.2</div><div class="peek-stat-lbl" id="peekMetricLbl">KM Driven</div></div>
+            <div class="peek-divider"></div>
+            <div class="peek-stat"><div class="peek-stat-val" style="color:var(--teal);">4 min</div><div class="peek-stat-lbl">ETA</div></div>
+            <div class="peek-divider"></div>
+            <div class="peek-mode-pill" id="peekModePill"><span class="peek-mode-icon">🚗</span><span class="peek-mode-txt" id="peekModeTxt">Driver</span></div>
+            <div class="peek-divider"></div>
+            <div class="peek-expand-hint">Expand</div>
+          </div>
+          <div class="sheet-body" id="sheetBody">
+            <div class="alert-strip"><div class="alert-dot"></div><div class="alert-text"><strong>Accident — EDSA Ortigas</strong>Dispatcher en route · 2 verified reports</div></div>
+            <div id="modeContent"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-header-float">
+        <div style="display:flex;flex-direction:column;align-items:flex-start;">
+          <div class="app-wordmark">MM<span>ITS</span></div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:400;color:var(--muted);letter-spacing:0.3px;margin-top:-1px;">Hiraya Transit</div>
+        </div>
+        <div class="header-right"><div class="header-badge"><div class="live-dot"></div>Live</div><div class="eco-btn" id="ecoBtn" onclick="toggleEcoMode()" title="Eco Mode">🌿<div class="eco-badge"></div></div></div>
+      </div>
+      <div class="search-float" onclick="showToast('🔍 Search coming soon!')"><span class="search-icon">🔍</span><span class="search-placeholder">Search roads, stations, places…</span><span class="search-filter">⚙️</span></div>
+      <div class="mode-pill-float">
+        <div class="seg-pill active" id="pill-driver" onclick="selectMode('driver',this)">🚗 Driver</div>
+        <div class="seg-pill" id="pill-commuter" onclick="selectMode('commuter',this)">🚌 Commuter</div>
+        <div class="seg-pill" id="pill-custom" onclick="selectMode('custom',this)">⚙️ Custom</div>
+      </div>
+    </div>
+
+    <!-- ═══ REPORT SCREEN ═══ -->
+    <div class="screen" id="screen-report">
+      <div class="screen-header"><div class="screen-title">Report Incident</div><div class="screen-sub">📍 Near: EDSA-Ortigas · Quezon City</div></div>
+      <div class="screen-body">
+        <div class="pts-earn-badge">⭐ Earn up to +150 pts for a verified report</div>
+        <div class="report-section-lbl">Incident Type</div>
+        <div class="incident-grid">
+          <div class="incident-btn selected" onclick="selectIncident(this)"><div class="ib-icon">🚨</div><div class="ib-label">Accident</div></div>
+          <div class="incident-btn" onclick="selectIncident(this)"><div class="ib-icon">🚧</div><div class="ib-label">Road Works</div></div>
+          <div class="incident-btn" onclick="selectIncident(this)"><div class="ib-icon">🚦</div><div class="ib-label">Signal Down</div></div>
+          <div class="incident-btn" onclick="selectIncident(this)"><div class="ib-icon">🚶</div><div class="ib-label">Pedestrian</div></div>
+          <div class="incident-btn" onclick="selectIncident(this)"><div class="ib-icon">🅿️</div><div class="ib-label">Illegal Park</div></div>
+          <div class="incident-btn" onclick="selectIncident(this)"><div class="ib-icon">🌊</div><div class="ib-label">Flooding</div></div>
+        </div>
+        <div class="report-section-lbl">Severity</div>
+        <div class="severity-row">
+          <div class="sev-btn low" onclick="selectSev(this)">Low</div>
+          <div class="sev-btn medium selected" onclick="selectSev(this)">Medium</div>
+          <div class="sev-btn high" onclick="selectSev(this)">High</div>
+        </div>
+        <div class="photo-zone"><div style="font-size:22px;">📷</div><div class="photo-zone-lbl">Tap to add photo evidence</div></div>
+        <div class="text-input-fake"><div class="input-label">Description</div><div class="input-placeholder">Multiple vehicles involved…</div></div>
+        <button class="submit-btn" onclick="submitReport()">Submit Report →</button>
+        <div class="verify-note" style="margin-top:10px;"><div class="verify-lbl">⚖️ Two-Step Verification</div><div class="verify-txt">Your report is reviewed by an MMDA dispatcher before points are awarded.</div></div>
+        <div class="spacer"></div>
+      </div>
+    </div>
+
+    <!-- ═══ TRANSIT SCREEN ═══ -->
+    <div class="screen" id="screen-transit">
+      <div class="screen-header">
+        <div class="screen-title">Transit Tracker</div>
+        <div class="screen-sub">Live LRT/MRT positions · Tap a train to auto‑follow</div>
+      </div>
+      <div class="screen-body">
+
+        <!-- V15: System operational badge -->
+        <div class="transit-ops-badge">
+          <div class="ops-dot"></div>
+          System Operational — All 3 Lines Running
+        </div>
+
+        <!-- V15: Line selector tabs -->
+        <div class="transit-line-tabs">
+          <div class="tlt-btn all-active" id="tlt-all"  onclick="setTransitView('all')">🗺 All</div>
+          <div class="tlt-btn" id="tlt-lrt1" onclick="setTransitView('lrt1')">🟢 LRT 1</div>
+          <div class="tlt-btn" id="tlt-lrt2" onclick="setTransitView('lrt2')">🔵 LRT 2</div>
+          <div class="tlt-btn" id="tlt-mrt3" onclick="setTransitView('mrt3')">🟡 MRT 3</div>
+        </div>
+
+        <!-- ─── V15: MACRO SVG MAP (default visible) ─── -->
+        <div class="transit-map-wrap" id="transitMapWrap">
+          <div class="transit-svg-wrap">
+            <svg id="transitSVG" viewBox="-15 -5 325 265" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <rect x="-15" y="-5" width="325" height="270" fill="rgba(4,6,18,0)" rx="0"/>
+              <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.6" fill="rgba(255,255,255,0.06)"/></pattern>
+              <rect x="-15" y="-5" width="325" height="270" fill="url(#dotGrid)"/>
+              <text x="-10" y="-1" font-size="6" fill="rgba(255,255,255,0.18)" font-family="'Plus Jakarta Sans',sans-serif" letter-spacing="0.5">N ↑</text>
+              <!-- Routes -->
+              <polyline id="lrt1Path" points="55,10 55,24 55,36 55,48 55,60 55,72 55,84 55,94 55,102 55,110 55,122 55,133 55,144 55,154 55,163 55,172 55,182 55,192 55,205 55,220" stroke="#3ecf8e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
+              <polyline id="lrt2Path" points="55,110 74,110 93,110 112,110 130,110 148,110 164,110 180,110 197,110 215,110 235,110 256,110 278,110" stroke="#4a90ff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
+              <polyline id="mrt3Path" points="180,14 180,35 180,57 180,110 180,130 180,148 180,163 180,178 180,193 180,205 180,217 180,229 180,245" stroke="#f5a623" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
+              <!-- Interchanges -->
+              <circle id="interchangeDJ" cx="55" cy="110" r="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><circle cx="55" cy="110" r="4" fill="#fff" opacity="0.85"/>
+              <circle id="interchangeCubao" cx="180" cy="110" r="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><circle cx="180" cy="110" r="4" fill="#fff" opacity="0.85"/>
+              <circle id="interchangeTaft" cx="117" cy="225" r="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="2,2"/>
+              <!-- LRT-1 Stations -->
+              <g id="lrt1Stations">
+                <circle class="sv-st" cx="55" cy="10"  r="4"   fill="#0a0e18" stroke="#3ecf8e" stroke-width="2"   onclick="svStationClick('LRT-1 · FPJ','Low crowd')"/><text x="48" y="14"    text-anchor="end"    font-size="7"   fill="rgba(255,255,255,0.6)"  font-family="'Plus Jakarta Sans',sans-serif">FPJ</text>
+                <circle class="sv-st" cx="55" cy="24"  r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="28"    text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Balintawak</text>
+                <circle class="sv-st" cx="55" cy="36"  r="4"   fill="#0a0e18" stroke="#3ecf8e" stroke-width="2"   onclick="svStationClick('LRT-1 · Monumento','Medium crowd')"/><text x="48" y="40"    text-anchor="end"    font-size="7"   fill="rgba(255,255,255,0.65)" font-family="'Plus Jakarta Sans',sans-serif">Monumento</text>
+                <circle class="sv-st" cx="55" cy="48"  r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="52"    text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">5th Ave</text>
+                <circle class="sv-st" cx="55" cy="60"  r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="64"    text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">R.Papa</text>
+                <circle class="sv-st" cx="55" cy="72"  r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="76"    text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Abad Santos</text>
+                <circle class="sv-st" cx="55" cy="84"  r="4"   fill="#0a0e18" stroke="#3ecf8e" stroke-width="2"   onclick="svStationClick('LRT-1 · Blumentritt','Medium crowd · PNR link')"/><text x="48" y="88"    text-anchor="end"    font-size="7"   fill="rgba(255,255,255,0.65)" font-family="'Plus Jakarta Sans',sans-serif">Blumentritt</text>
+                <circle class="sv-st" cx="55" cy="94"  r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="98"    text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.4)"  font-family="'Plus Jakarta Sans',sans-serif">Tayuman</text>
+                <circle class="sv-st" cx="55" cy="102" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="106"   text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.4)"  font-family="'Plus Jakarta Sans',sans-serif">Bambang</text>
+                <circle class="sv-st interchange" cx="55" cy="110" r="5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="2.5" onclick="svStationClick('LRT-1 · D. Jose','High crowd · LRT-2 transfer')"/><text x="46" y="106.5" text-anchor="end" font-size="7.5" fill="#3ecf8e" font-weight="bold" font-family="'Plus Jakarta Sans',sans-serif">D.Jose</text>
+                <circle class="sv-st" cx="55" cy="122" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="126"   text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Carriedo</text>
+                <circle class="sv-st" cx="55" cy="133" r="4"   fill="#0a0e18" stroke="#3ecf8e" stroke-width="2"/><text  x="48" y="137"   text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.55)" font-family="'Plus Jakarta Sans',sans-serif">C.Terminal</text>
+                <circle class="sv-st" cx="55" cy="144" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="148"   text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">UN</text>
+                <circle class="sv-st" cx="55" cy="154" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="158"   text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">Pedro Gil</text>
+                <circle class="sv-st" cx="55" cy="163" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="167"   text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.4)"  font-family="'Plus Jakarta Sans',sans-serif">Quirino</text>
+                <circle class="sv-st" cx="55" cy="172" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="176"   text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">Vito Cruz</text>
+                <circle class="sv-st" cx="55" cy="182" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="186"   text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.4)"  font-family="'Plus Jakarta Sans',sans-serif">Gil Puyat</text>
+                <circle class="sv-st" cx="55" cy="192" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="196"   text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.4)"  font-family="'Plus Jakarta Sans',sans-serif">Libertad</text>
+                <circle class="sv-st interchange" cx="55" cy="205" r="4.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="2.2" onclick="svStationClick('LRT-1 · EDSA','High crowd · near MRT-3 Taft')"/><text x="48" y="202" text-anchor="end" font-size="7" fill="#3ecf8e" font-weight="bold" font-family="'Plus Jakarta Sans',sans-serif">EDSA</text>
+                <circle class="sv-st" cx="55" cy="220" r="4"   fill="#0a0e18" stroke="#3ecf8e" stroke-width="2"   onclick="svStationClick('LRT-1 · Baclaran','Medium crowd')"/><text x="48" y="224"   text-anchor="end"    font-size="7"   fill="rgba(255,255,255,0.65)" font-family="'Plus Jakarta Sans',sans-serif">Baclaran</text>
+              </g>
+              <!-- LRT-2 Stations -->
+              <g id="lrt2Stations">
+                <circle class="sv-st interchange" cx="55"  cy="110" r="5"   fill="#0a0e18" stroke="#4a90ff" stroke-width="2.5" onclick="svStationClick('LRT-2 · Recto','High crowd · LRT-1 transfer')"/>  <text x="58"  y="103" text-anchor="start"  font-size="7.5" fill="#4a90ff"               font-weight="bold" font-family="'Plus Jakarta Sans',sans-serif">Recto</text>
+                <circle class="sv-st" cx="74"  cy="110" r="3.5" fill="#0a0e18" stroke="#4a90ff" stroke-width="1.8"/><text x="74"  y="103" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Legarda</text>
+                <circle class="sv-st" cx="93"  cy="110" r="3.5" fill="#0a0e18" stroke="#4a90ff" stroke-width="1.8"/><text x="93"  y="121" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Pureza</text>
+                <circle class="sv-st" cx="112" cy="110" r="3.5" fill="#0a0e18" stroke="#4a90ff" stroke-width="1.8"/><text x="112" y="103" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">V.Mapa</text>
+                <circle class="sv-st" cx="130" cy="110" r="3.5" fill="#0a0e18" stroke="#4a90ff" stroke-width="1.8"/><text x="130" y="121" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">J.Ruiz</text>
+                <circle class="sv-st" cx="148" cy="110" r="3.5" fill="#0a0e18" stroke="#4a90ff" stroke-width="1.8"/><text x="148" y="103" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Gilmore</text>
+                <circle class="sv-st" cx="164" cy="110" r="3.5" fill="#0a0e18" stroke="#4a90ff" stroke-width="1.8"/><text x="164" y="121" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">Betty Go</text>
+                <circle class="sv-st interchange" cx="180" cy="110" r="5" fill="#0a0e18" stroke="#4a90ff" stroke-width="2.5" onclick="svStationClick('LRT-2 · Cubao','High crowd · MRT-3 transfer')"/> <text x="180" y="103" text-anchor="middle" font-size="7.5" fill="#4a90ff"               font-weight="bold" font-family="'Plus Jakarta Sans',sans-serif">Cubao</text>
+                <circle class="sv-st" cx="197" cy="110" r="3.5" fill="#0a0e18" stroke="#4a90ff" stroke-width="1.8"/><text x="197" y="121" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">Anonas</text>
+                <circle class="sv-st" cx="215" cy="110" r="3.5" fill="#0a0e18" stroke="#4a90ff" stroke-width="1.8"/><text x="215" y="103" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Katipunan</text>
+                <circle class="sv-st" cx="235" cy="110" r="3.5" fill="#0a0e18" stroke="#4a90ff" stroke-width="1.8"/><text x="235" y="121" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">Santolan</text>
+                <circle class="sv-st" cx="256" cy="110" r="3.5" fill="#0a0e18" stroke="#4a90ff" stroke-width="1.8"/><text x="256" y="103" text-anchor="middle" font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Marikina</text>
+                <circle class="sv-st" cx="278" cy="110" r="4"   fill="#0a0e18" stroke="#4a90ff" stroke-width="2"   onclick="svStationClick('LRT-2 · Antipolo','Low crowd')"/>                              <text x="278" y="121" text-anchor="middle" font-size="7"   fill="rgba(255,255,255,0.6)"  font-family="'Plus Jakarta Sans',sans-serif">Antipolo</text>
+              </g>
+              <!-- MRT-3 Stations -->
+              <g id="mrt3Stations">
+                <circle class="sv-st" cx="180" cy="14"  r="4"   fill="#0a0e18" stroke="#f5a623" stroke-width="2"   onclick="svStationClick('MRT-3 · North Ave','Medium crowd')"/>  <text x="187" y="18"  text-anchor="start" font-size="7"   fill="rgba(255,255,255,0.65)" font-family="'Plus Jakarta Sans',sans-serif">North Ave</text>
+                <circle class="sv-st" cx="180" cy="35"  r="3.5" fill="#0a0e18" stroke="#f5a623" stroke-width="1.8"/>                                                                <text x="187" y="39"  text-anchor="start" font-size="6.5" fill="rgba(255,255,255,0.55)" font-family="'Plus Jakarta Sans',sans-serif">Quezon Ave</text>
+                <circle class="sv-st" cx="180" cy="57"  r="3.5" fill="#0a0e18" stroke="#f5a623" stroke-width="1.8"/>                                                                <text x="187" y="61"  text-anchor="start" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">GMA-Kamuning</text>
+                <circle class="sv-st interchange" cx="180" cy="110" r="5" fill="#0a0e18" stroke="#f5a623" stroke-width="2.5" onclick="svStationClick('MRT-3 · Cubao','High crowd · LRT-2 transfer')"/>  <text x="187" y="116" text-anchor="start" font-size="7.5" fill="#f5a623"               font-weight="bold" font-family="'Plus Jakarta Sans',sans-serif">Cubao</text>
+                <circle class="sv-st" cx="180" cy="130" r="3.5" fill="#0a0e18" stroke="#f5a623" stroke-width="1.8"/>                                                                <text x="187" y="134" text-anchor="start" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">Santolan</text>
+                <circle class="sv-st" cx="180" cy="148" r="4"   fill="#0a0e18" stroke="#f5a623" stroke-width="2"   onclick="svStationClick('MRT-3 · Ortigas','High crowd')"/>     <text x="187" y="152" text-anchor="start" font-size="7"   fill="rgba(255,255,255,0.6)"  font-family="'Plus Jakarta Sans',sans-serif">Ortigas</text>
+                <circle class="sv-st" cx="180" cy="163" r="3.5" fill="#0a0e18" stroke="#f5a623" stroke-width="1.8"/>                                                                <text x="187" y="167" text-anchor="start" font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Shaw Blvd</text>
+                <circle class="sv-st" cx="180" cy="178" r="3.5" fill="#0a0e18" stroke="#f5a623" stroke-width="1.8"/>                                                                <text x="187" y="182" text-anchor="start" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">Boni</text>
+                <circle class="sv-st" cx="180" cy="193" r="3.5" fill="#0a0e18" stroke="#f5a623" stroke-width="1.8" onclick="svStationClick('MRT-3 · Guadalupe','High crowd')"/>   <text x="187" y="197" text-anchor="start" font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Guadalupe</text>
+                <circle class="sv-st" cx="180" cy="205" r="3.5" fill="#0a0e18" stroke="#f5a623" stroke-width="1.8"/>                                                                <text x="187" y="209" text-anchor="start" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">Buendia</text>
+                <circle class="sv-st" cx="180" cy="217" r="4"   fill="#0a0e18" stroke="#f5a623" stroke-width="2"   onclick="svStationClick('MRT-3 · Ayala','High crowd')"/>       <text x="187" y="221" text-anchor="start" font-size="7"   fill="rgba(255,255,255,0.65)" font-family="'Plus Jakarta Sans',sans-serif">Ayala</text>
+                <circle class="sv-st" cx="180" cy="229" r="3.5" fill="#0a0e18" stroke="#f5a623" stroke-width="1.8"/>                                                                <text x="187" y="233" text-anchor="start" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">Magallanes</text>
+                <circle class="sv-st" cx="180" cy="245" r="4"   fill="#0a0e18" stroke="#f5a623" stroke-width="2"   onclick="svStationClick('MRT-3 · Taft Ave','Medium crowd · near LRT-1')"/>         <text x="187" y="249" text-anchor="start" font-size="7"   fill="rgba(255,255,255,0.65)" font-family="'Plus Jakarta Sans',sans-serif">Taft Ave</text>
+              </g>
+              <!-- Transfer line -->
+              <line x1="55" y1="205" x2="180" y2="245" stroke="rgba(255,255,255,0.18)" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round"/>
+              <!-- Train dots — clickable -->
+              <circle id="svgLrt1A" cx="55"  cy="36"  r="7"   fill="#3ecf8e" stroke="#fff" stroke-width="1.5" opacity="0.97" style="cursor:pointer;" onclick="selectTrain('lrt1','A',event)"/>
+              <circle id="svgLrt1B" cx="55"  cy="154" r="5.5" fill="#3ecf8e" stroke="#fff" stroke-width="1"   opacity="0.8"  style="cursor:pointer;" onclick="selectTrain('lrt1','B',event)"/>
+              <circle id="svgLrt2A" cx="93"  cy="110" r="7"   fill="#4a90ff" stroke="#fff" stroke-width="1.5" opacity="0.97" style="cursor:pointer;" onclick="selectTrain('lrt2','A',event)"/>
+              <circle id="svgLrt2B" cx="215" cy="110" r="5.5" fill="#4a90ff" stroke="#fff" stroke-width="1"   opacity="0.8"  style="cursor:pointer;" onclick="selectTrain('lrt2','B',event)"/>
+              <circle id="svgMrt3A" cx="180" cy="57"  r="7"   fill="#f5a623" stroke="#fff" stroke-width="1.5" opacity="0.97" style="cursor:pointer;" onclick="selectTrain('mrt3','A',event)"/>
+              <circle id="svgMrt3B" cx="180" cy="193" r="5.5" fill="#f5a623" stroke="#fff" stroke-width="1"   opacity="0.8"  style="cursor:pointer;" onclick="selectTrain('mrt3','B',event)"/>
+              <!-- Selection ring -->
+              <circle id="svgSelRing" cx="0" cy="0" r="0" fill="none" stroke="#fff" stroke-width="2.5" opacity="0" stroke-dasharray="4,2" style="pointer-events:none;"/>
+            </svg>
+            <div class="transit-tooltip" id="svgTooltip"></div>
+          </div>
+        </div><!-- /transitMapWrap -->
+
+        <!-- ─── V15: LRT-1 Linear Route (hidden by default) ─── -->
+        <div class="linear-route-container" id="linearRouteLRT1">
+          <div class="back-all-lines" onclick="setTransitView('all')">
+            <span class="back-arrow">←</span> Back to All Lines
+          </div>
+          <div class="follow-mode-badge" id="followBadgeLRT1" onclick="resumeFollowMode('lrt1')">📍 Follow Mode Active</div>
+          <div class="hscroll-wrap" id="hscrollLRT1">
+            <div class="hscroll-track" id="hscrollTrackLRT1">
+              <div class="hscroll-line" style="background:var(--lrt1-color);"></div>
+            </div>
+          </div>
+          <div class="train-info-card" id="trainInfoCardLRT1"></div>
+        </div>
+
+        <!-- ─── V15: LRT-2 Linear Route ─── -->
+        <div class="linear-route-container" id="linearRouteLRT2">
+          <div class="back-all-lines" onclick="setTransitView('all')">
+            <span class="back-arrow">←</span> Back to All Lines
+          </div>
+          <div class="follow-mode-badge" id="followBadgeLRT2" onclick="resumeFollowMode('lrt2')">📍 Follow Mode Active</div>
+          <div class="hscroll-wrap" id="hscrollLRT2">
+            <div class="hscroll-track" id="hscrollTrackLRT2">
+              <div class="hscroll-line" style="background:var(--lrt2-color);"></div>
+            </div>
+          </div>
+          <div class="train-info-card" id="trainInfoCardLRT2"></div>
+        </div>
+
+        <!-- ─── V15: MRT-3 Linear Route ─── -->
+        <div class="linear-route-container" id="linearRouteMRT3">
+          <div class="back-all-lines" onclick="setTransitView('all')">
+            <span class="back-arrow">←</span> Back to All Lines
+          </div>
+          <div class="follow-mode-badge" id="followBadgeMRT3" onclick="resumeFollowMode('mrt3')">📍 Follow Mode Active</div>
+          <div class="hscroll-wrap" id="hscrollMRT3">
+            <div class="hscroll-track" id="hscrollTrackMRT3">
+              <div class="hscroll-line" style="background:var(--mrt3-color);"></div>
+            </div>
+          </div>
+          <div class="train-info-card" id="trainInfoCardMRT3"></div>
+        </div>
+
+        <!-- ETA Cards -->
+        <div class="transit-eta-grid">
+          <div class="teta-card" id="tetaLrt1" onclick="setTransitView('lrt1')">
+            <div class="teta-line" style="color:#3ecf8e;">LRT-1</div>
+            <div class="teta-val" style="color:#3ecf8e;" id="etaLrt1">3 min</div>
+            <div class="teta-sub" id="etaLrt1St">→ Carriedo</div>
+          </div>
+          <div class="teta-card" id="tetaLrt2" onclick="setTransitView('lrt2')">
+            <div class="teta-line" style="color:#4a90ff;">LRT-2</div>
+            <div class="teta-val" style="color:#4a90ff;" id="etaLrt2">6 min</div>
+            <div class="teta-sub" id="etaLrt2St">→ Cubao</div>
+          </div>
+          <div class="teta-card" id="tetaMrt3" onclick="setTransitView('mrt3')">
+            <div class="teta-line" style="color:#f5a623;">MRT-3</div>
+            <div class="teta-val" style="color:#f5a623;" id="etaMrt3">4 min</div>
+            <div class="teta-sub" id="etaMrt3St">→ Ortigas</div>
+          </div>
+        </div>
+
+        <!-- Predictive Congestion -->
+        <div class="section-label" style="margin-bottom:10px;">🔮 Predictive Congestion — EDSA</div>
+        <div class="pred-card">
+          <div class="pred-card-hdr">Community Forecast · Today</div>
+          <div class="pred-row"><div class="pred-time">6 AM</div><div class="pred-bar-outer"><div class="pred-bar-inner low"></div></div><div class="pred-lbl low">Light</div></div>
+          <div class="pred-row"><div class="pred-time">7 AM</div><div class="pred-bar-outer"><div class="pred-bar-inner mid"></div></div><div class="pred-lbl mid">Moderate</div></div>
+          <div class="pred-row"><div class="pred-time">8 AM</div><div class="pred-bar-outer"><div class="pred-bar-inner peak"></div></div><div class="pred-lbl peak">Peak</div></div>
+          <div class="pred-row"><div class="pred-time">9 AM</div><div class="pred-bar-outer"><div class="pred-bar-inner high"></div></div><div class="pred-lbl high">Heavy</div></div>
+          <div class="pred-row"><div class="pred-time">10 AM</div><div class="pred-bar-outer"><div class="pred-bar-inner mid"></div></div><div class="pred-lbl mid">Moderate</div></div>
+          <div class="pred-row"><div class="pred-time">11 AM</div><div class="pred-bar-outer"><div class="pred-bar-inner low"></div></div><div class="pred-lbl low">Light</div></div>
+        </div>
+        <div class="spacer"></div>
+      </div>
+    </div>
+
+    <!-- ═══ PROFILE SCREEN ═══ -->
+    <div class="screen" id="screen-profile">
+      <div class="profile-header">
+        <div class="avatar" id="profileAvatar">JD</div>
+        <div class="profile-name" id="profileName">Juan dela Cruz</div>
+        <div class="profile-rank">🥈 Silver Reporter · <span id="profileArea">Quezon City</span></div>
+      </div>
+      <div class="profile-body">
+        <div class="pts-card">
+          <div class="pts-num">4,820</div>
+          <div class="pts-sublbl">Total Points</div>
+          <div class="prog-wrap"><div class="prog-fill" style="width:64%;"></div></div>
+          <div class="prog-labels"><span>Silver</span><span>4,820 / 7,500 → Gold</span></div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-cell"><div class="stat-num" style="color:var(--gold);">23</div><div class="stat-lbl">Reports</div></div>
+          <div class="stat-cell"><div class="stat-num" style="color:var(--green);">91%</div><div class="stat-lbl">Verified</div></div>
+          <div class="stat-cell"><div class="stat-num" style="color:var(--teal);">#14</div><div class="stat-lbl">QC Rank</div></div>
+        </div>
+        <div class="section-label" style="margin-bottom:8px;">🏆 Barangay Leaderboard</div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:18px;padding:10px 14px;margin-bottom:14px;">
+          <div class="lb-row"><div class="lb-rank gold">1</div><div class="lb-av" style="background:linear-gradient(135deg,#f5a623,#c47f0a);">MR</div><div class="lb-info"><div class="lb-name">Maria Reyes</div><div class="lb-area">Batasan Hills</div></div><div class="lb-pts">8,430</div></div>
+          <div class="lb-row"><div class="lb-rank silver">2</div><div class="lb-av" style="background:linear-gradient(135deg,#7c5cbf,#3ecfcf);">AS</div><div class="lb-info"><div class="lb-name">Angelo Santos</div><div class="lb-area">Cubao</div></div><div class="lb-pts">7,210</div></div>
+          <div class="lb-row"><div class="lb-rank bronze">3</div><div class="lb-av" style="background:linear-gradient(135deg,#3ecf8e,#0f6e56);">CL</div><div class="lb-info"><div class="lb-name">Carla Lopez</div><div class="lb-area">Fairview</div></div><div class="lb-pts">6,875</div></div>
+          <div class="lb-row" style="background:rgba(245,166,35,0.05);border-radius:10px;padding:6px;margin:2px -6px 0;">
+            <div class="lb-rank you">14</div><div class="lb-av" style="background:var(--surface3);border:1px solid var(--border);color:var(--muted);">JD</div>
+            <div class="lb-info"><div class="lb-name" style="color:var(--gold);">You</div><div class="lb-area">Quezon City</div></div>
+            <div class="lb-pts you">4,820</div>
+          </div>
+        </div>
+        <div class="redeem-lbl">Redeem Rewards</div>
+        <div class="reward-item" onclick="showToast('🎫 Beep Card top-up initiated!')"><div class="reward-ico">🎫</div><div class="reward-name">Beep Card Top-Up ₱20</div><div class="reward-cost">500 pts</div></div>
+        <div class="reward-item" onclick="showToast('💸 GCash credit requested!')"><div class="reward-ico">💸</div><div class="reward-name">GCash ₱50 Credit</div><div class="reward-cost">1,200 pts</div></div>
+        <div class="reward-item" onclick="showToast('🏪 7-Eleven QR sent!')"><div class="reward-ico">🏪</div><div class="reward-name">7-Eleven Discount</div><div class="reward-cost">800 pts</div></div>
+        <div class="settings-section">
+          <div class="settings-hdr">Settings</div>
+          <div class="settings-item" onclick="showToast('✏️ Edit Profile coming soon!')"><div class="si-icon">✏️</div><div style="flex:1;"><div class="si-label">Edit Profile</div><div class="si-sub">Name, photo, commute details</div></div><div class="si-arrow">›</div></div>
+          <div class="settings-item" onclick="showToast('🔒 Account Info coming soon!')"><div class="si-icon">🔒</div><div style="flex:1;"><div class="si-label">Account Information</div><div class="si-sub">Email, phone, linked accounts</div></div><div class="si-arrow">›</div></div>
+          <div class="settings-item" onclick="showToast('🎨 Customize your app!')"><div class="si-icon">🎨</div><div style="flex:1;"><div class="si-label">App Customization</div><div class="si-sub">Theme, notifications, map layers</div></div><div class="si-arrow">›</div></div>
+          <div class="settings-item" onclick="showToast('🛡️ Privacy &amp; Data settings')"><div class="si-icon">🛡️</div><div style="flex:1;"><div class="si-label">Privacy &amp; Data</div><div class="si-sub">Location sharing, data usage</div></div><div class="si-arrow">›</div></div>
+        </div>
+        <div class="spacer"></div>
+      </div>
+    </div>
+
+  </div><!-- /screens -->
+
+  <div class="bottom-nav">
+    <div class="nav-item active" id="nav-map" onclick="switchTab('map')"><div class="nav-icon">🗺️</div><div class="nav-lbl">Map</div></div>
+    <div class="nav-item" id="nav-report" onclick="switchTab('report')"><div class="nav-icon">📢</div><div class="nav-lbl">Report</div></div>
+    <div class="nav-item" id="nav-transit" onclick="switchTab('transit')"><div class="nav-icon">🚆</div><div class="nav-lbl">Transit</div></div>
+    <div class="nav-item" id="nav-profile" onclick="switchTab('profile')"><div class="nav-icon">👤</div><div class="nav-lbl">Profile</div></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="responders-alert" id="respondersAlert">
+    <div class="ra-icon">🚨</div>
+    <div class="ra-body"><div class="ra-title">Responders Dispatched!</div><div class="ra-sub">MMDA units en route · Your GPS shared · Stay visible</div></div>
+    <div class="ra-dots"><div class="ra-dot"></div><div class="ra-dot"></div><div class="ra-dot"></div></div>
+  </div>
+
+  <div class="emergency-modal" id="emergencyModal">
+    <div class="em-close" onclick="closeEmergency()">✕</div>
+    <div class="em-title">🚨 Emergency SOS</div>
+    <div class="em-sub">Select the emergency type below.</div>
+    <div class="em-legal"><strong>⚠️ High-Severity Emergencies Only</strong>This feature is for life-threatening emergencies only. Emergency services will receive your GPS location immediately upon dispatch.</div>
+    <div class="em-type-grid">
+      <div class="em-type selected" onclick="selectEmType(this)"><div class="em-type-icon">🏥</div><div class="em-type-lbl">Medical</div></div>
+      <div class="em-type" onclick="selectEmType(this)"><div class="em-type-icon">🚗</div><div class="em-type-lbl">Accident</div></div>
+      <div class="em-type" onclick="selectEmType(this)"><div class="em-type-icon">👮</div><div class="em-type-lbl">Crime / Security</div></div>
+      <div class="em-type" onclick="selectEmType(this)"><div class="em-type-icon">🔥</div><div class="em-type-lbl">Fire</div></div>
+    </div>
+    <button class="em-submit" onclick="submitEmergency()">🚨 Dispatch Responders Now</button>
+    <div class="em-disclaimer">False reports: −150 pts &amp; possible account restriction.</div>
+  </div>
+
+  <div class="mock-call-screen" id="mockCallScreen">
+    <div class="mock-call-blur-bg"></div>
+    <div class="mock-call-icon">📞</div>
+    <div id="callConnecting">
+      <div class="mock-call-status">Connecting to MMDA<br>Emergency Hotline...</div>
+      <div class="mock-call-sub">Please stay calm. Keep your phone nearby.</div>
+      <div class="mock-call-dots"><div class="mcd"></div><div class="mcd"></div><div class="mcd"></div></div>
+    </div>
+    <div class="mock-call-success" id="callSuccess">
+      <div class="mc-success-icon">🚨</div>
+      <div class="mc-success-title">Dispatching Responders Now!</div>
+      <div class="mc-success-sub">Stay on the line if necessary.<br>Your GPS location has been shared.<br>Help is on the way.</div>
+      <div class="mc-dismiss" onclick="closeMockCall()">Done — End Call</div>
+    </div>
+  </div>
+
+</div><!-- /phone-shell -->
+
+<script>
+'use strict';
+
+/* ══════════════════════════════════════════
+   GLOBAL STATE
+══════════════════════════════════════════ */
+let obRole=null,isLight=false,toastTimer=null;
+let zoomLevel=1,panX=0,panY=0,mapDragging=false,startX=0,startY=0,lastPanX=0,lastPanY=0;
+let mapKeyOpen=false,layerMenuOpen=false,currentMode='driver';
+let ecoMode=false,notifIntervalId=null,trainAnimRunning=true;
+let svgAnimStart=0,currentTransitView='all',selectedTrain=null,isAutoFollowing=false,morphingTransition=false,tooltipTimer=null;
+let currentVB={x:-15,y:-5,w:325,h:265},targetVB={x:-15,y:-5,w:325,h:265},vbAnimating=false,vbStart=null;
+const VB_DUR=520;
+/* DOM references — assigned in DOMContentLoaded */
+let vp=null,wrapper=null,sheet=null,sheetHandle=null,sheetBody=null,ctrlZone=null,shell=null,panel=null;
+let notifQueue=[],activeNotifs=[];
+let sheetState='peek',sheetDragging=false,sheetDragStartY=0,sheetDragStartTY=0;
+
+/* ══════════════════════════════════════════
+   CLOCK
+══════════════════════════════════════════ */
+function updateClock(){const el=document.getElementById('clock');if(!el)return;const n=new Date(),h=n.getHours(),m=String(n.getMinutes()).padStart(2,'0'),ap=h>=12?'PM':'AM';el.textContent=`${h%12||12}:${m} ${ap}`;}
+
+/* ══════════════════════════════════════════
+   ONBOARDING
+══════════════════════════════════════════ */
+function selectRole(el){document.querySelectorAll('.ob-pill').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');obRole=el.dataset.role;const btn=document.getElementById('obStartBtn');if(btn)btn.disabled=false;}
+function startJourney(skip=false){
+  const overlay=document.getElementById('onboardingOverlay');if(!overlay)return;
+  overlay.classList.add('hidden');setTimeout(()=>overlay.style.display='none',520);
+  const dest=document.getElementById('obDest')?.value.trim()||'';
+  const role=skip?'driver':(obRole||'driver');
+  const ti=document.getElementById('themeIcon'),tl=document.getElementById('themeLabel');
+  if(role==='commuter'){document.documentElement.classList.add('light');isLight=true;if(ti)ti.textContent='🌙';if(tl)tl.textContent='Dark Mode';}
+  else{document.documentElement.classList.remove('light');isLight=false;if(ti)ti.textContent='☀️';if(tl)tl.textContent='Light Mode';}
+  const pillId=role==='commuter'?'pill-commuter':'pill-driver';
+  const pillEl=document.getElementById(pillId);if(pillEl)selectMode(role==='commuter'?'commuter':'driver',pillEl);
+  if(dest){const pa=document.getElementById('profileArea');if(pa)pa.textContent=dest;}
+}
+
+/* ══════════════════════════════════════════
+   THEME
+══════════════════════════════════════════ */
+function toggleTheme(){isLight=!isLight;document.documentElement.classList.toggle('light',isLight);const ti=document.getElementById('themeIcon'),tl=document.getElementById('themeLabel');if(ti)ti.textContent=isLight?'🌙':'☀️';if(tl)tl.textContent=isLight?'Dark Mode':'Light Mode';}
+
+/* ══════════════════════════════════════════
+   TAB SWITCHING
+══════════════════════════════════════════ */
+const tabs=['map','report','transit','profile'];
+function switchTab(tab){
+  tabs.forEach(t=>{document.getElementById('screen-'+t)?.classList.remove('active');document.getElementById('nav-'+t)?.classList.remove('active');});
+  document.getElementById('screen-'+tab)?.classList.add('active');
+  document.getElementById('nav-'+tab)?.classList.add('active');
+  if(tab!=='map'){const s=document.getElementById('screen-'+tab);if(s)s.scrollTop=0;}
+}
+
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');if(!t)return;
+  t.textContent=msg;t.className='toast'+(type?' toast-'+type:'');
+  void t.offsetWidth;t.classList.add('show');
+  if(toastTimer)clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+/* ══════════════════════════════════════════
+   MAP ZOOM / PAN
+══════════════════════════════════════════ */
+function updateMapTransform(){if(vp)vp.style.transform=`scale(${zoomLevel}) translate(${panX}px,${panY}px)`;}
+function zoomMap(dir){zoomLevel=Math.min(3,Math.max(0.8,zoomLevel+dir*0.3));updateMapTransform();showToast(dir>0?'🔍 Zoomed in':'🔍 Zoomed out');}
+
+/* ══════════════════════════════════════════
+   3-STATE BOTTOM SHEET
+══════════════════════════════════════════ */
+const SNAP_VISIBLE={expanded:null,peek:118,collapsed:22};
+const STATE_CYCLE={peek:'expanded',expanded:'collapsed',collapsed:'peek'};
+function getSheetHeight(){return sheet?sheet.offsetHeight:0;}
+function getSnapTY(state){const h=getSheetHeight();if(state==='expanded')return 0;return h-(SNAP_VISIBLE[state]||22);}
+function getSnapVisible(state){if(state==='expanded')return getSheetHeight();return SNAP_VISIBLE[state]||22;}
+function getCurrentTY(){if(!sheet)return 0;const m=new DOMMatrix(window.getComputedStyle(sheet).transform);return m.m42;}
+function setStackBottom(visiblePx){if(shell)shell.style.setProperty('--stack-bottom',(visiblePx+16)+'px');}
+function setSheetState(state,animate=true){
+  if(!sheet||!ctrlZone)return;
+  sheetState=state;
+  sheet.classList.remove('dragging','state-expanded','state-peek','state-collapsed');
+  ctrlZone.classList.remove('no-transition');
+  if(!animate){sheet.classList.add('dragging');requestAnimationFrame(()=>{sheet?.classList.add('state-'+state);sheet?.classList.remove('dragging');});}
+  else{sheet.classList.add('state-'+state);}
+  setStackBottom(getSnapVisible(state));
+}
+
+/* ══════════════════════════════════════════
+   MAP KEY & LAYER MENU
+══════════════════════════════════════════ */
+function toggleMapKey(){mapKeyOpen=!mapKeyOpen;document.getElementById('mapKeyPopup')?.classList.toggle('open',mapKeyOpen);document.getElementById('mapKeyBtn')?.classList.toggle('active-state',mapKeyOpen);if(mapKeyOpen&&layerMenuOpen)toggleLayerMenu();}
+function toggleLayerMenu(){layerMenuOpen=!layerMenuOpen;document.getElementById('layerMenu')?.classList.toggle('open',layerMenuOpen);document.getElementById('layerBtn')?.classList.toggle('active-state',layerMenuOpen);if(layerMenuOpen&&mapKeyOpen)toggleMapKey();}
+function triggerBell(){showNextNotif();showToast('🔔 Notifications','teal');document.getElementById('bellBtn')?.classList.toggle('active-state');}
+
+/* ══════════════════════════════════════════
+   MODE METRICS & CONTENT
+══════════════════════════════════════════ */
+const modeMetrics={driver:{val:'14.2',lbl:'KM Driven',color:'var(--gold)'},commuter:{val:'4,250',lbl:'Steps Today',color:'var(--teal)'},custom:{val:'4,820',lbl:'Total Points',color:'var(--gold)'}};
+function updatePeekMetrics(mode){const m=modeMetrics[mode]||modeMetrics.driver;const val=document.getElementById('peekMetricVal');const lbl=document.getElementById('peekMetricLbl');if(val){val.textContent=m.val;val.style.color=m.color;}if(lbl)lbl.textContent=m.lbl;}
+const modeContent={
+  driver:'<div class="section-label">Live Road Status</div><div class="traffic-card" onclick="showToast(\'🔴 EDSA heavy — avg 8 km/h\')"><div class="tc-dot" style="background:var(--red);box-shadow:0 0 0 4px rgba(255,79,79,0.2);"></div><div class="tc-info"><div class="tc-road">EDSA — Ortigas to Shaw</div><div class="tc-detail">Avg speed 8 km/h · 4.2 km</div></div><div class="tc-badge red">Heavy</div></div><div class="traffic-card" onclick="showToast(\'🟡 C5 moderate — avg 22 km/h\')"><div class="tc-dot" style="background:var(--gold);box-shadow:0 0 0 4px rgba(245,166,35,0.2);"></div><div class="tc-info"><div class="tc-road">C5 — Katipunan to BGC</div><div class="tc-detail">Avg speed 22 km/h · 7.1 km</div></div><div class="tc-badge gold">Moderate</div></div><div class="traffic-card" onclick="showToast(\'🟢 Marcos Hwy clear — avg 54 km/h\')"><div class="tc-dot" style="background:var(--green);box-shadow:0 0 0 4px rgba(62,207,142,0.2);"></div><div class="tc-info"><div class="tc-road">Marcos Highway</div><div class="tc-detail">Avg speed 54 km/h · 5.8 km</div></div><div class="tc-badge green">Clear</div></div><div class="coding-widget"><div><div class="coding-label">Number Coding Today</div><div class="coding-nums"><div class="coding-num inactive">1</div><div class="coding-num inactive">2</div><div class="coding-num active">3</div><div class="coding-num active">4</div><div class="coding-num inactive">5</div></div><div class="coding-sub">Plates ending in 3 &amp; 4 · 7AM–8PM</div></div></div><div class="section-label" style="margin-top:6px;">🅿️ Smart Parking</div><div class="parking-card" onclick="showToast(\'🅿️ SM Megamall: 340 slots\')"><div class="pk-icon">🏬</div><div class="pk-info"><div class="pk-name">SM Megamall</div><div class="pk-detail">340 slots · 0.4 km · B1-B4</div></div><div class="pk-badge">340</div></div><div class="parking-card" onclick="showToast(\'🅿️ Robinsons: 88 slots\')"><div class="pk-icon">🏢</div><div class="pk-info"><div class="pk-name">Robinsons Galleria</div><div class="pk-detail">88 slots · 0.8 km · Level 3</div></div><div class="pk-badge">88</div></div><div class="spacer"></div>',
+  commuter:'<div class="nudge-card"><div class="nudge-title">🧠 Smart Travel Suggestion</div><div class="nudge-desc">EDSA is at peak congestion. Taking MRT-3 from Cubao to Ayala saves <strong style="color:var(--teal);">42 minutes</strong> and earns <strong style="color:var(--gold);">+30 pts</strong>.</div><div class="nudge-action" onclick="showToast(\'🚆 MRT-3 route loaded!\')">View MRT Route →</div></div><div class="section-label">Live Train Status</div><div class="traffic-card" onclick="switchTab(\'transit\')"><div class="tc-dot" style="background:var(--teal);box-shadow:0 0 0 4px rgba(62,207,207,0.2);"></div><div class="tc-info"><div class="tc-road">MRT-3 · Cubao Station</div><div class="tc-detail">Next: 2 min · Crowd: High</div></div><div class="tc-badge" style="background:rgba(62,207,207,0.1);color:var(--teal);">Live</div></div><div class="traffic-card" onclick="switchTab(\'transit\')"><div class="tc-dot" style="background:#8e44ad;box-shadow:0 0 0 4px rgba(142,68,173,0.2);"></div><div class="tc-info"><div class="tc-road">LRT-2 · Pureza Station</div><div class="tc-detail">Next: 4 min · Crowd: Medium</div></div><div class="tc-badge" style="background:rgba(142,68,173,0.1);color:#a87de8;">Live</div></div><div class="nudge-card" style="border-color:rgba(245,166,35,0.2);background:rgba(245,166,35,0.05);"><div class="nudge-title" style="color:var(--gold);">💰 Off-Peak Bonus</div><div class="nudge-desc">Travel before 7AM or after 9AM on weekdays to earn <strong style="color:var(--gold);">+20 bonus points</strong>.</div></div><div class="spacer"></div>',
+  custom:'<div class="section-label">⚙️ Customize Your View</div><div class="custom-toggles"><div class="toggle-row"><div class="toggle-icon">🔴</div><div class="toggle-lbl">Traffic Congestion</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🚇</div><div class="toggle-lbl">Train Stations</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🅿️</div><div class="toggle-lbl">Smart Parking</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🚧</div><div class="toggle-lbl">Road Works</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🚨</div><div class="toggle-lbl">Incidents</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🚶</div><div class="toggle-lbl">Pedestrian Safety</div><div class="toggle-switch" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🧠</div><div class="toggle-lbl">Smart Nudges</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div></div><div class="spacer"></div>'
+};
+const modeBannerContent={
+  driver:{title:'🚗 Driver Mode Activated',items:['Number coding alerts enabled','Smart parking finder active','Highway CCTV feeds loaded','EDSA carousel status shown']},
+  commuter:{title:'🚌 Commuter Mode Activated',items:['LRT/MRT live tracker enabled','Off-peak travel bonus active','Smart route suggestions on','Station crowd levels shown']},
+  custom:{title:'⚙️ Custom Mode',items:['Choose which layers to display','Mix driver and commuter features','Set your alert preferences','Saved to your profile']}
+};
+function selectMode(mode,el){
+  document.querySelectorAll('.seg-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');currentMode=mode;
+  const mc=document.getElementById('modeContent');if(mc)mc.innerHTML=modeContent[mode];
+  showModeBanner(mode);applyModeLayerPresets(mode);updatePeekMetrics(mode);
+  const icons={driver:'🚗',commuter:'🚌',custom:'⚙️'};
+  const names={driver:'Driver',commuter:'Commuter',custom:'Custom'};
+  const pt=document.getElementById('peekModeTxt');if(pt)pt.textContent=names[mode];
+  const pi=document.querySelector('#peekModePill .peek-mode-icon');if(pi)pi.textContent=icons[mode];
+}
+function showModeBanner(mode){const b=document.getElementById('modeBanner');if(!b)return;const d=modeBannerContent[mode];b.innerHTML=`<div class="mnb-title">${d.title}</div><div class="mnb-items">${d.items.map(i=>`<div class="mnb-item">${i}</div>`).join('')}</div>`;b.classList.add('show');setTimeout(()=>b.classList.remove('show'),3000);}
+
+/* ══════════════════════════════════════════
+   LAYER TOGGLES
+══════════════════════════════════════════ */
+function toggleLmLayer(el,cls){
+  el.classList.toggle('on');const on=el.classList.contains('on');
+  if(cls==='traffic'){const e=document.getElementById('edsa-cong'),c=document.getElementById('c5-cong');if(e)e.style.opacity=on?'0.7':'0';if(c)c.style.opacity=on?'0.5':'0';showToast(on?'🔴 Traffic layer on':'Traffic layer off');}
+  else if(cls==='pedestrian'){showToast(on?'🚶 Pedestrian zones on':'Pedestrian zones off');}
+  else{document.querySelectorAll('.mpin.'+cls).forEach(p=>p.style.opacity=on?'1':'0');showToast(on?'✅ Layer enabled':'Layer hidden');}
+}
+function applyModeLayerPresets(mode){
+  if(mode==='driver'){setLT('lt-traffic',true,'traffic');setLT('lt-parking',true,'parking');setLT('lt-stations',false,'station');setLT('lt-pedestrian',false,'pedestrian');}
+  else if(mode==='commuter'){setLT('lt-stations',true,'station');setLT('lt-pedestrian',true,'pedestrian');setLT('lt-traffic',false,'traffic');setLT('lt-parking',false,'parking');}
+}
+function setLT(id,on,cls){const el=document.getElementById(id);if(!el)return;const was=el.classList.contains('on');if(on)el.classList.add('on');else el.classList.remove('on');if(was!==on)silentLayer(cls,on);}
+function silentLayer(cls,on){if(cls==='traffic'){const e=document.getElementById('edsa-cong'),c=document.getElementById('c5-cong');if(e)e.style.opacity=on?'0.7':'0';if(c)c.style.opacity=on?'0.5':'0';}else if(cls!=='pedestrian'){document.querySelectorAll('.mpin.'+cls).forEach(p=>p.style.opacity=on?'1':'0');}}
+function toggleSwitch(el){el.classList.toggle('on');showToast(el.classList.contains('on')?'✅ Layer enabled':'Layer disabled');}
+function showIncidentInfo(t,d){showToast(`📍 ${t} · ${d}`);}
+
+/* ══════════════════════════════════════════
+   REPORT / EMERGENCY
+══════════════════════════════════════════ */
+function selectIncident(el){document.querySelectorAll('.incident-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');}
+function selectSev(el){document.querySelectorAll('.sev-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');}
+function submitReport(){showToast('✅ Report submitted! Pending verification');setTimeout(()=>{document.querySelectorAll('.incident-btn').forEach(b=>b.classList.remove('selected'));const f=document.querySelector('.incident-btn:first-child');if(f)f.classList.add('selected');},300);}
+function openEmergency(){document.getElementById('emergencyModal')?.classList.add('show');}
+function closeEmergency(){document.getElementById('emergencyModal')?.classList.remove('show');}
+function selectEmType(el){document.querySelectorAll('.em-type').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');}
+function submitEmergency(){closeEmergency();const cs=document.getElementById('mockCallScreen');if(!cs)return;cs.classList.add('show');const conn=document.getElementById('callConnecting');if(conn)conn.style.display='block';document.getElementById('callSuccess')?.classList.remove('show');setTimeout(()=>{const c=document.getElementById('callConnecting');if(c)c.style.display='none';document.getElementById('callSuccess')?.classList.add('show');},3000);}
+function closeMockCall(){document.getElementById('mockCallScreen')?.classList.remove('show');const al=document.getElementById('respondersAlert');if(al){al.classList.add('show');setTimeout(()=>al.classList.remove('show'),5000);}showToast('📡 Dispatcher confirmed · Map updated','red');setTimeout(()=>showToast('🚨 Responders en route · Stay safe'),2500);}
+
+/* ══════════════════════════════════════════
+   ECO MODE
+══════════════════════════════════════════ */
+function toggleEcoMode(){
+  ecoMode=!ecoMode;
+  document.getElementById('ecoBtn')?.classList.toggle('active',ecoMode);
+  document.body.classList.toggle('eco-mode',ecoMode);
+  if(ecoMode){if(notifIntervalId){clearInterval(notifIntervalId);notifIntervalId=null;}trainAnimRunning=false;showToast('🌱 Eco Mode ON: Animations paused to save battery.','teal');}
+  else{notifIntervalId=setInterval(showNextNotif,9000);trainAnimRunning=true;try{requestAnimationFrame(runTrainAnimation);}catch(e){}showToast('⚡ Eco Mode OFF: Full performance restored.','gold');}
+}
+
+/* ══════════════════════════════════════════
+   LIVE NOTIFICATIONS
+══════════════════════════════════════════ */
+const liveNotifs=[
+  {type:'notif-red',icon:'🚨',title:'Accident — EDSA Guadalupe',desc:'2 vehicles · Lane 2 blocked',time:'Now'},
+  {type:'notif-gold',icon:'⚠️',title:'Heavy Traffic — C5 Libis',desc:'Peak congestion for next 45 min',time:'2m ago'},
+  {type:'notif-teal',icon:'🚆',title:'MRT-3 Delay Alert',desc:'Cubao → Ayala: 8 min delay',time:'5m ago'},
+  {type:'notif-green',icon:'✅',title:'Road Cleared — Shaw Blvd',desc:'Accident resolved · Now clear',time:'8m ago'},
+  {type:'notif-gold',icon:'🚧',title:'Road Works Notice',desc:'Marcos Hwy closure 10PM–5AM',time:'15m ago'},
+  {type:'notif-red',icon:'🌊',title:'Flooding — Tandang Sora',desc:'Avoid · MMDA team deployed',time:'20m ago'},
+  {type:'notif-green',icon:'💰',title:'Off-Peak Bonus Available',desc:'Travel now — earn +20 pts!',time:'Now'}
+];
+function showNextNotif(){if(ecoMode||!panel)return;if(notifQueue.length===0)notifQueue=[...liveNotifs];if(activeNotifs.length>=2)return;const n=notifQueue.shift();const el=document.createElement('div');el.className=`notif-card ${n.type}`;el.innerHTML=`<div class="notif-icon">${n.icon}</div><div class="notif-body"><div class="notif-title">${n.title}</div><div class="notif-desc">${n.desc}</div></div><div class="notif-time">${n.time}</div>`;el.onclick=()=>dismissNotif(el);panel.appendChild(el);activeNotifs.push(el);setTimeout(()=>el.classList.add('show'),50);setTimeout(()=>dismissNotif(el),6000);}
+function dismissNotif(el){el.classList.remove('show');setTimeout(()=>{el.remove();activeNotifs=activeNotifs.filter(x=>x!==el);},400);}
+
+/* ══════════════════════════════════════════
+   V15: TRANSIT ENGINE — Smart Follow + Realistic Timing
+══════════════════════════════════════════ */
+
+/* ── Waypoints ── */
+const SVG_LRT1_WP=[
+  {x:55,y:10,crowd:'low',name:'FPJ'},{x:55,y:24,crowd:'low',name:'Balintawak'},
+  {x:55,y:36,crowd:'medium',name:'Monumento'},{x:55,y:48,crowd:'low',name:'5th Ave'},
+  {x:55,y:60,crowd:'low',name:'R. Papa'},{x:55,y:72,crowd:'medium',name:'Abad Santos'},
+  {x:55,y:84,crowd:'medium',name:'Blumentritt'},{x:55,y:94,crowd:'medium',name:'Tayuman'},
+  {x:55,y:102,crowd:'medium',name:'Bambang'},{x:55,y:110,crowd:'high',name:'D. Jose'},
+  {x:55,y:122,crowd:'high',name:'Carriedo'},{x:55,y:133,crowd:'high',name:'C. Terminal'},
+  {x:55,y:144,crowd:'medium',name:'UN'},{x:55,y:154,crowd:'medium',name:'Pedro Gil'},
+  {x:55,y:163,crowd:'low',name:'Quirino'},{x:55,y:172,crowd:'low',name:'Vito Cruz'},
+  {x:55,y:182,crowd:'medium',name:'Gil Puyat'},{x:55,y:192,crowd:'medium',name:'Libertad'},
+  {x:55,y:205,crowd:'high',name:'EDSA'},{x:55,y:220,crowd:'medium',name:'Baclaran'}
+];
+const SVG_LRT2_WP=[
+  {x:55,y:110,crowd:'high',name:'Recto'},{x:74,y:110,crowd:'medium',name:'Legarda'},
+  {x:93,y:110,crowd:'medium',name:'Pureza'},{x:112,y:110,crowd:'low',name:'V. Mapa'},
+  {x:130,y:110,crowd:'low',name:'J. Ruiz'},{x:148,y:110,crowd:'medium',name:'Gilmore'},
+  {x:164,y:110,crowd:'medium',name:'Betty Go'},{x:180,y:110,crowd:'high',name:'Cubao'},
+  {x:197,y:110,crowd:'medium',name:'Anonas'},{x:215,y:110,crowd:'low',name:'Katipunan'},
+  {x:235,y:110,crowd:'low',name:'Santolan'},{x:256,y:110,crowd:'low',name:'Marikina'},
+  {x:278,y:110,crowd:'low',name:'Antipolo'}
+];
+const SVG_MRT3_WP=[
+  {x:180,y:14,crowd:'medium',name:'North Ave'},{x:180,y:35,crowd:'medium',name:'Quezon Ave'},
+  {x:180,y:57,crowd:'medium',name:'GMA-Kamuning'},{x:180,y:110,crowd:'high',name:'Cubao'},
+  {x:180,y:130,crowd:'high',name:'Santolan'},{x:180,y:148,crowd:'high',name:'Ortigas'},
+  {x:180,y:163,crowd:'high',name:'Shaw Blvd'},{x:180,y:178,crowd:'medium',name:'Boni'},
+  {x:180,y:193,crowd:'high',name:'Guadalupe'},{x:180,y:205,crowd:'high',name:'Buendia'},
+  {x:180,y:217,crowd:'high',name:'Ayala'},{x:180,y:229,crowd:'medium',name:'Magallanes'},
+  {x:180,y:245,crowd:'medium',name:'Taft Ave'}
+];
+
+const LINE_CONFIGS={
+  lrt1:{waypoints:SVG_LRT1_WP,color:'#3ecf8e',name:'LRT-1',svIdA:'svgLrt1A',svIdB:'svgLrt1B',
+        linearContainer:'linearRouteLRT1',hscrollTrack:'hscrollTrackLRT1',hscrollWrap:'hscrollLRT1',
+        trainInfoCard:'trainInfoCardLRT1',followBadge:'followBadgeLRT1'},
+  lrt2:{waypoints:SVG_LRT2_WP,color:'#4a90ff',name:'LRT-2',svIdA:'svgLrt2A',svIdB:'svgLrt2B',
+        linearContainer:'linearRouteLRT2',hscrollTrack:'hscrollTrackLRT2',hscrollWrap:'hscrollLRT2',
+        trainInfoCard:'trainInfoCardLRT2',followBadge:'followBadgeLRT2'},
+  mrt3:{waypoints:SVG_MRT3_WP,color:'#f5a623',name:'MRT-3',svIdA:'svgMrt3A',svIdB:'svgMrt3B',
+        linearContainer:'linearRouteMRT3',hscrollTrack:'hscrollTrackMRT3',hscrollWrap:'hscrollMRT3',
+        trainInfoCard:'trainInfoCardMRT3',followBadge:'followBadgeMRT3'}
+};
+
+/* ── V15: REALISTIC TIMING ── */
+const TRAIN_LOOP = 300000;     // 5 minutes total loop
+const DWELL_MS   = 12000;      // 12 seconds at each station
+const HALF       = TRAIN_LOOP / 2;
+const ETA_SCALE  = 4;          // displayed max minutes per segment
+const STATION_SPACING = 88;
+
+/* svgAnimStart, currentTransitView, selectedTrain, isAutoFollowing, morphingTransition declared in GLOBAL STATE above */
+
+const crowdStyles={
+  low:   {fill:'#3ecf8e',filterId:'glow-low'},
+  medium:{fill:'#f5a623',filterId:'glow-medium'},
+  high:  {fill:'#ff4f4f',filterId:'glow-high'}
+};
+
+function easeInOut(t){return t<0.5?2*t*t:-1+(4-2*t)*t;}
+function lerp(a,b,t){return a+(b-a)*t;}
+
+/* ── computeSVGTrainPos (snap-to-node with realistic dwell) ── */
+function computeSVGTrainPos(waypoints, timeOffsetMs){
+  const n = waypoints.length, nSegs = n - 1;
+  const travelPerSeg = (TRAIN_LOOP - n * DWELL_MS) / nSegs;
+  const elapsed = (performance.now() - svgAnimStart + timeOffsetMs) % TRAIN_LOOP;
+  let rem = elapsed;
+  for(let i = 0; i < n; i++){
+    if(rem < DWELL_MS){
+      const wp = waypoints[i];
+      return {x:wp.x, y:wp.y, crowd:wp.crowd, stationIdx:i, segT:0, isDwelling:true,
+              nextStation: i < nSegs ? waypoints[i+1] : wp,
+              prevStation: i > 0 ? waypoints[i-1] : wp,
+              dwellRem: DWELL_MS - rem, travelPerSeg};
+    }
+    rem -= DWELL_MS;
+    if(i < nSegs){
+      if(rem < travelPerSeg){
+        const rawT = rem / travelPerSeg;
+        const easedT = rawT < 0.02 ? 0 : rawT > 0.98 ? 1 : easeInOut(rawT);
+        const from = waypoints[i], to = waypoints[i+1];
+        const x = easedT === 0 ? from.x : easedT === 1 ? to.x : lerp(from.x, to.x, easedT);
+        const y = easedT === 0 ? from.y : easedT === 1 ? to.y : lerp(from.y, to.y, easedT);
+        return {x, y, crowd: rawT > 0.5 ? to.crowd : from.crowd, stationIdx:i, segT:rawT, isDwelling:false,
+                nextStation:to, prevStation:from, dwellRem:0, travelPerSeg};
+      }
+      rem -= travelPerSeg;
+    }
+  }
+  const last = waypoints[n-1];
+  return {x:last.x, y:last.y, crowd:last.crowd, stationIdx:n-1, segT:1, isDwelling:true,
+          nextStation:last, prevStation:waypoints[n-2], dwellRem:0, travelPerSeg};
+}
+
+/* ── getETAForTrain — reliable ARRIVING NOW during DWELL ── */
+function getETAForTrain(waypoints, timeOffsetMs){
+  const n = waypoints.length, nSegs = n - 1;
+  const travelPerSeg = (TRAIN_LOOP - n * DWELL_MS) / nSegs;
+  const elapsed = (performance.now() - svgAnimStart + timeOffsetMs) % TRAIN_LOOP;
+  let rem = elapsed;
+  for(let i = 0; i < n; i++){
+    if(rem < DWELL_MS){
+      // Dwelling at station i: if i < nSegs, next station is i+1
+      if(i < nSegs){
+        const etaMs = (DWELL_MS - rem) + travelPerSeg;
+        return formatETA(etaMs, travelPerSeg, waypoints[i+1]);
+      }
+      return {display:'ARRIVING NOW',mins:0,nextStation:waypoints[n-1],isArriving:true};
+    }
+    rem -= DWELL_MS;
+    if(i < nSegs){
+      if(rem < travelPerSeg){
+        const etaMs = travelPerSeg - rem;
+        return formatETA(etaMs, travelPerSeg, waypoints[i+1]);
+      }
+      rem -= travelPerSeg;
+    }
+  }
+  return {display:'ARRIVING NOW',mins:0,nextStation:waypoints[n-1],isArriving:true};
+}
+
+function formatETA(etaMs, travelPerSeg, nextStation){
+  if(etaMs <= 0) return {display:'ARRIVING NOW',mins:0,nextStation,isArriving:true};
+  const ratio = etaMs / travelPerSeg;
+  const mins = Math.ceil(ratio * ETA_SCALE);
+  if(mins <= 0) return {display:'ARRIVING NOW',mins:0,nextStation,isArriving:true};
+  if(mins >= ETA_SCALE) return {display:`${ETA_SCALE} min`,mins:ETA_SCALE,nextStation,isArriving:false};
+  return {display:`${mins} min`,mins,nextStation,isArriving:false};
+}
+
+/* ── SVG glow filters ── */
+function injectSVGFilters(){
+  const svg=document.getElementById('transitSVG');
+  if(!svg||svg.querySelector('#glow-low'))return;
+  const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
+  defs.innerHTML='<filter id="glow-low" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="glow-medium" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur in="SourceGraphic" stdDeviation="4.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="glow-high" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  svg.insertBefore(defs,svg.firstChild);
+}
+
+function applySVGTrainStyle(el,crowd){
+  if(!el)return;
+  const cs=crowdStyles[crowd]||crowdStyles.low;
+  el.setAttribute('fill',cs.fill);
+  el.setAttribute('stroke','#fff');
+  el.setAttribute('stroke-width','1.5');
+  el.setAttribute('filter',`url(#${cs.filterId})`);
+}
+
+/* ── Station tooltip ── */
+function svStationClick(name,crowd){
+  const tip=document.getElementById('svgTooltip');if(!tip)return;
+  const icon=crowd.includes('High')?'🔴':crowd.includes('Medium')?'🟡':'🟢';
+  tip.textContent=`${icon} ${name} · ${crowd}`;tip.classList.add('show');
+  if(tooltipTimer)clearTimeout(tooltipTimer);
+  tooltipTimer=setTimeout(()=>tip.classList.remove('show'),2800);
+  showToast(`📍 ${name} · ${crowd}`);
+}
+
+/* ── ViewBox zoom ── */
+const VIEWBOXES={all:'-15 -5 325 265',lrt1:'-20 0 130 240',lrt2:'30 90 280 50',mrt3:'148 5 125 250'};
+function parseVB(str){const[x,y,w,h]=str.split(' ').map(Number);return{x,y,w,h};}
+function animateViewBox(){
+  if(!vbAnimating)return;
+  const now=performance.now();const t=Math.min((now-vbStart)/VB_DUR,1);const e=easeInOut(t);
+  const vb={x:lerp(currentVB.x,targetVB.x,e),y:lerp(currentVB.y,targetVB.y,e),w:lerp(currentVB.w,targetVB.w,e),h:lerp(currentVB.h,targetVB.h,e)};
+  const svg=document.getElementById('transitSVG');if(svg)svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+  if(t<1){requestAnimationFrame(animateViewBox);}else{currentVB={...targetVB};vbAnimating=false;}
+}
+function zoomToViewBox(key){const parsed=parseVB(VIEWBOXES[key]||VIEWBOXES.all);targetVB=parsed;vbStart=performance.now();if(!vbAnimating){vbAnimating=true;requestAnimationFrame(animateViewBox);}}
+
+/* ══════════════════════════════════════════
+   V15: buildLinearRoute + follow scroll interrupt setup
+══════════════════════════════════════════ */
+function buildLinearRoute(lineKey){
+  const cfg=LINE_CONFIGS[lineKey];if(!cfg)return;
+  const track=document.getElementById(cfg.hscrollTrack);if(!track)return;
+  track.querySelectorAll('.hs-station,.hs-train').forEach(el=>el.remove());
+  const wp=cfg.waypoints;
+  const BASE_X=30;
+  const totalWidth=BASE_X + (wp.length-1)*STATION_SPACING + BASE_X + 20;
+  track.style.width=totalWidth+'px';
+
+  wp.forEach((wpItem,i)=>{
+    const xPx=BASE_X + i*STATION_SPACING;
+    const st=document.createElement('div');
+    st.className='hs-station';
+    if(wpItem.crowd==='high')st.classList.add('crowd-high');
+    else if(wpItem.crowd==='medium')st.classList.add('crowd-medium');
+    st.style.left=xPx+'px';
+
+    const isInterchange=(lineKey==='lrt1'&&(wpItem.name==='D. Jose'||wpItem.name==='EDSA'))
+      ||(lineKey==='lrt2'&&(wpItem.name==='Recto'||wpItem.name==='Cubao'))
+      ||(lineKey==='mrt3'&&wpItem.name==='Cubao');
+
+    st.innerHTML=`
+      <div class="hs-st-label">${wpItem.name}</div>
+      <div class="hs-st-dot${isInterchange?' interchange-dot':''}"></div>`;
+    const dotEl=st.querySelector('.hs-st-dot');
+    if(dotEl)dotEl.style.borderColor=cfg.color;
+    st.onclick=()=>svStationClick(`${cfg.name} · ${wpItem.name}`,`${wpItem.crowd} crowd`);
+    track.appendChild(st);
+  });
+
+  ['A','B'].forEach((letter,idx)=>{
+    const trainEl=document.createElement('div');
+    trainEl.className='hs-train';
+    trainEl.id=`hsTrain_${lineKey}_${letter}`;
+    trainEl.innerHTML=`<div class="hs-train-inner" style="background:${cfg.color};">${letter}</div>`;
+    trainEl.onclick=e=>{e.stopPropagation();selectTrain(lineKey,letter,e);};
+    track.appendChild(trainEl);
+  });
+
+  // Attach interrupt listeners to this line's wrap after building
+  const wrap=document.getElementById(cfg.hscrollWrap);
+  if(wrap && !wrap._followInterruptSet){
+    wrap._followInterruptSet = true;
+    // Touch / mouse / wheel interrupt
+    const interrupt = () => {
+      if(!selectedTrain || selectedTrain.line !== lineKey) return;
+      isAutoFollowing = false;
+      // Change badge to "Resume" state
+      const badge = document.getElementById(cfg.followBadge);
+      if(badge){
+        badge.textContent = '📍 Resume Follow';
+        badge.classList.remove('active');
+        badge.classList.add('resume');
+      }
+    };
+    wrap.addEventListener('touchstart', interrupt, {passive:true});
+    wrap.addEventListener('mousedown', interrupt);
+    wrap.addEventListener('wheel', interrupt, {passive:true});
+  }
+}
+
+/* ── update linear train positions ── */
+function updateLinearTrainPositions(lineKey){
+  const cfg=LINE_CONFIGS[lineKey];if(!cfg)return;
+  const wp=cfg.waypoints;
+  const BASE_X=30;
+
+  ['A','B'].forEach((letter,idx)=>{
+    const el=document.getElementById(`hsTrain_${lineKey}_${letter}`);if(!el)return;
+    const timeOffset=idx===0?0:HALF;
+    const pos=computeSVGTrainPos(wp,timeOffset);
+    const fracIdx=pos.isDwelling ? pos.stationIdx : pos.stationIdx + pos.segT;
+    const xPx=BASE_X + fracIdx*STATION_SPACING;
+    el.style.left=xPx+'px';
+
+    const inner=el.querySelector('.hs-train-inner');
+    if(inner) inner.style.background=crowdStyles[pos.crowd]?.fill || cfg.color;
+
+    if(selectedTrain&&selectedTrain.line===lineKey&&selectedTrain.train===letter){
+      el.classList.add('selected-train');
+      // Only auto-scroll if isAutoFollowing is true
+      if(isAutoFollowing){
+        const wrap=document.getElementById(cfg.hscrollWrap);
+        if(wrap){
+          const targetScroll = xPx - wrap.clientWidth/2;
+          wrap.scrollTo({left:targetScroll,behavior:'smooth'});
+        }
+      }
+    } else {
+      el.classList.remove('selected-train');
+    }
+  });
+}
+
+/* ══════════════════════════════════════════
+   V15: TRAIN SELECTION & INFO CARD
+══════════════════════════════════════════ */
+function selectTrain(line,train,event){
+  if(event)event.stopPropagation();
+  if(selectedTrain&&selectedTrain.line===line&&selectedTrain.train===train){deselectTrain();return;}
+  selectedTrain={line,train};
+  isAutoFollowing = true;     // enable follow mode
+  updateSelectedRing();
+  showTrainInfoCard(line,train);
+  syncETACards();
+  setFollowBadge(line, true); // show "📍 Follow Mode Active"
+  showToast(`🚆 ${LINE_CONFIGS[line].name} Train ${train} selected`,'teal');
+}
+
+function deselectTrain(){
+  selectedTrain=null;
+  isAutoFollowing = false;
+  const ring=document.getElementById('svgSelRing');
+  if(ring){ring.setAttribute('r','0');ring.setAttribute('opacity','0');}
+  document.querySelectorAll('.hs-train').forEach(t=>t.classList.remove('selected-train'));
+  document.querySelectorAll('.train-info-card').forEach(c=>c.classList.remove('show'));
+  document.querySelectorAll('.teta-card').forEach(c=>c.classList.remove('synced-train'));
+  document.querySelectorAll('.follow-mode-badge').forEach(b=>{b.classList.remove('active','resume');});
+}
+
+/* V15: resumeFollowMode — called by badge onClick */
+function resumeFollowMode(lineKey){
+  if(!selectedTrain || selectedTrain.line !== lineKey) return;
+  isAutoFollowing = true;
+  setFollowBadge(lineKey, true);
+  showToast('📍 Follow mode resumed','teal');
+}
+
+function setFollowBadge(lineKey, active){
+  const cfg=LINE_CONFIGS[lineKey]; if(!cfg) return;
+  const badge=document.getElementById(cfg.followBadge);
+  if(!badge) return;
+  if(active){
+    badge.textContent = '📍 Follow Mode Active';
+    badge.classList.add('active');
+    badge.classList.remove('resume');
+  } else {
+    badge.textContent = '📍 Resume Follow';
+    badge.classList.remove('active');
+    badge.classList.add('resume');
+  }
+}
+
+function updateSelectedRing(){
+  const ring=document.getElementById('svgSelRing');
+  if(!selectedTrain||!ring){if(ring){ring.setAttribute('r','0');ring.setAttribute('opacity','0');}return;}
+  const cfg=LINE_CONFIGS[selectedTrain.line];if(!cfg)return;
+  const pos=computeSVGTrainPos(cfg.waypoints,selectedTrain.train==='A'?0:HALF);
+  ring.setAttribute('cx',pos.x.toFixed(2));
+  ring.setAttribute('cy',pos.y.toFixed(2));
+  ring.setAttribute('r','13');
+  ring.setAttribute('opacity','0.9');
+  ring.setAttribute('stroke',cfg.color);
+  ring.classList.add('train-selected-ring');
+}
+
+function showTrainInfoCard(line,train){
+  const cfg=LINE_CONFIGS[line];if(!cfg)return;
+  document.querySelectorAll('.train-info-card').forEach(c=>c.classList.remove('show'));
+  const card=document.getElementById(cfg.trainInfoCard);if(!card)return;
+  const pos=computeSVGTrainPos(cfg.waypoints,train==='A'?0:HALF);
+  const eta=getETAForTrain(cfg.waypoints,train==='A'?0:HALF);
+  const crowdPct=pos.crowd==='high'?'87%':pos.crowd==='medium'?'54%':'28%';
+  const dirLabels={lrt1:['Southbound','Northbound'],lrt2:['Eastbound','Westbound'],mrt3:['Southbound','Northbound']};
+  const direction=(dirLabels[line]||['Northbound','Southbound'])[train==='A'?0:1];
+  card.innerHTML=`
+    <div class="tic-header">
+      <div class="tic-train-id">🚆 ${cfg.name} · Train ${train}</div>
+      <div class="tic-close" onclick="deselectTrain()">✕</div>
+    </div>
+    <div class="tic-grid">
+      <div class="tic-cell"><div class="tic-cell-val" style="color:${cfg.color};">${crowdPct}</div><div class="tic-cell-lbl">Load</div></div>
+      <div class="tic-cell"><div class="tic-cell-val" style="color:var(--teal);font-size:10px;">${direction}</div><div class="tic-cell-lbl">Direction</div></div>
+      <div class="tic-cell"><div class="tic-cell-val" style="color:${pos.crowd==='high'?'var(--red)':pos.crowd==='medium'?'var(--gold)':'var(--green)'};">${pos.crowd.charAt(0).toUpperCase()+pos.crowd.slice(1)}</div><div class="tic-cell-lbl">Crowd</div></div>
+    </div>
+    <div class="tic-next-station">
+      <div class="tic-ns-icon">📍</div>
+      <div class="tic-ns-info">
+        <div class="tic-ns-name">Next: ${eta.nextStation.name}</div>
+        <div class="tic-ns-eta${eta.isArriving?' arriving':''}">${eta.isArriving?'🟢 ARRIVING NOW':'ETA: '+eta.display}</div>
+      </div>
+    </div>`;
+  card.classList.add('show');
+}
+
+function syncETACards(){
+  if(!selectedTrain){document.querySelectorAll('.teta-card').forEach(c=>c.classList.remove('synced-train'));return;}
+  const cfg=LINE_CONFIGS[selectedTrain.line];if(!cfg)return;
+  const eta=getETAForTrain(cfg.waypoints,selectedTrain.train==='A'?0:HALF);
+  const lineKey=selectedTrain.line;
+  const etaEl=document.getElementById('eta'+lineKey.charAt(0).toUpperCase()+lineKey.slice(1));
+  const stEl=document.getElementById('eta'+lineKey.charAt(0).toUpperCase()+lineKey.slice(1)+'St');
+  if(etaEl){etaEl.textContent=eta.display;etaEl.classList.toggle('arriving',eta.isArriving);}
+  if(stEl)stEl.textContent='→ '+eta.nextStation.name;
+  document.querySelectorAll('.teta-card').forEach(c=>c.classList.remove('synced-train'));
+  const card=document.getElementById('teta'+lineKey.charAt(0).toUpperCase()+lineKey.slice(1));
+  if(card)card.classList.add('synced-train');
+}
+
+function updateSVGLineOpacity(line){
+  const groups={lrt1:{path:'lrt1Path',stg:'lrt1Stations'},lrt2:{path:'lrt2Path',stg:'lrt2Stations'},mrt3:{path:'mrt3Path',stg:'mrt3Stations'}};
+  Object.entries(groups).forEach(([key,ids])=>{
+    const dim=(line!=='all'&&line!==key);
+    const p=document.getElementById(ids.path);const g=document.getElementById(ids.stg);
+    if(p)p.style.opacity=dim?'0.1':'0.9';
+    if(g)g.style.opacity=dim?'0.1':'1';
+    ['svgLrt1A','svgLrt1B'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.opacity=(line==='all'||line==='lrt1')?'0.97':'0.08';});
+    ['svgLrt2A','svgLrt2B'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.opacity=(line==='all'||line==='lrt2')?'0.97':'0.08';});
+    ['svgMrt3A','svgMrt3B'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.opacity=(line==='all'||line==='mrt3')?'0.97':'0.08';});
+  });
+  ['interchangeDJ','interchangeCubao','interchangeTaft'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.opacity=line==='all'?'1':'0.25';});
+}
+
+/* ══════════════════════════════════════════
+   V15: MORPHING TRANSITION
+══════════════════════════════════════════ */
+function setTransitView(line){
+  if(morphingTransition)return;
+  morphingTransition=true;
+  currentTransitView=line;
+
+  ['all','lrt1','lrt2','mrt3'].forEach(l=>{
+    const btn=document.getElementById('tlt-'+l);if(!btn)return;
+    btn.className='tlt-btn';
+    if(l===line)btn.classList.add(l==='all'?'all-active':`${l}-active`);
+  });
+
+  const mapWrap=document.getElementById('transitMapWrap');
+  const allLinear=document.querySelectorAll('.linear-route-container');
+
+  if(line==='all'){
+    mapWrap.classList.remove('morphing-out');
+    mapWrap.style.display='';
+    allLinear.forEach(c=>{
+      c.classList.remove('morphing-in'); c.classList.add('morphing-out');
+      setTimeout(()=>{c.style.display='none';c.classList.remove('morphing-out');},360);
+    });
+    updateSVGLineOpacity('all');
+    zoomToViewBox('all');
+    deselectTrain();
+    document.querySelectorAll('.follow-mode-badge').forEach(b=>b.classList.remove('active','resume'));
+  } else {
+    mapWrap.classList.add('morphing-out');
+    setTimeout(()=>{mapWrap.style.display='none';},360);
+    allLinear.forEach(c=>{
+      const isTarget=c.id==='linearRoute'+line.toUpperCase();
+      if(isTarget){
+        c.style.display='flex';
+        requestAnimationFrame(()=>{
+          c.classList.remove('morphing-out');
+          c.classList.add('morphing-in');
+          buildLinearRoute(line);
+          updateLinearTrainPositions(line);
+        });
+      } else {
+        c.classList.remove('morphing-in'); c.classList.add('morphing-out');
+        setTimeout(()=>{c.style.display='none';c.classList.remove('morphing-out');},360);
+      }
+    });
+    updateSVGLineOpacity(line);
+    zoomToViewBox(line);
+  }
+
+  const names={all:'All Lines',lrt1:'LRT-1 · Green',lrt2:'LRT-2 · Blue',mrt3:'MRT-3 · Yellow'};
+  showToast(`🚆 ${names[line]||'All Lines'}`);
+  setTimeout(()=>morphingTransition=false,400);
+}
+
+/* ══════════════════════════════════════════
+   MAIN ANIMATION LOOP (try/catch guarded)
+══════════════════════════════════════════ */
+function runTrainAnimation(){
+  if(!trainAnimRunning)return;
+  try{
+    Object.keys(LINE_CONFIGS).forEach(lineKey=>{
+      const cfg=LINE_CONFIGS[lineKey];const wp=cfg.waypoints;
+      ['A','B'].forEach((letter,idx)=>{
+        const svgId=idx===0?cfg.svIdA:cfg.svIdB;
+        const el=document.getElementById(svgId);
+        const timeOffset=idx===0?0:HALF;
+        const pos=computeSVGTrainPos(wp,timeOffset);
+        if(el){
+          el.setAttribute('cx',pos.x.toFixed(2));el.setAttribute('cy',pos.y.toFixed(2));
+          applySVGTrainStyle(el,pos.crowd);
+          el.setAttribute('stroke-width',(selectedTrain&&selectedTrain.line===lineKey&&selectedTrain.train===letter)?'3':'1.5');
+        }
+      });
+      if(currentTransitView===lineKey)updateLinearTrainPositions(lineKey);
+    });
+    updateSelectedRing();
+    if(selectedTrain){
+      syncETACards();
+      const cfg=LINE_CONFIGS[selectedTrain.line];
+      if(cfg){
+        const card=document.getElementById(cfg.trainInfoCard);
+        if(card&&card.classList.contains('show')){
+          const eta=getETAForTrain(cfg.waypoints,selectedTrain.train==='A'?0:HALF);
+          const etaEl=card.querySelector('.tic-ns-eta');
+          if(etaEl){etaEl.textContent=eta.isArriving?'🟢 ARRIVING NOW':'ETA: '+eta.display;etaEl.classList.toggle('arriving',eta.isArriving);}
+          const nameEl=card.querySelector('.tic-ns-name');if(nameEl)nameEl.textContent='Next: '+eta.nextStation.name;
+        }
+      }
+    }else{
+      ['lrt1','lrt2','mrt3'].forEach(lineKey=>{
+        const cfg=LINE_CONFIGS[lineKey];if(!cfg)return;
+        const eta=getETAForTrain(cfg.waypoints,0);
+        const lk=lineKey.charAt(0).toUpperCase()+lineKey.slice(1);
+        const etaEl=document.getElementById('eta'+lk);const stEl=document.getElementById('eta'+lk+'St');
+        if(etaEl){etaEl.textContent=eta.display;etaEl.classList.toggle('arriving',eta.isArriving);}
+        if(stEl)stEl.textContent='→ '+eta.nextStation.name;
+      });
+    }
+  }catch(e){/* frame error — keep loop alive */}
+  requestAnimationFrame(runTrainAnimation);
+}
+
+/* ══════════════════════════════════════════
+   INITIALIZATION — single DOMContentLoaded
+══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  svgAnimStart=performance.now();
+
+  /* Clock */
+  updateClock();setInterval(updateClock,30000);
+
+  /* Map DOM refs */
+  vp=document.getElementById('mapVP');
+  wrapper=document.getElementById('mapWrapper');
+
+  /* Map drag & pinch zoom */
+  if(wrapper){
+    let lastDist=0;
+    wrapper.addEventListener('mousedown',e=>{if(e.target.closest('.ctrl-zone,.bottom-sheet,.map-header-float,.search-float,.mode-pill-float,.notif-panel'))return;mapDragging=true;startX=e.clientX-lastPanX;startY=e.clientY-lastPanY;});
+    window.addEventListener('mousemove',e=>{if(!mapDragging)return;panX=(e.clientX-startX)/zoomLevel;panY=(e.clientY-startY)/zoomLevel;lastPanX=e.clientX-startX;lastPanY=e.clientY-startY;updateMapTransform();});
+    window.addEventListener('mouseup',()=>mapDragging=false);
+    wrapper.addEventListener('touchstart',e=>{if(e.target.closest('.ctrl-zone,.bottom-sheet,.mode-pill-float'))return;if(e.touches.length===2){lastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);return;}mapDragging=true;startX=e.touches[0].clientX-lastPanX;startY=e.touches[0].clientY-lastPanY;},{passive:true});
+    wrapper.addEventListener('touchmove',e=>{if(e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);zoomLevel=Math.min(3,Math.max(0.8,zoomLevel*(d/lastDist)));lastDist=d;updateMapTransform();return;}if(!mapDragging)return;panX=(e.touches[0].clientX-startX)/zoomLevel;panY=(e.touches[0].clientY-startY)/zoomLevel;lastPanX=e.touches[0].clientX-startX;lastPanY=e.touches[0].clientY-startY;updateMapTransform();},{passive:true});
+    wrapper.addEventListener('touchend',()=>mapDragging=false);
+  }
+
+  /* Bottom sheet DOM refs */
+  sheet=document.getElementById('bottomSheet');
+  sheetHandle=document.getElementById('sheetHandle');
+  sheetBody=document.getElementById('sheetBody');
+  ctrlZone=document.getElementById('ctrlZone');
+  shell=document.querySelector('.phone-shell');
+
+  /* Bottom sheet events */
+  sheetHandle?.addEventListener('click',()=>{if(sheetDragging)return;setSheetState(STATE_CYCLE[sheetState]);});
+  sheetHandle?.addEventListener('touchstart',e=>{sheetDragging=false;sheetDragStartY=e.touches[0].clientY;sheetDragStartTY=getSnapTY(sheetState);sheet?.classList.add('dragging');ctrlZone?.classList.add('no-transition');},{passive:true});
+  sheetHandle?.addEventListener('touchmove',e=>{const dy=e.touches[0].clientY-sheetDragStartY;if(Math.abs(dy)>4)sheetDragging=true;if(!sheet)return;const h=getSheetHeight();const newTY=Math.max(0,Math.min(h-SNAP_VISIBLE.collapsed,sheetDragStartTY+dy));sheet.style.transform=`translateY(${newTY}px)`;setStackBottom(h-newTY);},{passive:true});
+  sheetHandle?.addEventListener('touchend',()=>{if(!sheetDragging){sheet?.classList.remove('dragging');ctrlZone?.classList.remove('no-transition');setSheetState(STATE_CYCLE[sheetState]);return;}const cur=getCurrentTY(),h=getSheetHeight();let nearest='peek',minDist=Infinity;Object.keys(SNAP_VISIBLE).forEach(st=>{const dist=Math.abs(cur-getSnapTY(st));if(dist<minDist){minDist=dist;nearest=st;}});if(sheet)sheet.style.transform='';sheetDragging=false;setSheetState(nearest,true);},{passive:true});
+  sheetBody?.addEventListener('touchstart',e=>{if(sheetBody.scrollTop>0)return;sheetDragStartY=e.touches[0].clientY;},{passive:true});
+  sheetBody?.addEventListener('touchmove',e=>{if(sheetBody.scrollTop>0)return;const dy=e.touches[0].clientY-sheetDragStartY;if(dy>24&&sheetState==='expanded')setSheetState('peek');},{passive:true});
+
+  /* Global click — close menus */
+  document.addEventListener('click',e=>{
+    const cz=document.getElementById('ctrlZone');if(!cz||cz.contains(e.target))return;
+    if(layerMenuOpen){layerMenuOpen=false;document.getElementById('layerMenu')?.classList.remove('open');document.getElementById('layerBtn')?.classList.remove('active-state');}
+    if(mapKeyOpen){mapKeyOpen=false;document.getElementById('mapKeyPopup')?.classList.remove('open');document.getElementById('mapKeyBtn')?.classList.remove('active-state');}
+  });
+
+  /* Initial mode content */
+  const mc=document.getElementById('modeContent');if(mc)mc.innerHTML=modeContent.driver;
+  updatePeekMetrics('driver');
+
+  /* Notifications */
+  panel=document.getElementById('notifPanel');
+  notifQueue=[...liveNotifs];activeNotifs=[];
+  setTimeout(()=>showNextNotif(),1500);
+  setTimeout(()=>showNextNotif(),4000);
+  notifIntervalId=setInterval(showNextNotif,9000);
+
+  /* Train animation */
+  setTimeout(()=>{injectSVGFilters();try{requestAnimationFrame(runTrainAnimation);}catch(e){}},120);
+
+  /* Stack bottom on load */
+  window.addEventListener('load',()=>{setTimeout(()=>setStackBottom(getSnapVisible('peek')),150);});
+});
+
+</script>
+</body>
+</html>
