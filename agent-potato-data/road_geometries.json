@@ -1,0 +1,211 @@
+{
+  "source": "OpenStreetMap Overpass API (fallback: hardcoded NCR road alignment approximations)",
+  "queriedAt": "2026-04-30",
+  "note": "Overpass API was unreachable at query time. Coordinates are approximate 5-point polyline alignments derived from known road midpoints in traffic_feeds.json and standard NCR road geometry references. Suitable for map overlay simulation.",
+  "roads": [
+    {
+      "name": "EDSA Taft-Ayala",
+      "roadClass": "primary",
+      "speedKph": 14,
+      "coords": [
+        [14.5376, 121.0019],
+        [14.5390, 121.0030],
+        [14.5415, 121.0055],
+        [14.5440, 121.0080],
+        [14.5461, 121.0096]
+      ]
+    },
+    {
+      "name": "EDSA Ayala-Ortigas",
+      "roadClass": "primary",
+      "speedKph": 13,
+      "coords": [
+        [14.5461, 121.0096],
+        [14.5490, 121.0130],
+        [14.5530, 121.0175],
+        [14.5580, 121.0230],
+        [14.5680, 121.0380]
+      ]
+    },
+    {
+      "name": "EDSA Ortigas-Cubao",
+      "roadClass": "primary",
+      "speedKph": 15,
+      "coords": [
+        [14.5680, 121.0380],
+        [14.5760, 121.0430],
+        [14.5830, 121.0470],
+        [14.5920, 121.0510],
+        [14.6040, 121.0540]
+      ]
+    },
+    {
+      "name": "EDSA Cubao-North Ave",
+      "roadClass": "primary",
+      "speedKph": 18,
+      "coords": [
+        [14.6040, 121.0540],
+        [14.6100, 121.0530],
+        [14.6180, 121.0510],
+        [14.6260, 121.0490],
+        [14.6350, 121.0470]
+      ]
+    },
+    {
+      "name": "C5 Libis-Pasig",
+      "roadClass": "primary",
+      "speedKph": 22,
+      "coords": [
+        [14.5950, 121.0760],
+        [14.5930, 121.0780],
+        [14.5900, 121.0800],
+        [14.5870, 121.0820],
+        [14.5840, 121.0840]
+      ]
+    },
+    {
+      "name": "C5 BGC-Guadalupe",
+      "roadClass": "primary",
+      "speedKph": 20,
+      "coords": [
+        [14.5490, 121.0510],
+        [14.5510, 121.0530],
+        [14.5530, 121.0550],
+        [14.5560, 121.0560],
+        [14.5600, 121.0570]
+      ]
+    },
+    {
+      "name": "Commonwealth Ave",
+      "roadClass": "primary",
+      "speedKph": 35,
+      "coords": [
+        [14.6680, 121.0580],
+        [14.6900, 121.0630],
+        [14.7100, 121.0680],
+        [14.7300, 121.0720],
+        [14.7500, 121.0760]
+      ]
+    },
+    {
+      "name": "Quezon Avenue",
+      "roadClass": "primary",
+      "speedKph": 25,
+      "coords": [
+        [14.6380, 121.0260],
+        [14.6390, 121.0280],
+        [14.6400, 121.0290],
+        [14.6410, 121.0300],
+        [14.6420, 121.0310]
+      ]
+    },
+    {
+      "name": "Espana Blvd",
+      "roadClass": "secondary",
+      "speedKph": 20,
+      "coords": [
+        [14.6090, 120.9870],
+        [14.6080, 120.9900],
+        [14.6070, 120.9940],
+        [14.6060, 120.9980],
+        [14.6050, 121.0020]
+      ]
+    },
+    {
+      "name": "Taft Avenue",
+      "roadClass": "secondary",
+      "speedKph": 18,
+      "coords": [
+        [14.5700, 120.9920],
+        [14.5680, 120.9925],
+        [14.5660, 120.9928],
+        [14.5640, 120.9930],
+        [14.5620, 120.9932]
+      ]
+    },
+    {
+      "name": "Roxas Boulevard",
+      "roadClass": "primary",
+      "speedKph": 40,
+      "coords": [
+        [14.5510, 120.9840],
+        [14.5540, 120.9820],
+        [14.5570, 120.9810],
+        [14.5600, 120.9800],
+        [14.5630, 120.9790]
+      ]
+    },
+    {
+      "name": "Aurora Blvd",
+      "roadClass": "secondary",
+      "speedKph": 22,
+      "coords": [
+        [14.6120, 121.0340],
+        [14.6110, 121.0380],
+        [14.6100, 121.0420],
+        [14.6090, 121.0460],
+        [14.6080, 121.0500]
+      ]
+    },
+    {
+      "name": "Shaw Boulevard",
+      "roadClass": "secondary",
+      "speedKph": 19,
+      "coords": [
+        [14.5810, 121.0430],
+        [14.5810, 121.0460],
+        [14.5810, 121.0490],
+        [14.5810, 121.0520],
+        [14.5810, 121.0550]
+      ]
+    },
+    {
+      "name": "Ortigas Avenue",
+      "roadClass": "secondary",
+      "speedKph": 28,
+      "coords": [
+        [14.5870, 121.0820],
+        [14.5870, 121.0870],
+        [14.5870, 121.0920],
+        [14.5870, 121.0970],
+        [14.5870, 121.1020]
+      ]
+    },
+    {
+      "name": "Marcos Highway",
+      "roadClass": "primary",
+      "speedKph": 30,
+      "coords": [
+        [14.6230, 121.1050],
+        [14.6280, 121.1100],
+        [14.6330, 121.1150],
+        [14.6380, 121.1200],
+        [14.6430, 121.1250]
+      ]
+    },
+    {
+      "name": "SLEX",
+      "roadClass": "motorway",
+      "speedKph": 60,
+      "coords": [
+        [14.4680, 121.0270],
+        [14.4500, 121.0200],
+        [14.4300, 121.0100],
+        [14.4100, 121.0000],
+        [14.3900, 120.9900]
+      ]
+    },
+    {
+      "name": "NLEX",
+      "roadClass": "motorway",
+      "speedKph": 65,
+      "coords": [
+        [14.7200, 120.9650],
+        [14.7400, 120.9500],
+        [14.7600, 120.9350],
+        [14.7800, 120.9200],
+        [14.8000, 120.9050]
+      ]
+    }
+  ]
+}
