@@ -134,8 +134,14 @@ html.light .nav-item.active{background:rgba(245,166,35,0.18);}
 .leaflet-container{background:#080810;font-family:'Plus Jakarta Sans',sans-serif;}
 .aurora-layer{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0.06;background:radial-gradient(ellipse 40% 40% at 20% 30%,#f5a623,transparent),radial-gradient(ellipse 35% 35% at 80% 60%,#3ecfcf,transparent),radial-gradient(ellipse 30% 30% at 50% 80%,#7c5cbf,transparent);animation:auroraShift 8s ease-in-out infinite;}
 @keyframes auroraShift{0%,100%{opacity:0.06;}50%{opacity:0.09;}}
-.sl-marker{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,0.6);box-shadow:0 0 8px currentColor;transition:background 0.4s;}
-.sl-green{background:#3ecf8e;color:#3ecf8e;}.sl-yellow{background:#f5a623;color:#f5a623;}.sl-red{background:#ff4f4f;color:#ff4f4f;}
+.sl-icon-wrap{width:20px;height:32px;cursor:pointer;filter:drop-shadow(0 0 4px rgba(0,0,0,0.6));}
+.sl-icon-wrap svg{width:20px;height:32px;overflow:visible;}
+.sl-dot-green{fill:#1a1a1a;transition:fill 0.35s;}
+.sl-dot-yellow{fill:#1a1a1a;transition:fill 0.35s;}
+.sl-dot-red{fill:#1a1a1a;transition:fill 0.35s;}
+.sl-state-green .sl-dot-green{fill:#3ecf8e;filter:drop-shadow(0 0 5px #3ecf8e);}
+.sl-state-yellow .sl-dot-yellow{fill:#f5a623;filter:drop-shadow(0 0 5px #f5a623);}
+.sl-state-red .sl-dot-red{fill:#ff4f4f;filter:drop-shadow(0 0 5px #ff4f4f);}
 .user-dot-marker{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle,#74b9ff,#0984e3);border:2.5px solid #fff;box-shadow:0 0 0 6px rgba(74,158,255,0.2),0 2px 8px rgba(9,132,227,0.5);animation:userPulseAnim 2.5s ease-in-out infinite;}
 @keyframes userPulseAnim{0%,100%{box-shadow:0 0 0 4px rgba(74,158,255,0.25),0 2px 8px rgba(9,132,227,0.5);}50%{box-shadow:0 0 0 10px rgba(74,158,255,0.06),0 2px 12px rgba(9,132,227,0.6);}}
 .train-dot{width:18px;height:18px;border-radius:50%;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;transition:background 0.45s;}
@@ -2015,7 +2021,8 @@ function startStoplights(){
   if(stoplightInterval){clearInterval(stoplightInterval);stoplightInterval=null;}
   stoplightMarkers.forEach(m=>{try{leafletMap.removeLayer(m);}catch(e){}});
   stoplightMarkers=STOPLIGHT_DATASET.items.map((sl,i)=>{
-    const icon=L.divIcon({className:'',html:'<div class="sl-marker sl-green"></div>',iconSize:[14,14],iconAnchor:[7,7]});
+    const slHtml=`<div class="sl-icon-wrap sl-state-green"><svg viewBox="0 0 20 32" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="18" height="30" rx="4" ry="4" fill="#2a2a35" stroke="rgba(255,255,255,0.25)" stroke-width="1"/><circle cx="10" cy="8" r="4.5" class="sl-dot-red"/><circle cx="10" cy="16" r="4.5" class="sl-dot-yellow"/><circle cx="10" cy="24" r="4.5" class="sl-dot-green"/></svg></div>`;
+    const icon=L.divIcon({className:'',html:slHtml,iconSize:[20,32],iconAnchor:[10,32]});
     const m=L.marker([sl.lat,sl.lng],{icon,title:sl.name}).addTo(leafletMap);
     m._slPhase=SL_PHASE_MS[i]||0;return m;
   });
@@ -2023,8 +2030,9 @@ function startStoplights(){
     const now=Date.now();
     stoplightMarkers.forEach(m=>{
       const cls=stoplightColor(now+m._slPhase);
-      const el=m.getElement()?.querySelector('.sl-marker');
-      if(el)el.className='sl-marker '+cls;
+      const el=m.getElement()?.querySelector('.sl-icon-wrap');
+      if(!el)return;
+      el.className='sl-icon-wrap sl-state-'+cls.replace('sl-','');
     });
   },1000);
 }
