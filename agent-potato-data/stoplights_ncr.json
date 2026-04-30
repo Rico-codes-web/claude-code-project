@@ -1,0 +1,31 @@
+{
+  "source": "OpenStreetMap Overpass API",
+  "queriedAt": "2026-04-30",
+  "items": [
+    { "name": "EDSA-Taft Avenue", "lat": 14.5376, "lng": 121.0019, "osmId": "node/12067330" },
+    { "name": "EDSA-Magallanes", "lat": 14.5419, "lng": 121.0167, "osmId": "node/12067342" },
+    { "name": "EDSA-Ayala", "lat": 14.5487, "lng": 121.0275, "osmId": "node/12067373" },
+    { "name": "EDSA-Buendia", "lat": 14.5540, "lng": 121.0337, "osmId": "node/12067461" },
+    { "name": "EDSA-Guadalupe", "lat": 14.5667, "lng": 121.0454, "osmId": "node/21458443" },
+    { "name": "EDSA-Boni Avenue", "lat": 14.5731, "lng": 121.0476, "osmId": "node/21590461" },
+    { "name": "EDSA-Shaw Boulevard", "lat": 14.5810, "lng": 121.0535, "osmId": "node/21590491" },
+    { "name": "EDSA-Ortigas Avenue", "lat": 14.5875, "lng": 121.0565, "osmId": "node/21630394" },
+    { "name": "EDSA-Santolan", "lat": 14.6084, "lng": 121.0566, "osmId": "node/21638752" },
+    { "name": "EDSA-Cubao", "lat": 14.6195, "lng": 121.0511, "osmId": "node/21674221" },
+    { "name": "EDSA-GMA Kamuning", "lat": 14.6353, "lng": 121.0433, "osmId": "node/21674736" },
+    { "name": "EDSA-Quezon Avenue", "lat": 14.6424, "lng": 121.0387, "osmId": "node/21675195" },
+    { "name": "EDSA-North Avenue", "lat": 14.6517, "lng": 121.0326, "osmId": "node/21717771" },
+    { "name": "C5-Libis", "lat": 14.6042, "lng": 121.0710, "osmId": "node/21717801" },
+    { "name": "C5-BGC Lawton", "lat": 14.5367, "lng": 121.0402, "osmId": "node/21720759" },
+    { "name": "C5-Ugong Pasig", "lat": 14.5808, "lng": 121.0735, "osmId": "node/21720760" },
+    { "name": "España-Lacson", "lat": 14.6060, "lng": 120.9919, "osmId": "node/21458468" },
+    { "name": "España-Blumentritt", "lat": 14.6120, "lng": 120.9824, "osmId": "node/21458570" },
+    { "name": "Commonwealth-Batasan", "lat": 14.6850, "lng": 121.0863, "osmId": "node/21590462" },
+    { "name": "Commonwealth-Fairview", "lat": 14.7018, "lng": 121.0600, "osmId": "node/21590463" },
+    { "name": "Quezon Ave-Timog", "lat": 14.6350, "lng": 121.0420, "osmId": "node/21590497" },
+    { "name": "Aurora Blvd-Araneta", "lat": 14.6228, "lng": 121.0532, "osmId": "node/21590503" },
+    { "name": "Roxas Blvd-Buendia", "lat": 14.5539, "lng": 120.9842, "osmId": "node/21590515" },
+    { "name": "Taft Ave-Padre Faura", "lat": 14.5825, "lng": 120.9839, "osmId": "node/21674223" },
+    { "name": "Marcos Highway-Marikina", "lat": 14.6360, "lng": 121.0990, "osmId": "node/21674236" }
+  ]
+}

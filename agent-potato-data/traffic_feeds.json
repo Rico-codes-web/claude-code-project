@@ -1,0 +1,126 @@
+{
+  "source": "MMDA open data / OSM road classifications / Metro Manila congestion reference",
+  "queriedAt": "2026-04-30",
+  "note": "Static reference speeds for simulation. Peak-hour averages. EDSA average peak speed from MMDA 2023 annual report: 13-18 kph. Expressways based on DPWH/TRB published average speeds. Urban arterials based on MMDA volume-capacity ratio studies.",
+  "items": [
+    {
+      "name": "EDSA Taft-Ayala",
+      "lat": 14.5430,
+      "lng": 121.0150,
+      "speedKph": 14,
+      "roadClass": "primary"
+    },
+    {
+      "name": "EDSA Ayala-Ortigas",
+      "lat": 14.5680,
+      "lng": 121.0380,
+      "speedKph": 13,
+      "roadClass": "primary"
+    },
+    {
+      "name": "EDSA Ortigas-Cubao",
+      "lat": 14.6040,
+      "lng": 121.0540,
+      "speedKph": 15,
+      "roadClass": "primary"
+    },
+    {
+      "name": "EDSA Cubao-North Ave",
+      "lat": 14.6350,
+      "lng": 121.0470,
+      "speedKph": 18,
+      "roadClass": "primary"
+    },
+    {
+      "name": "C5 Libis-Pasig",
+      "lat": 14.5950,
+      "lng": 121.0760,
+      "speedKph": 22,
+      "roadClass": "primary"
+    },
+    {
+      "name": "C5 BGC-Guadalupe",
+      "lat": 14.5490,
+      "lng": 121.0510,
+      "speedKph": 20,
+      "roadClass": "primary"
+    },
+    {
+      "name": "Commonwealth Ave",
+      "lat": 14.6680,
+      "lng": 121.0580,
+      "speedKph": 35,
+      "roadClass": "primary"
+    },
+    {
+      "name": "Quezon Avenue",
+      "lat": 14.6380,
+      "lng": 121.0260,
+      "speedKph": 25,
+      "roadClass": "secondary"
+    },
+    {
+      "name": "Espana Blvd",
+      "lat": 14.6090,
+      "lng": 120.9870,
+      "speedKph": 20,
+      "roadClass": "secondary"
+    },
+    {
+      "name": "Taft Avenue",
+      "lat": 14.5700,
+      "lng": 120.9920,
+      "speedKph": 18,
+      "roadClass": "secondary"
+    },
+    {
+      "name": "Roxas Boulevard",
+      "lat": 14.5510,
+      "lng": 120.9840,
+      "speedKph": 40,
+      "roadClass": "primary"
+    },
+    {
+      "name": "Aurora Blvd",
+      "lat": 14.6120,
+      "lng": 121.0340,
+      "speedKph": 22,
+      "roadClass": "secondary"
+    },
+    {
+      "name": "Shaw Boulevard",
+      "lat": 14.5810,
+      "lng": 121.0430,
+      "speedKph": 19,
+      "roadClass": "secondary"
+    },
+    {
+      "name": "Ortigas Avenue",
+      "lat": 14.5870,
+      "lng": 121.0820,
+      "speedKph": 28,
+      "roadClass": "secondary"
+    },
+    {
+      "name": "Marcos Highway",
+      "lat": 14.6230,
+      "lng": 121.1050,
+      "speedKph": 30,
+      "roadClass": "primary"
+    },
+    {
+      "name": "SLEX South Luzon Expressway",
+      "lat": 14.4680,
+      "lng": 121.0270,
+      "speedKph": 60,
+      "roadClass": "motorway"
+    },
+    {
+      "name": "NLEX North Luzon Expressway",
+      "lat": 14.7200,
+      "lng": 120.9650,
+      "speedKph": 65,
+      "roadClass": "motorway"
+    }
+  ]
+}

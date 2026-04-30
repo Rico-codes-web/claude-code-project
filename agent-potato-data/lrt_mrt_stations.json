@@ -1,0 +1,58 @@
+{
+  "source": "OpenStreetMap Overpass API",
+  "queriedAt": "2026-04-30",
+  "lines": {
+    "lrt1": [
+      { "name": "Fernando Poe Jr.", "lat": 14.6574551, "lng": 121.0215856, "osmId": "node/7569423013" },
+      { "name": "Balintawak", "lat": 14.6573992, "lng": 121.0043728, "osmId": "node/7569423003" },
+      { "name": "Yamaha Monumento", "lat": 14.6546493, "lng": 120.9839225, "osmId": "node/7569408480" },
+      { "name": "5th Avenue", "lat": 14.6444188, "lng": 120.9835822, "osmId": "node/7569408478" },
+      { "name": "R. Papa", "lat": 14.6360105, "lng": 120.9823082, "osmId": "node/7569408477" },
+      { "name": "Abad Santos", "lat": 14.6306216, "lng": 120.9814620, "osmId": "node/7569408470" },
+      { "name": "Blumentritt", "lat": 14.6228247, "lng": 120.9829134, "osmId": "node/7569408467" },
+      { "name": "Tayuman", "lat": 14.6166695, "lng": 120.9827421, "osmId": "node/7569408466" },
+      { "name": "Bambang", "lat": 14.6111153, "lng": 120.9824826, "osmId": "node/7569408465" },
+      { "name": "Doroteo Jose", "lat": 14.6053429, "lng": 120.9820467, "osmId": "node/7569408464" },
+      { "name": "Carriedo", "lat": 14.5990277, "lng": 120.9813220, "osmId": "node/5191404480" },
+      { "name": "Central Terminal", "lat": 14.5931393, "lng": 120.9815326, "osmId": "node/7330612087" },
+      { "name": "United Nations", "lat": 14.5826319, "lng": 120.9845814, "osmId": "node/10053766604" },
+      { "name": "Pedro Gil", "lat": 14.5765892, "lng": 120.9880262, "osmId": "node/10053766605" },
+      { "name": "Quirino", "lat": 14.5702329, "lng": 120.9915904, "osmId": "node/10053766606" },
+      { "name": "Vito Cruz", "lat": 14.5634708, "lng": 120.9947705, "osmId": "node/10053766607" },
+      { "name": "Gil Puyat", "lat": 14.5540601, "lng": 120.9971788, "osmId": "node/10053766608" },
+      { "name": "Libertad", "lat": 14.5476902, "lng": 120.9986474, "osmId": "node/10053766609" },
+      { "name": "EDSA", "lat": 14.5389506, "lng": 121.0006234, "osmId": "node/5527137132" },
+      { "name": "Baclaran", "lat": 14.5339131, "lng": 120.9980502, "osmId": "node/4475471873" }
+    ],
+    "lrt2": [
+      { "name": "Recto", "lat": 14.6036445, "lng": 120.9830875, "osmId": "node/5397342978" },
+      { "name": "Legarda", "lat": 14.6008302, "lng": 120.9924860, "osmId": "node/7577067125" },
+      { "name": "Pureza", "lat": 14.6016785, "lng": 121.0050397, "osmId": "node/7577067126" },
+      { "name": "V. Mapa", "lat": 14.6040032, "lng": 121.0170484, "osmId": "node/7577067127" },
+      { "name": "J. Ruiz", "lat": 14.6105362, "lng": 121.0260677, "osmId": "node/7577067150" },
+      { "name": "Gilmore", "lat": 14.6134769, "lng": 121.0340822, "osmId": "node/7577067149" },
+      { "name": "Betty Go - Belmonte", "lat": 14.6185794, "lng": 121.0427537, "osmId": "node/7577067148" },
+      { "name": "Araneta Center - Cubao", "lat": 14.6228912, "lng": 121.0530406, "osmId": "node/8347084631" },
+      { "name": "Anonas", "lat": 14.6279667, "lng": 121.0642832, "osmId": "node/6245591605" },
+      { "name": "Katipunan", "lat": 14.6308200, "lng": 121.0723007, "osmId": "node/6245591606" },
+      { "name": "Santolan", "lat": 14.6216934, "lng": 121.0863135, "osmId": "node/5397377397" },
+      { "name": "Marikina-Pasig", "lat": 14.6204980, "lng": 121.1006104, "osmId": "node/6269361358" },
+      { "name": "Antipolo", "lat": 14.6248348, "lng": 121.1213588, "osmId": "node/6269361350" }
+    ],
+    "mrt3": [
+      { "name": "North Avenue", "lat": 14.6516697, "lng": 121.0325938, "osmId": "node/6264846311" },
+      { "name": "Quezon Avenue", "lat": 14.6424366, "lng": 121.0386254, "osmId": "node/6264846322" },
+      { "name": "GMA Kamuning", "lat": 14.6353517, "lng": 121.0433063, "osmId": "node/6264795948" },
+      { "name": "Cubao", "lat": 14.6194874, "lng": 121.0510886, "osmId": "node/11328620589" },
+      { "name": "Santolan-Annapolis", "lat": 14.6075407, "lng": 121.0565742, "osmId": "node/6264796043" },
+      { "name": "Ortigas", "lat": 14.5883930, "lng": 121.0569116, "osmId": "node/7579624739" },
+      { "name": "Shaw Boulevard", "lat": 14.5811015, "lng": 121.0534077, "osmId": "node/11328574094" },
+      { "name": "Boni", "lat": 14.5745570, "lng": 121.0487499, "osmId": "node/7579624723" },
+      { "name": "Guadalupe", "lat": 14.5676277, "lng": 121.0457597, "osmId": "node/7579624712" },
+      { "name": "Buendia", "lat": 14.5546383, "lng": 121.0346193, "osmId": "node/7579266951" },
+      { "name": "Ayala", "lat": 14.5494880, "lng": 121.0284393, "osmId": "node/7579266942" },
+      { "name": "Magallanes", "lat": 14.5423211, "lng": 121.0199264, "osmId": "node/7579266936" },
+      { "name": "Taft Avenue", "lat": 14.5376742, "lng": 121.0018811, "osmId": "node/11068112569" }
+    ]
+  }
+}
