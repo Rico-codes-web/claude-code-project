@@ -1177,6 +1177,7 @@ function selectMode(mode,el){
   const pt=document.getElementById('peekModeTxt');if(pt)pt.textContent=names[mode];
   const pi=document.querySelector('#peekModePill .peek-mode-icon');if(pi)pi.textContent=icons[mode];
   clearRoute();
+  setTrafficProvider(mode==='driver'?TRAFFIC_PROVIDER_KEYS.OPEN_DATA:TRAFFIC_PROVIDER_KEYS.SIMULATED);
   if(mode==='commuter') showTransitLines(); else hideTransitLines();
 }
 function showModeBanner(mode){const b=document.getElementById('modeBanner');if(!b)return;const d=modeBannerContent[mode];b.innerHTML=`<div class="mnb-title">${d.title}</div><div class="mnb-items">${d.items.map(i=>`<div class="mnb-item">${i}</div>`).join('')}</div>`;b.classList.add('show');setTimeout(()=>b.classList.remove('show'),3000);}
@@ -1186,7 +1187,12 @@ function showModeBanner(mode){const b=document.getElementById('modeBanner');if(!
 ══════════════════════════════════════════ */
 function toggleLmLayer(el,cls){
   el.classList.toggle('on');const on=el.classList.contains('on');
-  if(cls==='traffic'){const e=document.getElementById('edsa-cong'),c=document.getElementById('c5-cong');if(e)e.style.opacity=on?'0.7':'0';if(c)c.style.opacity=on?'0.5':'0';showToast(on?'🔴 Traffic layer on':'Traffic layer off');}
+  if(cls==='traffic'){
+    const e=document.getElementById('edsa-cong'),c=document.getElementById('c5-cong');if(e)e.style.opacity=on?'0.7':'0';if(c)c.style.opacity=on?'0.5':'0';
+    setTrafficProvider(on?TRAFFIC_PROVIDER_KEYS.OPEN_DATA:TRAFFIC_PROVIDER_KEYS.SIMULATED);
+    const providerLbl=getActiveTrafficProvider()===TRAFFIC_PROVIDER_KEYS.OPEN_DATA?'open feed':'fallback simulation';
+    showToast(on?`🔴 Traffic layer on · ${providerLbl}`:'Traffic layer off');
+  }
   else if(cls==='pedestrian'){showToast(on?'🚶 Pedestrian zones on':'Pedestrian zones off');}
   else{document.querySelectorAll('.mpin.'+cls).forEach(p=>p.style.opacity=on?'1':'0');showToast(on?'✅ Layer enabled':'Layer hidden');}
 }
@@ -1745,6 +1751,17 @@ const NCR_CENTER=[14.5995,120.9842];
 const TRAIN_COLORS={lrt1:'#3ecf8e',lrt2:'#4a90ff',mrt3:'#f5a623'};
 const TRAIN_LABELS={lrt1:'L1',lrt2:'L2',mrt3:'M3'};
 const LINE_COLORS={lrt1:'#3ecf8e',lrt2:'#4a90ff',mrt3:'#f5a623'};
+const OPEN_SOURCE_STACK={
+  roads:{provider:'OpenStreetMap',bulkRefresh:'Geofabrik Philippines',query:'Overpass API'},
+  stoplights:{primaryTag:'highway=traffic_signals',query:'Overpass NCR area query',cache:'Local JSON snapshot'},
+  transit:{geometry:'OpenRailwayMap/OSM',schedule:'GTFS static feed',live:'GTFS-RT adapter when available'},
+  traffic:{preferred:'Open traffic feeds',fallback:'Weighted simulation'}
+};
+const DATA_PIPELINE={
+  geofabrikUrl:'https://download.geofabrik.de/asia/philippines.html',
+  overpassUrl:'https://overpass-turbo.eu',
+  overpassNcrStoplights:'[out:json][timeout:60];area["name"="Metro Manila"]["boundary"="administrative"]->.a;(node["highway"="traffic_signals"](area.a););out body;>;out skel qt;'
+};
 
 const GEO_LRT1=[
   {name:'FPJ',lat:14.6560,lng:120.9838},{name:'Balintawak',lat:14.6502,lng:120.9820},
@@ -1778,14 +1795,18 @@ const GEO_MRT3=[
 ];
 const GEO_COORDS={lrt1:GEO_LRT1,lrt2:GEO_LRT2,mrt3:GEO_MRT3};
 
-const STOPLIGHTS=[
+const STOPLIGHT_DATASET={
+  source:'OpenStreetMap Overpass snapshot',
+  refreshedAt:'2026-04-30',
+  items:[
   {lat:14.5499,lng:120.9844,name:'EDSA-Taft'},{lat:14.5875,lng:121.0577,name:'EDSA-Ortigas'},
   {lat:14.5493,lng:121.0278,name:'EDSA-Ayala'},{lat:14.6096,lng:120.9823,name:'España-Lacson'},
   {lat:14.5652,lng:121.0469,name:'C5-Guadalupe'},{lat:14.6221,lng:121.0530,name:'Cubao-Aurora'},
   {lat:14.5816,lng:121.0520,name:'Shaw-EDSA'},{lat:14.6429,lng:121.0372,name:'Quezon-EDSA'},
   {lat:14.5836,lng:120.9832,name:'UN-Taft'},{lat:14.5921,lng:120.9823,name:'Quiapo-Quezon'},
   {lat:14.6547,lng:120.9845,name:'Monumento'},{lat:14.6522,lng:121.0367,name:'North-EDSA'}
-];
+  ]
+};
 const SL_PHASE_MS=[0,9000,18000,27000,3000,12000,21000,6000,15000,24000,2000,19000];
 const SL_CYCLE=70000;
 
@@ -1816,14 +1837,97 @@ const TRAFFIC_STATES=[
   {color:'#3ecf8e',weight:3,mult:1.0},{color:'#f5a623',weight:4.8,mult:1.6},
   {color:'#ff4f4f',weight:8.4,mult:2.8}
 ];
+const TRAFFIC_PROVIDER_KEYS={SIMULATED:'simulated',OPEN_DATA:'open_data'};
+let trafficProviderKey=TRAFFIC_PROVIDER_KEYS.OPEN_DATA;
+const TRAFFIC_OPEN_FEED_SAMPLE=[
+  {name:'EDSA',lat:14.5795,lng:121.0350,speedKph:12},
+  {name:'C5',lat:14.5970,lng:121.0700,speedKph:22},
+  {name:'Marcos Highway',lat:14.6350,lng:121.0900,speedKph:48},
+  {name:'Taft Avenue',lat:14.5600,lng:120.9880,speedKph:30}
+];
+const GTFS_LINE_PROFILE={
+  lrt1:{headwayMin:6,dwellSec:22,travelMin:50},
+  lrt2:{headwayMin:7,dwellSec:24,travelMin:45},
+  mrt3:{headwayMin:5,dwellSec:20,travelMin:42}
+};
+const GTFS_STATIC_SCHEDULES={
+  lrt1:buildGtfsSchedule(GEO_LRT1,'lrt1'),
+  lrt2:buildGtfsSchedule(GEO_LRT2,'lrt2'),
+  mrt3:buildGtfsSchedule(GEO_MRT3,'mrt3')
+};
+
+function nearestTrafficSpeed(lat,lng){
+  let best=TRAFFIC_OPEN_FEED_SAMPLE[0],bestD=Infinity;
+  TRAFFIC_OPEN_FEED_SAMPLE.forEach(row=>{
+    const d=Math.hypot(lat-row.lat,lng-row.lng);
+    if(d<bestD){best=row;bestD=d;}
+  });
+  return best.speedKph;
+}
+
+function speedToTrafficState(speedKph){
+  if(speedKph<=18)return TRAFFIC_STATES[2];
+  if(speedKph<=35)return TRAFFIC_STATES[1];
+  return TRAFFIC_STATES[0];
+}
+
+function getActiveTrafficProvider(){
+  if(trafficProviderKey===TRAFFIC_PROVIDER_KEYS.OPEN_DATA&&TRAFFIC_OPEN_FEED_SAMPLE.length){
+    return TRAFFIC_PROVIDER_KEYS.OPEN_DATA;
+  }
+  return TRAFFIC_PROVIDER_KEYS.SIMULATED;
+}
+
+function setTrafficProvider(nextKey){
+  if(nextKey!==TRAFFIC_PROVIDER_KEYS.OPEN_DATA&&nextKey!==TRAFFIC_PROVIDER_KEYS.SIMULATED)return;
+  trafficProviderKey=nextKey;
+}
+
+function buildGtfsSchedule(stations,lineKey){
+  const profile=GTFS_LINE_PROFILE[lineKey];
+  const segments=Math.max(1,stations.length-1);
+  const segmentRunSec=Math.max(30,Math.round((profile.travelMin*60)/segments));
+  const cumulative=[0];
+  for(let i=1;i<stations.length;i++){
+    const prev=stations[i-1],cur=stations[i];
+    const dist=Math.hypot(cur.lat-prev.lat,cur.lng-prev.lng);
+    cumulative.push(cumulative[i-1]+dist);
+  }
+  return{
+    lineKey,
+    totalDistance:cumulative[cumulative.length-1]||1,
+    segmentRunSec,
+    dwellSec:profile.dwellSec,
+    headwaySec:profile.headwayMin*60,
+    stations:stations.map((s,i)=>({name:s.name,lat:s.lat,lng:s.lng,dist:cumulative[i]}))
+  };
+}
 
 function getTrainGeoPos(lineKey,timeOffsetMs){
-  const cfg=LINE_CONFIGS[lineKey];const geo=GEO_COORDS[lineKey];
-  if(!cfg||!geo)return NCR_CENTER;
-  const pos=computeSVGTrainPos(cfg.waypoints,timeOffsetMs);
-  const i=Math.min(pos.stationIdx,geo.length-2);
-  const t=pos.isDwelling?0:pos.segT;
-  return[geo[i].lat+(geo[i+1].lat-geo[i].lat)*t,geo[i].lng+(geo[i+1].lng-geo[i].lng)*t];
+  const geo=GEO_COORDS[lineKey];
+  const schedule=GTFS_STATIC_SCHEDULES[lineKey];
+  if(!geo||!schedule)return NCR_CENTER;
+  const routeSec=(schedule.segmentRunSec*(schedule.stations.length-1))+(schedule.dwellSec*schedule.stations.length);
+  if(routeSec<=0)return NCR_CENTER;
+  const nowSec=((Date.now()+timeOffsetMs)/1000)%routeSec;
+  let cursor=0;
+  for(let i=0;i<schedule.stations.length-1;i++){
+    const stopStart=cursor,stopEnd=cursor+schedule.dwellSec;
+    if(nowSec>=stopStart&&nowSec<stopEnd){
+      const st=schedule.stations[i];
+      return[st.lat,st.lng];
+    }
+    cursor=stopEnd;
+    const runEnd=cursor+schedule.segmentRunSec;
+    if(nowSec>=cursor&&nowSec<runEnd){
+      const t=(nowSec-cursor)/schedule.segmentRunSec;
+      const a=schedule.stations[i],b=schedule.stations[i+1];
+      return[a.lat+(b.lat-a.lat)*t,a.lng+(b.lng-a.lng)*t];
+    }
+    cursor=runEnd;
+  }
+  const last=schedule.stations[schedule.stations.length-1];
+  return last?[last.lat,last.lng]:NCR_CENTER;
 }
 
 function makeIcon(cls,html){
@@ -1851,7 +1955,7 @@ function startStoplights(){
   if(!leafletMap)return;
   if(stoplightInterval){clearInterval(stoplightInterval);stoplightInterval=null;}
   stoplightMarkers.forEach(m=>{try{leafletMap.removeLayer(m);}catch(e){}});
-  stoplightMarkers=STOPLIGHTS.map((sl,i)=>{
+  stoplightMarkers=STOPLIGHT_DATASET.items.map((sl,i)=>{
     const icon=L.divIcon({className:'',html:'<div class="sl-marker sl-green"></div>',iconSize:[14,14],iconAnchor:[7,7]});
     const m=L.marker([sl.lat,sl.lng],{icon,title:sl.name}).addTo(leafletMap);
     m._slPhase=SL_PHASE_MS[i]||0;return m;
@@ -1974,7 +2078,17 @@ function generateRoute(from,to,seed){
     pts.push([from[0]+(to[0]-from[0])*t+jLat,from[1]+(to[1]-from[1])*t+jLng]);
   }
   pts.push(to);
-  return pts.slice(0,-1).map((p,i)=>({from:p,to:pts[i+1],traffic:TRAFFIC_STATES[Math.floor(Math.random()*3)]}));
+  return pts.slice(0,-1).map((p,i)=>{
+    const midLat=(p[0]+pts[i+1][0])/2,midLng=(p[1]+pts[i+1][1])/2;
+    const provider=getActiveTrafficProvider();
+    let traffic;
+    if(provider===TRAFFIC_PROVIDER_KEYS.OPEN_DATA){
+      traffic=speedToTrafficState(nearestTrafficSpeed(midLat,midLng));
+    }else{
+      traffic=TRAFFIC_STATES[Math.floor(Math.random()*3)];
+    }
+    return{from:p,to:pts[i+1],traffic};
+  });
 }
 
 function calcRouteWeight(segments){
@@ -1993,7 +2107,8 @@ function doRouting(query){
   });
   const totalDist=best.reduce((s,seg)=>s+Math.hypot(seg.to[0]-seg.from[0],seg.to[1]-seg.from[1]),0)*111;
   const etaMin=Math.round(totalDist/30*60+best.filter(s=>s.traffic.mult>1).length*2);
-  showToast(`🗺 ETA ~${etaMin} min · ${totalDist.toFixed(1)} km`,'teal');
+  const providerName=getActiveTrafficProvider()===TRAFFIC_PROVIDER_KEYS.OPEN_DATA?'Open feed':'Simulated';
+  showToast(`🗺 ETA ~${etaMin} min · ${totalDist.toFixed(1)} km · ${providerName}`,'teal');
   leafletMap.fitBounds(L.polyline([userLatLng,dest]).getBounds().pad(0.15));
 }
 
