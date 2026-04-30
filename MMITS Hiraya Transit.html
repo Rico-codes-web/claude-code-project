@@ -1175,6 +1175,15 @@ const modeBannerContent={
   commuter:{title:'🚌 Commuter Mode Activated',items:['LRT/MRT live tracker enabled','Off-peak travel bonus active','Smart route suggestions on','Station crowd levels shown']},
   custom:{title:'⚙️ Custom Mode',items:['Choose which layers to display','Mix driver and commuter features','Set your alert preferences','Saved to your profile']}
 };
+function showTrainDots(){
+  if(!leafletMap)return;
+  Object.values(trainDotMarkers).forEach(m=>{try{if(!leafletMap.hasLayer(m))m.addTo(leafletMap);}catch(e){}});
+}
+function hideTrainDots(){
+  if(!leafletMap)return;
+  Object.values(trainDotMarkers).forEach(m=>{try{leafletMap.removeLayer(m);}catch(e){}});
+}
+
 function selectMode(mode,el){
   document.querySelectorAll('.seg-pill').forEach(p=>p.classList.remove('active'));
   el.classList.add('active');currentMode=mode;
@@ -1186,7 +1195,22 @@ function selectMode(mode,el){
   const pi=document.querySelector('#peekModePill .peek-mode-icon');if(pi)pi.textContent=icons[mode];
   clearRoute();
   setTrafficProvider(mode==='driver'?TRAFFIC_PROVIDER_KEYS.OPEN_DATA:TRAFFIC_PROVIDER_KEYS.SIMULATED);
-  if(mode==='commuter') showTransitLines(); else hideTransitLines();
+  if(mode==='commuter'){
+    showTransitLines();
+    showTrainDots();
+    stopCongestionUpdates();
+    stopStoplights();
+  }else if(mode==='driver'){
+    hideTransitLines();
+    hideTrainDots();
+    startCongestionUpdates();
+    startStoplights();
+  }else{
+    showTransitLines();
+    showTrainDots();
+    startCongestionUpdates();
+    startStoplights();
+  }
 }
 function showModeBanner(mode){const b=document.getElementById('modeBanner');if(!b)return;const d=modeBannerContent[mode];b.innerHTML=`<div class="mnb-title">${d.title}</div><div class="mnb-items">${d.items.map(i=>`<div class="mnb-item">${i}</div>`).join('')}</div>`;b.classList.add('show');setTimeout(()=>b.classList.remove('show'),3000);}
 
@@ -1830,6 +1854,11 @@ const GEO_MRT3=[
   {name:'Taft Ave',lat:14.5377,lng:121.0019}
 ];
 const GEO_COORDS={lrt1:GEO_LRT1,lrt2:GEO_LRT2,mrt3:GEO_MRT3};
+/* Track waypoints from rail_geometries.json — more points than station stops for smoother animation */
+const TRACK_LRT1=[[14.5339,120.9971],[14.5390,120.9900],[14.5460,120.9832],[14.5490,120.9835],[14.5531,120.9843],[14.5555,120.9847],[14.5605,120.9854],[14.5620,120.9862],[14.5632,120.9879],[14.5645,120.9888],[14.5661,120.9899],[14.5678,120.9905],[14.5695,120.9912],[14.5714,120.9919],[14.5734,120.9927],[14.5750,120.9933],[14.5767,120.9940],[14.5784,120.9947],[14.5800,120.9955],[14.5816,120.9963],[14.5833,120.9978],[14.5850,120.9990],[14.5870,121.0005],[14.5880,121.0025],[14.5896,121.0070],[14.5902,121.0083],[14.5910,121.0095],[14.5914,121.0107],[14.5920,121.0118],[14.5928,121.0124],[14.5940,121.0132],[14.5950,121.0137],[14.5960,121.0141],[14.5968,121.0145],[14.5975,121.0148],[14.5984,121.0165],[14.5995,121.0192],[14.6005,121.0175],[14.6016,121.0154]];
+const TRACK_LRT2=[[14.6036,120.9831],[14.6042,120.9855],[14.6054,120.9900],[14.6061,120.9930],[14.6072,120.9960],[14.6080,120.9980],[14.6090,121.0000],[14.6095,121.0030],[14.6100,121.0063],[14.6100,121.0090],[14.6099,121.0118],[14.6092,121.0147],[14.6083,121.0176],[14.6079,121.0207],[14.6074,121.0239],[14.6066,121.0274],[14.6055,121.0310],[14.6045,121.0350],[14.6034,121.0388],[14.6026,121.0420],[14.6018,121.0453],[14.6008,121.0485],[14.5996,121.0516],[14.5980,121.0575],[14.5961,121.0640]];
+const TRACK_MRT3=[[14.5376,121.0019],[14.5430,121.0060],[14.5526,121.0193],[14.5590,121.0192],[14.5640,121.0192],[14.5708,121.0192],[14.5760,121.0380],[14.5810,121.0430],[14.5860,121.0450],[14.5873,121.0568],[14.5920,121.0534],[14.6010,121.0534],[14.6060,121.0534],[14.6120,121.0532],[14.6228,121.0532],[14.6300,121.0460],[14.6380,121.0261],[14.6430,121.0340],[14.6437,121.0354],[14.6523,121.0322]];
+const TRACK_COORDS={lrt1:TRACK_LRT1,lrt2:TRACK_LRT2,mrt3:TRACK_MRT3};
 
 const STOPLIGHT_DATASET={
   source:'OpenStreetMap Overpass API',
@@ -1915,24 +1944,25 @@ const TRAFFIC_OPEN_FEED_SAMPLE=[
   {name:'SLEX',lat:14.4680,lng:121.0270,speedKph:60},
   {name:'NLEX',lat:14.7200,lng:120.9650,speedKph:65}
 ];
+/* ROAD_CONGESTION_DATA — coords from OpenStreetMap Overpass API (2026-04-30) */
 const ROAD_CONGESTION_DATA=[
-  {name:'EDSA Taft-Ayala',roadClass:'primary',speedKph:14,coords:[[14.5376,121.0019],[14.5390,121.0030],[14.5415,121.0055],[14.5440,121.0080],[14.5461,121.0096]]},
-  {name:'EDSA Ayala-Ortigas',roadClass:'primary',speedKph:13,coords:[[14.5461,121.0096],[14.5490,121.0130],[14.5530,121.0175],[14.5580,121.0230],[14.5680,121.0380]]},
-  {name:'EDSA Ortigas-Cubao',roadClass:'primary',speedKph:15,coords:[[14.5680,121.0380],[14.5760,121.0430],[14.5830,121.0470],[14.5920,121.0510],[14.6040,121.0540]]},
-  {name:'EDSA Cubao-North Ave',roadClass:'primary',speedKph:18,coords:[[14.6040,121.0540],[14.6100,121.0530],[14.6180,121.0510],[14.6260,121.0490],[14.6350,121.0470]]},
-  {name:'C5 Libis-Pasig',roadClass:'primary',speedKph:22,coords:[[14.5950,121.0760],[14.5930,121.0780],[14.5900,121.0800],[14.5870,121.0820],[14.5840,121.0840]]},
-  {name:'C5 BGC-Guadalupe',roadClass:'primary',speedKph:20,coords:[[14.5490,121.0510],[14.5510,121.0530],[14.5530,121.0550],[14.5560,121.0560],[14.5600,121.0570]]},
-  {name:'Commonwealth Ave',roadClass:'primary',speedKph:35,coords:[[14.6680,121.0580],[14.6900,121.0630],[14.7100,121.0680],[14.7300,121.0720],[14.7500,121.0760]]},
-  {name:'Quezon Avenue',roadClass:'primary',speedKph:25,coords:[[14.6380,121.0260],[14.6390,121.0280],[14.6400,121.0290],[14.6410,121.0300],[14.6420,121.0310]]},
-  {name:'Espana Blvd',roadClass:'secondary',speedKph:20,coords:[[14.6090,120.9870],[14.6080,120.9900],[14.6070,120.9940],[14.6060,120.9980],[14.6050,121.0020]]},
-  {name:'Taft Avenue',roadClass:'secondary',speedKph:18,coords:[[14.5700,120.9920],[14.5680,120.9925],[14.5660,120.9928],[14.5640,120.9930],[14.5620,120.9932]]},
-  {name:'Roxas Boulevard',roadClass:'primary',speedKph:40,coords:[[14.5510,120.9840],[14.5540,120.9820],[14.5570,120.9810],[14.5600,120.9800],[14.5630,120.9790]]},
-  {name:'Aurora Blvd',roadClass:'secondary',speedKph:22,coords:[[14.6120,121.0340],[14.6110,121.0380],[14.6100,121.0420],[14.6090,121.0460],[14.6080,121.0500]]},
-  {name:'Shaw Boulevard',roadClass:'secondary',speedKph:19,coords:[[14.5810,121.0430],[14.5810,121.0460],[14.5810,121.0490],[14.5810,121.0520],[14.5810,121.0550]]},
-  {name:'Ortigas Avenue',roadClass:'secondary',speedKph:28,coords:[[14.5870,121.0820],[14.5870,121.0870],[14.5870,121.0920],[14.5870,121.0970],[14.5870,121.1020]]},
-  {name:'Marcos Highway',roadClass:'primary',speedKph:30,coords:[[14.6230,121.1050],[14.6280,121.1100],[14.6330,121.1150],[14.6380,121.1200],[14.6430,121.1250]]},
-  {name:'SLEX',roadClass:'motorway',speedKph:60,coords:[[14.4680,121.0270],[14.4500,121.0200],[14.4300,121.0100],[14.4100,121.0000],[14.3900,120.9900]]},
-  {name:'NLEX',roadClass:'motorway',speedKph:65,coords:[[14.7200,120.9650],[14.7400,120.9500],[14.7600,120.9350],[14.7800,120.9200],[14.8000,120.9050]]}
+  {name:'EDSA Taft-Ayala',roadClass:'primary',speedKph:14,coords:[[14.5369,120.9924],[14.5377,121.0005],[14.5384,121.0066],[14.5391,121.0137],[14.5397,121.0148],[14.5416,121.0190],[14.5425,121.0203],[14.5450,121.0234],[14.5468,121.0250],[14.5488,121.0279],[14.5507,121.0298],[14.5516,121.0312],[14.5534,121.0332],[14.5549,121.0347],[14.5578,121.0386]]},
+  {name:'EDSA Ayala-Ortigas',roadClass:'primary',speedKph:13,coords:[[14.5578,121.0386],[14.5671,121.0454],[14.5679,121.0457],[14.5707,121.0467],[14.5724,121.0471],[14.5779,121.0514],[14.5809,121.0535],[14.5826,121.0548],[14.5840,121.0553],[14.5894,121.0571],[14.5914,121.0577],[14.5953,121.0593]]},
+  {name:'EDSA Ortigas-Cubao',roadClass:'primary',speedKph:15,coords:[[14.5953,121.0593],[14.6017,121.0591],[14.6063,121.0571],[14.6092,121.0557],[14.6125,121.0542],[14.6162,121.0525],[14.6169,121.0522]]},
+  {name:'EDSA Cubao-North Ave',roadClass:'primary',speedKph:18,coords:[[14.6169,121.0522],[14.6189,121.0514],[14.6201,121.0509],[14.6218,121.0501],[14.6240,121.0491],[14.6274,121.0473],[14.6286,121.0470],[14.6304,121.0458],[14.6317,121.0456],[14.6331,121.0445],[14.6336,121.0446],[14.6369,121.0424],[14.6419,121.0391],[14.6439,121.0379],[14.6524,121.0324]]},
+  {name:'C5 Libis-Pasig',roadClass:'primary',speedKph:22,coords:[[14.5594,121.0654],[14.5610,121.0664],[14.5616,121.0675],[14.5697,121.0710],[14.5896,121.0766],[14.5937,121.0797],[14.6131,121.0752],[14.6155,121.0740],[14.6214,121.0807],[14.6232,121.0812],[14.6261,121.0815],[14.6266,121.0818]]},
+  {name:'C5 BGC-Guadalupe',roadClass:'primary',speedKph:20,coords:[[14.5022,121.0198],[14.5032,121.0208],[14.5054,121.0236],[14.5069,121.0260],[14.5099,121.0305],[14.5110,121.0320],[14.5147,121.0344],[14.5158,121.0378],[14.5167,121.0482],[14.5195,121.0526],[14.5232,121.0548],[14.5282,121.0568],[14.5328,121.0580],[14.5376,121.0572]]},
+  {name:'Commonwealth Ave',roadClass:'primary',speedKph:35,coords:[[14.6522,121.0518],[14.6537,121.0527],[14.6573,121.0587],[14.6607,121.0638],[14.6632,121.0669],[14.6656,121.0705],[14.6690,121.0760],[14.6726,121.0803],[14.6755,121.0815],[14.6800,121.0843],[14.6830,121.0851],[14.6867,121.0871],[14.6891,121.0874],[14.6928,121.0872],[14.6995,121.0874],[14.7023,121.0862],[14.7050,121.0783],[14.7064,121.0655],[14.7085,121.0626],[14.7105,121.0612],[14.7151,121.0572],[14.7210,121.0525],[14.7254,121.0486],[14.7311,121.0474]]},
+  {name:'Quezon Avenue',roadClass:'primary',speedKph:25,coords:[[14.6200,121.0043],[14.6212,121.0056],[14.6218,121.0061],[14.6229,121.0074],[14.6241,121.0088],[14.6252,121.0098],[14.6260,121.0108],[14.6275,121.0125],[14.6284,121.0132],[14.6296,121.0149],[14.6305,121.0158],[14.6317,121.0171],[14.6327,121.0186],[14.6332,121.0194],[14.6336,121.0202],[14.6343,121.0217],[14.6352,121.0231],[14.6359,121.0243],[14.6368,121.0257],[14.6373,121.0265],[14.6382,121.0282],[14.6389,121.0291],[14.6396,121.0303],[14.6408,121.0318],[14.6414,121.0328],[14.6424,121.0349],[14.6438,121.0372],[14.6447,121.0379],[14.6454,121.0397],[14.6463,121.0413],[14.6474,121.0429],[14.6485,121.0446],[14.6495,121.0458],[14.6506,121.0468]]},
+  {name:'Espana Blvd',roadClass:'secondary',speedKph:20,coords:[[14.6054,120.9879],[14.6057,120.9883],[14.6064,120.9892],[14.6067,120.9894],[14.6085,120.9913],[14.6093,120.9924],[14.6096,120.9928],[14.6101,120.9932],[14.6105,120.9937],[14.6110,120.9943],[14.6113,120.9945],[14.6115,120.9947],[14.6118,120.9950],[14.6120,120.9954],[14.6124,120.9959],[14.6129,120.9965],[14.6134,120.9970],[14.6139,120.9975],[14.6144,120.9981],[14.6150,120.9985],[14.6155,120.9992],[14.6160,120.9996],[14.6163,121.0001],[14.6167,121.0006],[14.6174,121.0014],[14.6176,121.0017]]},
+  {name:'Taft Avenue',roadClass:'secondary',speedKph:18,coords:[[14.5324,120.9969],[14.5348,120.9988],[14.5364,120.9999],[14.5398,121.0004],[14.5419,120.9999],[14.5430,120.9997],[14.5452,120.9992],[14.5467,120.9989],[14.5483,120.9986],[14.5505,120.9979],[14.5526,120.9975],[14.5538,120.9973],[14.5554,120.9969],[14.5588,120.9960],[14.5602,120.9957],[14.5626,120.9951],[14.5644,120.9944],[14.5658,120.9938],[14.5675,120.9930],[14.5699,120.9918]]},
+  {name:'Roxas Boulevard',roadClass:'primary',speedKph:40,coords:[[14.5181,120.9935],[14.5206,120.9937],[14.5236,120.9936],[14.5254,120.9936],[14.5267,120.9936],[14.5275,120.9935],[14.5298,120.9933],[14.5309,120.9931],[14.5336,120.9930],[14.5352,120.9926],[14.5368,120.9926],[14.5380,120.9925],[14.5395,120.9923],[14.5411,120.9921],[14.5428,120.9918],[14.5455,120.9912],[14.5464,120.9910],[14.5476,120.9907],[14.5507,120.9900],[14.5535,120.9892]]},
+  {name:'Aurora Blvd',roadClass:'secondary',speedKph:22,coords:[[14.6057,121.0186],[14.6086,121.0217],[14.6101,121.0245],[14.6117,121.0297],[14.6139,121.0347],[14.6167,121.0397],[14.6191,121.0435],[14.6210,121.0489],[14.6219,121.0509],[14.6238,121.0550],[14.6248,121.0572],[14.6264,121.0601],[14.6276,121.0630],[14.6293,121.0693],[14.6303,121.0711],[14.6313,121.0735]]},
+  {name:'Shaw Boulevard',roadClass:'secondary',speedKph:19,coords:[[14.5810,121.0430],[14.5808,121.0470],[14.5806,121.0510],[14.5804,121.0550],[14.5802,121.0590],[14.5798,121.0630],[14.5792,121.0660]]},
+  {name:'Ortigas Avenue',roadClass:'secondary',speedKph:28,coords:[[14.5873,121.0568],[14.5876,121.0600],[14.5879,121.0640],[14.5882,121.0680],[14.5884,121.0720],[14.5887,121.0760],[14.5890,121.0800],[14.5894,121.0840]]},
+  {name:'Marcos Highway',roadClass:'primary',speedKph:30,coords:[[14.5913,121.0862],[14.5971,121.0887],[14.6065,121.0922],[14.6095,121.0920],[14.6129,121.0921],[14.6185,121.0910],[14.6188,121.0925],[14.6199,121.0977],[14.6206,121.1018],[14.6215,121.1050],[14.6230,121.1132],[14.6232,121.1133],[14.6239,121.1177]]},
+  {name:'SLEX',roadClass:'motorway',speedKph:60,coords:[[14.3657,121.0437],[14.3712,121.0424],[14.3806,121.0408],[14.3873,121.0398],[14.3908,121.0393],[14.3982,121.0390],[14.4047,121.0401],[14.4091,121.0420],[14.4112,121.0434],[14.4154,121.0454],[14.4203,121.0455],[14.4232,121.0455],[14.4295,121.0454],[14.4339,121.0455],[14.4385,121.0455],[14.4459,121.0454],[14.4518,121.0454],[14.4556,121.0454],[14.4629,121.0452],[14.4723,121.0453],[14.4852,121.0451],[14.5064,121.0353],[14.5173,121.0294],[14.5186,121.0286],[14.5192,121.0280],[14.5202,121.0276],[14.5226,121.0263]]},
+  {name:'NLEX',roadClass:'motorway',speedKph:65,coords:[[14.6938,121.0002],[14.6951,120.9998],[14.6972,120.9989],[14.7013,120.9968],[14.7039,120.9952],[14.7066,120.9939],[14.7104,120.9919],[14.7131,120.9904],[14.7157,120.9888],[14.7229,120.9850],[14.7242,120.9842],[14.7304,120.9810],[14.7352,120.9785],[14.7380,120.9768],[14.7427,120.9742],[14.7451,120.9731],[14.7476,120.9716],[14.7508,120.9700],[14.7546,120.9678],[14.7589,120.9657],[14.7622,120.9639],[14.7665,120.9616],[14.7709,120.9590],[14.7729,120.9579],[14.7787,120.9551],[14.7864,120.9509],[14.7910,120.9482],[14.7956,120.9457],[14.7987,120.9442],[14.8044,120.9418]]}
 ];
 
 const GTFS_LINE_PROFILE={
@@ -2029,30 +2059,52 @@ function buildGtfsSchedule(stations,lineKey){
   };
 }
 
+function interpolatePolyline(pts,t){
+  if(!pts||pts.length<2)return null;
+  let total=0;
+  const lens=[];
+  for(let i=0;i<pts.length-1;i++){
+    const l=Math.hypot(pts[i+1][0]-pts[i][0],pts[i+1][1]-pts[i][1]);
+    lens.push(l);total+=l;
+  }
+  if(total===0)return pts[0];
+  let target=Math.min(1,Math.max(0,t))*total,cum=0;
+  for(let i=0;i<lens.length;i++){
+    if(cum+lens[i]>=target){
+      const f=lens[i]>0?(target-cum)/lens[i]:0;
+      return[pts[i][0]+(pts[i+1][0]-pts[i][0])*f,pts[i][1]+(pts[i+1][1]-pts[i][1])*f];
+    }
+    cum+=lens[i];
+  }
+  return pts[pts.length-1];
+}
+
 function getTrainGeoPos(lineKey,timeOffsetMs){
   const geo=GEO_COORDS[lineKey];
   const schedule=GTFS_STATIC_SCHEDULES[lineKey];
   if(!geo||!schedule)return NCR_CENTER;
-  const routeSec=(schedule.segmentRunSec*(schedule.stations.length-1))+(schedule.dwellSec*schedule.stations.length);
+  const n=schedule.stations.length;
+  const routeSec=(schedule.segmentRunSec*(n-1))+(schedule.dwellSec*n);
   if(routeSec<=0)return NCR_CENTER;
   const nowSec=((Date.now()+timeOffsetMs)/1000)%routeSec;
+  const track=TRACK_COORDS[lineKey];
   let cursor=0;
-  for(let i=0;i<schedule.stations.length-1;i++){
-    const stopStart=cursor,stopEnd=cursor+schedule.dwellSec;
-    if(nowSec>=stopStart&&nowSec<stopEnd){
-      const st=schedule.stations[i];
-      return[st.lat,st.lng];
+  for(let i=0;i<n-1;i++){
+    const stopEnd=cursor+schedule.dwellSec;
+    if(nowSec>=cursor&&nowSec<stopEnd){
+      const pt=interpolatePolyline(track,i/(n-1));
+      return pt||[schedule.stations[i].lat,schedule.stations[i].lng];
     }
     cursor=stopEnd;
     const runEnd=cursor+schedule.segmentRunSec;
     if(nowSec>=cursor&&nowSec<runEnd){
       const t=(nowSec-cursor)/schedule.segmentRunSec;
-      const a=schedule.stations[i],b=schedule.stations[i+1];
-      return[a.lat+(b.lat-a.lat)*t,a.lng+(b.lng-a.lng)*t];
+      const pt=interpolatePolyline(track,(i+t)/(n-1));
+      return pt||[schedule.stations[i].lat+(schedule.stations[i+1].lat-schedule.stations[i].lat)*t,schedule.stations[i].lng+(schedule.stations[i+1].lng-schedule.stations[i].lng)*t];
     }
     cursor=runEnd;
   }
-  const last=schedule.stations[schedule.stations.length-1];
+  const last=schedule.stations[n-1];
   return last?[last.lat,last.lng]:NCR_CENTER;
 }
 
@@ -2328,6 +2380,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   try{
     initLeafletMap();
     initTrainMarkers();
+    if(currentMode==='driver')hideTrainDots();
   }catch(e){
     const fb=document.getElementById('map-fallback');if(fb)fb.classList.remove('hidden');
   }

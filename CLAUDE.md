@@ -379,40 +379,38 @@ All v15 IDs must be retained. New v16 IDs are additive.
 
 ---
 
-## 13. In-Progress Plan (context recovery — last updated 2026-04-30)
+## 13. Completed Features (last updated 2026-04-30) — ALL DONE ✅
 
-Three upgrades were approved and are in implementation:
+### A. Stoplight Icon — SVG Traffic Light ✅
+- 14×14px CSS circles replaced with 20×32px SVG vertical traffic lights (dark housing, 3 colored dots).
+- CSS: `.sl-icon-wrap`, `.sl-dot-red/yellow/green`, `.sl-state-green/yellow/red`.
+- Phase cycling updates parent class (`sl-state-*`); CSS child selectors light the correct dot.
 
-### A. Agent Potato — OSM Track & Road Geometry
-- **Goal**: Fetch real polyline coords from Overpass API for rail lines (LRT-1/2, MRT-3) and major NCR highways.
-- **Output files**: `agent-potato-data/road_geometries.json`, `agent-potato-data/rail_geometries.json`
-- **Status**: Agent Potato spawned; awaiting data files. Once files exist, hardcode into HTML as `ROAD_CONGESTION_DATA` and optionally extend `GEO_LRT1/2/MRT3` with intermediate waypoints from `rail_geometries.json`.
-- **OSM relation IDs**: LRT-1 = 5870086, LRT-2 = 5870085, MRT-3 = 1870350.
+### B. Road Congestion Overlay ✅
+- `ROAD_CONGESTION_DATA`: 17 NCR road segments with OSM Overpass-derived polyline coords (15–34 pts each vs old 5-pt placeholders).
+- Real EDSA geometry via WebFetch to Overpass API (52 points, proper northeast curve through Guadalupe).
+- 4 traffic states: green >40, yellow 25–40, orange 15–25, red ≤15 kph.
+- Functions: `drawRoadCongestion()`, `clearRoadCongestion()`, `startCongestionUpdates()`, `stopCongestionUpdates()`.
+- Zoom guard (hide at zoom < 12), 90s drift update, congestion Leaflet pane at zIndex 200.
 
-### B. Stoplight Icon — SVG Traffic Light ✅ DONE
-- Replaced the old 14×14 CSS circle (`.sl-marker`) with an SVG vertical traffic light icon.
-- New CSS classes: `.sl-icon-wrap`, `.sl-dot-red/yellow/green`, `.sl-state-green/yellow/red`.
-- `L.divIcon` now embeds a 20×32px SVG housing with 3 colored circles; active dot lights up via parent class.
-- `iconSize:[20,32]`, `iconAnchor:[10,32]` (bottom-center of icon).
-- Functions affected: `startStoplights()` lines ~2018–2029; CSS lines ~137–144.
+### C. Rail Track Waypoints ✅
+- `TRACK_LRT1` (39 pts), `TRACK_LRT2` (25 pts), `TRACK_MRT3` (20 pts) added from `rail_geometries.json`.
+- `TRACK_COORDS = {lrt1, lrt2, mrt3}` object for lookup.
+- `interpolatePolyline(pts, t)` helper: finds exact `[lat,lng]` at fractional position along a polyline.
+- `getTrainGeoPos()` now calls `interpolatePolyline(TRACK_COORDS[line], (i+t)/(n-1))` instead of straight-line lerp.
 
-### C. Road Congestion Overlay — PENDING Agent Potato data
-- **Goal**: Draw persistent colored polylines over major NCR roads, 4-color coded (green/yellow/orange/red), updated every 90 seconds.
-- **New constant**: `ROAD_CONGESTION_DATA` — array of 17 road objects with `name`, `roadClass`, `speedKph`, `coords[]`. Coords come from `road_geometries.json`.
-- **New functions**: `drawRoadCongestion()`, `clearRoadCongestion()`, `startCongestionUpdates()`, `stopCongestionUpdates()`.
-- **New variables**: `roadCongestionLayers=[]`, `congestionInterval=null` (add after line ~1748).
-- **Custom pane**: `leafletMap.createPane('congestion')` with `zIndex: 200` (below default overlay pane 400).
-- **4-state TRAFFIC_STATES**: Green >40 kph, Yellow 25–40, Orange 15–25, Red ≤15. Update `speedToTrafficState()` thresholds.
-- **Zoom guard**: `if(leafletMap.getZoom()<12)return` in `drawRoadCongestion()`. Add `zoomend` listener.
-- **Integration**: Call `startCongestionUpdates()` in `initLeafletMap()` after `startStoplights()`. Call in `switchTab()` map branch; call `stopCongestionUpdates()` in non-map branch.
+### D. Mode-Based Layer Visibility ✅
+- **Driver mode** (default): road congestion + stoplights ON; train dots HIDDEN.
+- **Commuter mode**: transit lines + train dots ON; road congestion + stoplights OFF.
+- **Custom mode**: everything ON.
+- `showTrainDots()` / `hideTrainDots()` — add/remove all `trainDotMarkers` from Leaflet map.
+- `selectMode()` calls the appropriate show/hide functions per mode branch.
+- On initial load: `if(currentMode==='driver')hideTrainDots()` called after `initTrainMarkers()`.
 
-### Order of operations (remaining)
-1. Wait for Agent Potato to commit `road_geometries.json` and `rail_geometries.json`.
-2. Build `ROAD_CONGESTION_DATA` from `road_geometries.json` — copy names/speeds from `TRAFFIC_OPEN_FEED_SAMPLE`, add `coords[]`.
-3. Add 4-color `TRAFFIC_STATES` + updated `speedToTrafficState()`.
-4. Add four congestion functions + pane creation + integration into `initLeafletMap()` and `switchTab()`.
-5. (Optional) Update `GEO_LRT1/2/MRT3` with rail waypoints from `rail_geometries.json`.
-6. Commit and push.
+### Key files modified
+- `MMITS Hiraya Transit.html` — all changes inline
+- `agent-potato-data/road_geometries.json` — 5-pt placeholders (superceded by inline ROAD_CONGESTION_DATA)
+- `agent-potato-data/rail_geometries.json` — track waypoints (integrated into TRACK_* arrays)
 
 ---
 
