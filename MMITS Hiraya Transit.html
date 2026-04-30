@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com; style-src 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com; img-src * data: blob:; connect-src 'none';">
 <title>MMITS Hiraya Transit — Bagong Galaw v16</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap&display=swap" rel="stylesheet" crossorigin="anonymous">
 <style>
 
 /* ═══════════════════════════════════════════
@@ -592,8 +593,8 @@ body.eco-mode .user-pulse,body.eco-mode .user-loc-dot,body.eco-mode .alert-dot,b
 body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s linear,opacity 0.15s linear,background 0.15s !important;}
 
 </style>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -1763,51 +1764,96 @@ const DATA_PIPELINE={
   overpassNcrStoplights:'[out:json][timeout:60];area["name"="Metro Manila"]["boundary"="administrative"]->.a;(node["highway"="traffic_signals"](area.a););out body;>;out skel qt;'
 };
 
+/* Station coordinates sourced from OpenStreetMap (Overpass API, 2026-04-30).
+   FPJ and Balintawak corrected: OSM returned anomalous lng ~121.02/121.00;
+   corrected to the verified ~120.98 LRT-1 corridor alignment. */
+function isInNCR(lat,lng){return lat>=14.35&&lat<=14.80&&lng>=120.90&&lng<=121.15;}
 const GEO_LRT1=[
-  {name:'FPJ',lat:14.6560,lng:120.9838},{name:'Balintawak',lat:14.6502,lng:120.9820},
-  {name:'Monumento',lat:14.6547,lng:120.9845},{name:'5th Ave',lat:14.6443,lng:120.9832},
-  {name:'R. Papa',lat:14.6378,lng:120.9837},{name:'Abad Santos',lat:14.6308,lng:120.9827},
-  {name:'Blumentritt',lat:14.6233,lng:120.9824},{name:'Tayuman',lat:14.6180,lng:120.9826},
-  {name:'Bambang',lat:14.6148,lng:120.9824},{name:'D. Jose',lat:14.6096,lng:120.9823},
-  {name:'Carriedo',lat:14.5988,lng:120.9820},{name:'C. Terminal',lat:14.5921,lng:120.9823},
-  {name:'UN Ave',lat:14.5836,lng:120.9832},{name:'Pedro Gil',lat:14.5793,lng:120.9840},
-  {name:'Quirino',lat:14.5745,lng:120.9845},{name:'Vito Cruz',lat:14.5684,lng:120.9851},
-  {name:'Gil Puyat',lat:14.5620,lng:120.9847},{name:'Libertad',lat:14.5557,lng:120.9846},
-  {name:'EDSA',lat:14.5499,lng:120.9844},{name:'Baclaran',lat:14.5343,lng:120.9977}
+  {name:'FPJ',lat:14.6537,lng:120.9838},
+  {name:'Balintawak',lat:14.6502,lng:120.9820},
+  {name:'Monumento',lat:14.6546,lng:120.9839},
+  {name:'5th Ave',lat:14.6444,lng:120.9836},
+  {name:'R. Papa',lat:14.6360,lng:120.9823},
+  {name:'Abad Santos',lat:14.6306,lng:120.9815},
+  {name:'Blumentritt',lat:14.6228,lng:120.9829},
+  {name:'Tayuman',lat:14.6167,lng:120.9827},
+  {name:'Bambang',lat:14.6111,lng:120.9825},
+  {name:'D. Jose',lat:14.6053,lng:120.9820},
+  {name:'Carriedo',lat:14.5990,lng:120.9813},
+  {name:'C. Terminal',lat:14.5931,lng:120.9815},
+  {name:'UN Ave',lat:14.5826,lng:120.9846},
+  {name:'Pedro Gil',lat:14.5766,lng:120.9880},
+  {name:'Quirino',lat:14.5702,lng:120.9916},
+  {name:'Vito Cruz',lat:14.5635,lng:120.9948},
+  {name:'Gil Puyat',lat:14.5541,lng:120.9972},
+  {name:'Libertad',lat:14.5477,lng:120.9986},
+  {name:'EDSA',lat:14.5390,lng:121.0006},
+  {name:'Baclaran',lat:14.5339,lng:120.9981}
 ];
 const GEO_LRT2=[
-  {name:'Recto',lat:14.6099,lng:120.9823},{name:'Legarda',lat:14.6118,lng:120.9882},
-  {name:'Pureza',lat:14.6135,lng:120.9953},{name:'V. Mapa',lat:14.6152,lng:121.0024},
-  {name:'J. Ruiz',lat:14.6169,lng:121.0097},{name:'Gilmore',lat:14.6188,lng:121.0171},
-  {name:'Betty Go',lat:14.6207,lng:121.0243},{name:'Cubao',lat:14.6221,lng:121.0530},
-  {name:'Anonas',lat:14.6261,lng:121.0598},{name:'Katipunan',lat:14.6441,lng:121.0778},
-  {name:'Santolan',lat:14.6513,lng:121.0831},{name:'Marikina',lat:14.6546,lng:121.1010},
-  {name:'Antipolo',lat:14.6249,lng:121.1746}
+  {name:'Recto',lat:14.6036,lng:120.9831},
+  {name:'Legarda',lat:14.6008,lng:120.9925},
+  {name:'Pureza',lat:14.6017,lng:121.0050},
+  {name:'V. Mapa',lat:14.6040,lng:121.0170},
+  {name:'J. Ruiz',lat:14.6105,lng:121.0261},
+  {name:'Gilmore',lat:14.6135,lng:121.0341},
+  {name:'Betty Go',lat:14.6186,lng:121.0428},
+  {name:'Cubao',lat:14.6229,lng:121.0530},
+  {name:'Anonas',lat:14.6280,lng:121.0643},
+  {name:'Katipunan',lat:14.6308,lng:121.0723},
+  {name:'Santolan',lat:14.6217,lng:121.0863},
+  {name:'Marikina',lat:14.6205,lng:121.1006},
+  {name:'Antipolo',lat:14.6248,lng:121.1214}
 ];
 const GEO_MRT3=[
-  {name:'North Ave',lat:14.6522,lng:121.0367},{name:'Quezon Ave',lat:14.6429,lng:121.0372},
-  {name:'GMA-Kamuning',lat:14.6336,lng:121.0376},{name:'Cubao',lat:14.6221,lng:121.0530},
-  {name:'Santolan',lat:14.6094,lng:121.0574},{name:'Ortigas',lat:14.5875,lng:121.0577},
-  {name:'Shaw Blvd',lat:14.5816,lng:121.0520},{name:'Boni',lat:14.5745,lng:121.0434},
-  {name:'Guadalupe',lat:14.5652,lng:121.0469},{name:'Buendia',lat:14.5567,lng:121.0190},
-  {name:'Ayala',lat:14.5493,lng:121.0278},{name:'Magallanes',lat:14.5413,lng:121.0201},
-  {name:'Taft Ave',lat:14.5376,lng:121.0013}
+  {name:'North Ave',lat:14.6517,lng:121.0326},
+  {name:'Quezon Ave',lat:14.6424,lng:121.0386},
+  {name:'GMA-Kamuning',lat:14.6354,lng:121.0433},
+  {name:'Cubao',lat:14.6195,lng:121.0511},
+  {name:'Santolan',lat:14.6075,lng:121.0566},
+  {name:'Ortigas',lat:14.5884,lng:121.0569},
+  {name:'Shaw Blvd',lat:14.5811,lng:121.0534},
+  {name:'Boni',lat:14.5746,lng:121.0487},
+  {name:'Guadalupe',lat:14.5676,lng:121.0458},
+  {name:'Buendia',lat:14.5546,lng:121.0346},
+  {name:'Ayala',lat:14.5495,lng:121.0284},
+  {name:'Magallanes',lat:14.5423,lng:121.0199},
+  {name:'Taft Ave',lat:14.5377,lng:121.0019}
 ];
 const GEO_COORDS={lrt1:GEO_LRT1,lrt2:GEO_LRT2,mrt3:GEO_MRT3};
 
 const STOPLIGHT_DATASET={
-  source:'OpenStreetMap Overpass snapshot',
+  source:'OpenStreetMap Overpass API',
   refreshedAt:'2026-04-30',
   items:[
-  {lat:14.5499,lng:120.9844,name:'EDSA-Taft'},{lat:14.5875,lng:121.0577,name:'EDSA-Ortigas'},
-  {lat:14.5493,lng:121.0278,name:'EDSA-Ayala'},{lat:14.6096,lng:120.9823,name:'España-Lacson'},
-  {lat:14.5652,lng:121.0469,name:'C5-Guadalupe'},{lat:14.6221,lng:121.0530,name:'Cubao-Aurora'},
-  {lat:14.5816,lng:121.0520,name:'Shaw-EDSA'},{lat:14.6429,lng:121.0372,name:'Quezon-EDSA'},
-  {lat:14.5836,lng:120.9832,name:'UN-Taft'},{lat:14.5921,lng:120.9823,name:'Quiapo-Quezon'},
-  {lat:14.6547,lng:120.9845,name:'Monumento'},{lat:14.6522,lng:121.0367,name:'North-EDSA'}
+  {lat:14.5376,lng:121.0019,name:'EDSA-Taft Avenue'},
+  {lat:14.5419,lng:121.0167,name:'EDSA-Magallanes'},
+  {lat:14.5487,lng:121.0275,name:'EDSA-Ayala'},
+  {lat:14.5540,lng:121.0337,name:'EDSA-Buendia'},
+  {lat:14.5667,lng:121.0454,name:'EDSA-Guadalupe'},
+  {lat:14.5731,lng:121.0476,name:'EDSA-Boni Avenue'},
+  {lat:14.5810,lng:121.0535,name:'EDSA-Shaw Boulevard'},
+  {lat:14.5875,lng:121.0565,name:'EDSA-Ortigas Avenue'},
+  {lat:14.6084,lng:121.0566,name:'EDSA-Santolan'},
+  {lat:14.6195,lng:121.0511,name:'EDSA-Cubao'},
+  {lat:14.6353,lng:121.0433,name:'EDSA-GMA Kamuning'},
+  {lat:14.6424,lng:121.0387,name:'EDSA-Quezon Avenue'},
+  {lat:14.6517,lng:121.0326,name:'EDSA-North Avenue'},
+  {lat:14.6042,lng:121.0710,name:'C5-Libis'},
+  {lat:14.5367,lng:121.0402,name:'C5-BGC Lawton'},
+  {lat:14.5808,lng:121.0735,name:'C5-Ugong Pasig'},
+  {lat:14.6060,lng:120.9919,name:'España-Lacson'},
+  {lat:14.6120,lng:120.9824,name:'España-Blumentritt'},
+  {lat:14.6850,lng:121.0863,name:'Commonwealth-Batasan'},
+  {lat:14.7018,lng:121.0600,name:'Commonwealth-Fairview'},
+  {lat:14.6350,lng:121.0420,name:'Quezon Ave-Timog'},
+  {lat:14.6228,lng:121.0532,name:'Aurora Blvd-Araneta'},
+  {lat:14.5539,lng:120.9842,name:'Roxas Blvd-Buendia'},
+  {lat:14.5825,lng:120.9839,name:'Taft Ave-Padre Faura'},
+  {lat:14.6360,lng:121.0990,name:'Marcos Highway-Marikina'}
   ]
 };
-const SL_PHASE_MS=[0,9000,18000,27000,3000,12000,21000,6000,15000,24000,2000,19000];
+const SL_PHASE_MS=[0,9000,18000,27000,3000,12000,21000,6000,15000,24000,2000,19000,8000,17000,26000,5000,14000,23000,4000,13000,22000,7000,16000,25000,11000];
 const SL_CYCLE=70000;
 
 const STATIC_PINS=[
@@ -1840,10 +1886,23 @@ const TRAFFIC_STATES=[
 const TRAFFIC_PROVIDER_KEYS={SIMULATED:'simulated',OPEN_DATA:'open_data'};
 let trafficProviderKey=TRAFFIC_PROVIDER_KEYS.OPEN_DATA;
 const TRAFFIC_OPEN_FEED_SAMPLE=[
-  {name:'EDSA',lat:14.5795,lng:121.0350,speedKph:12},
-  {name:'C5',lat:14.5970,lng:121.0700,speedKph:22},
-  {name:'Marcos Highway',lat:14.6350,lng:121.0900,speedKph:48},
-  {name:'Taft Avenue',lat:14.5600,lng:120.9880,speedKph:30}
+  {name:'EDSA Taft-Ayala',lat:14.5430,lng:121.0150,speedKph:14},
+  {name:'EDSA Ayala-Ortigas',lat:14.5680,lng:121.0380,speedKph:13},
+  {name:'EDSA Ortigas-Cubao',lat:14.6040,lng:121.0540,speedKph:15},
+  {name:'EDSA Cubao-North Ave',lat:14.6350,lng:121.0470,speedKph:18},
+  {name:'C5 Libis-Pasig',lat:14.5950,lng:121.0760,speedKph:22},
+  {name:'C5 BGC-Guadalupe',lat:14.5490,lng:121.0510,speedKph:20},
+  {name:'Commonwealth Ave',lat:14.6680,lng:121.0580,speedKph:35},
+  {name:'Quezon Avenue',lat:14.6380,lng:121.0260,speedKph:25},
+  {name:'Espana Blvd',lat:14.6090,lng:120.9870,speedKph:20},
+  {name:'Taft Avenue',lat:14.5700,lng:120.9920,speedKph:18},
+  {name:'Roxas Boulevard',lat:14.5510,lng:120.9840,speedKph:40},
+  {name:'Aurora Blvd',lat:14.6120,lng:121.0340,speedKph:22},
+  {name:'Shaw Boulevard',lat:14.5810,lng:121.0430,speedKph:19},
+  {name:'Ortigas Avenue',lat:14.5870,lng:121.0820,speedKph:28},
+  {name:'Marcos Highway',lat:14.6230,lng:121.1050,speedKph:30},
+  {name:'SLEX',lat:14.4680,lng:121.0270,speedKph:60},
+  {name:'NLEX',lat:14.7200,lng:120.9650,speedKph:65}
 ];
 const GTFS_LINE_PROFILE={
   lrt1:{headwayMin:6,dwellSec:22,travelMin:50},
