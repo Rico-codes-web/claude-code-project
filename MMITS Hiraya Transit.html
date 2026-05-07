@@ -731,6 +731,61 @@ html.light .update-stamp{background:rgba(255,255,255,0.72);border-color:rgba(0,0
 #obAuthStep{display:flex;flex-direction:column;align-items:center;width:100%;}
 #obProfileStep{display:none;flex-direction:column;align-items:center;width:100%;}
 
+/* ── UNIVERSITY SEARCH DROPDOWN ── */
+.univ-search-dropdown{position:absolute;top:106px;left:12px;right:12px;background:rgba(8,8,20,0.97);backdrop-filter:blur(28px) saturate(1.9);-webkit-backdrop-filter:blur(28px) saturate(1.9);border:1px solid rgba(255,255,255,0.12);border-radius:16px;z-index:1500;max-height:260px;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+html.light .univ-search-dropdown{background:rgba(248,250,255,0.98);border-color:rgba(0,0,0,0.08);}
+.usi-item{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.05);transition:background 0.15s;}
+html.light .usi-item{border-bottom-color:rgba(0,0,0,0.05);}
+.usi-item:last-child{border-bottom:none;}
+.usi-item:active{background:rgba(255,255,255,0.06);}
+.usi-icon{font-size:17px;flex-shrink:0;}
+.usi-info{flex:1;min-width:0;}
+.usi-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;color:var(--text);}
+.usi-meta{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--muted);margin-top:1px;}
+.usi-line-badge{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;padding:2px 7px;border-radius:999px;flex-shrink:0;}
+
+/* ── ROUTE PREFERENCE MODAL ── */
+.route-pref-modal{position:absolute;inset:0;background:rgba(0,0,0,0.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:4000;display:flex;align-items:center;justify-content:center;padding:24px;}
+.route-pref-box{width:100%;background:rgba(8,8,20,0.98);border:1px solid rgba(255,255,255,0.14);border-radius:28px;padding:24px 18px 18px;box-shadow:0 20px 60px rgba(0,0,0,0.7);}
+html.light .route-pref-box{background:rgba(248,250,255,0.99);}
+.rpf-dest{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;color:var(--teal);text-align:center;letter-spacing:0.5px;margin-bottom:4px;}
+.rpf-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:700;color:var(--text);text-align:center;margin-bottom:16px;}
+.rpf-cards{display:flex;gap:8px;margin-bottom:14px;}
+.rpf-card{flex:1;padding:14px 6px 12px;border-radius:18px;border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.03);text-align:center;cursor:pointer;transition:all 0.18s ease;-webkit-tap-highlight-color:transparent;}
+.rpf-card:active{transform:scale(0.94);}
+.rpf-card.eff{border-color:rgba(62,207,207,0.25);}
+.rpf-card.eff:active,.rpf-card.eff:hover{background:rgba(62,207,207,0.08);}
+.rpf-card.con{border-color:rgba(124,92,191,0.25);}
+.rpf-card.con:active,.rpf-card.con:hover{background:rgba(124,92,191,0.08);}
+.rpf-card.bud{border-color:rgba(62,207,142,0.25);}
+.rpf-card.bud:active,.rpf-card.bud:hover{background:rgba(62,207,142,0.08);}
+.rpf-icon{font-size:22px;margin-bottom:6px;}
+.rpf-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.rpf-desc{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--muted);line-height:1.3;}
+.rpf-cancel{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--muted);text-align:center;padding:8px;cursor:pointer;}
+
+/* ── ROUTE ETA BADGE ── */
+.route-eta-badge{position:absolute;top:106px;left:12px;right:12px;background:rgba(8,8,20,0.94);border:1px solid rgba(62,207,207,0.28);border-radius:14px;padding:10px 14px;z-index:600;display:flex;align-items:center;gap:10px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);animation:screenIn 0.25s ease both;}
+html.light .route-eta-badge{background:rgba(248,250,255,0.96);}
+.eta-dest{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.eta-time{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;color:var(--teal);flex-shrink:0;}
+.eta-fare{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--muted);flex-shrink:0;}
+.eta-clear{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;color:var(--red);cursor:pointer;padding:3px 8px;border-radius:8px;background:rgba(255,79,79,0.1);flex-shrink:0;}
+
+/* ── ROUTE INSTRUCTION STEPS ── */
+.route-header{padding:12px 14px 8px;border-bottom:1px solid rgba(255,255,255,0.07);}
+.route-header-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.route-header-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--muted);}
+.route-step{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.route-step:last-of-type{border-bottom:none;}
+.rs-step-icon{font-size:16px;flex-shrink:0;margin-top:1px;width:20px;text-align:center;}
+.rs-step-body{flex:1;min-width:0;}
+.rs-step-action{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.rs-step-detail{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--muted);line-height:1.4;}
+.rs-step-badge{display:inline-block;padding:1px 8px;border-radius:999px;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;margin-left:4px;vertical-align:middle;}
+.route-clear-btn{display:block;width:calc(100% - 28px);margin:10px 14px 14px;padding:11px;border-radius:14px;background:rgba(255,79,79,0.1);border:1px solid rgba(255,79,79,0.2);color:var(--red);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;text-align:center;cursor:pointer;transition:background 0.15s;}
+.route-clear-btn:active{background:rgba(255,79,79,0.18);}
+
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
@@ -938,10 +993,47 @@ html.light .update-stamp{background:rgba(255,255,255,0.72);border-color:rgba(0,0
         </div>
         <div class="header-right"><div class="header-badge"><div class="live-dot"></div>Live</div><div class="eco-btn" id="ecoBtn" onclick="toggleEcoMode()" title="Eco Mode">🌿<div class="eco-badge"></div></div></div>
       </div>
-      <div class="search-float"><span class="search-icon">🔍</span><input id="search-bar" class="search-input" type="text" placeholder="Search roads, stations, places…" autocomplete="off" /><span class="search-filter" onclick="clearRoute()">✕</span></div>
+      <div class="search-float"><span class="search-icon">🔍</span><input id="search-bar" class="search-input" type="text" placeholder="Search university or place…" autocomplete="off" /><span class="search-filter" onclick="clearRoute()">✕</span></div>
       <div class="mode-pill-float">
         <div class="seg-pill active" id="pill-commuter" onclick="selectMode('commuter',this)">🚌 Commuter</div>
         <div class="seg-pill" id="pill-custom" onclick="selectMode('custom',this)">⚙️ Custom</div>
+      </div>
+
+      <!-- University search suggestions dropdown -->
+      <div id="univSearchDropdown" class="univ-search-dropdown hidden"></div>
+
+      <!-- Route preference selection modal -->
+      <div id="routePrefModal" class="route-pref-modal hidden">
+        <div class="route-pref-box">
+          <div class="rpf-dest" id="rpfDest">Select a university</div>
+          <div class="rpf-title">How do you want to travel?</div>
+          <div class="rpf-cards">
+            <div class="rpf-card eff" onclick="confirmRoutePreference('efficiency')">
+              <div class="rpf-icon">⚡</div>
+              <div class="rpf-label">Efficiency</div>
+              <div class="rpf-desc">Fastest — fewest transfers</div>
+            </div>
+            <div class="rpf-card con" onclick="confirmRoutePreference('convenience')">
+              <div class="rpf-icon">🛋️</div>
+              <div class="rpf-label">Convenience</div>
+              <div class="rpf-desc">Comfortable — direct route</div>
+            </div>
+            <div class="rpf-card bud" onclick="confirmRoutePreference('budget')">
+              <div class="rpf-icon">💰</div>
+              <div class="rpf-label">Budget</div>
+              <div class="rpf-desc">Lowest fare possible</div>
+            </div>
+          </div>
+          <div class="rpf-cancel" onclick="hideRoutePrefModal()">Cancel</div>
+        </div>
+      </div>
+
+      <!-- Route ETA badge (shown when route is active) -->
+      <div id="routeEtaBadge" class="route-eta-badge hidden">
+        <div class="eta-dest" id="etaDest">University</div>
+        <div class="eta-time" id="etaTime">--</div>
+        <div class="eta-fare" id="etaFare">₱--</div>
+        <div class="eta-clear" onclick="clearUniversityRoute()">✕ Clear</div>
       </div>
     </div>
 
@@ -2594,6 +2686,8 @@ let stoplightInterval=null,stoplightMarkers=[];
 let commuterStoplightsOn=false;
 let congestionToggleOn=true;
 let routeLayers=[],transitLineLayers=[],trainDotMarkers={};
+let activeUnivKey = null;
+let univRouteLayers = [];
 let roadCongestionLayers=[];
 let lastMapUpdate=Date.now(),lastTransitUpdate=Date.now();
 let congestionInterval=null;
@@ -2861,6 +2955,38 @@ const UNIVERSITY_FARES={
   'pup':{name:'Polytechnic University of the Philippines',nearestStation:'LRT-2 Legarda',rail:{line:'LRT-2',fare:15},lastMile:{mode:'Walk',fare:0},jeepney:{fare:20,label:'Jeepney (Sta. Mesa route)'}},
   'nu manila':{name:'National University Manila',nearestStation:'LRT-2 Legarda',rail:{line:'LRT-2',fare:15},lastMile:{mode:'Walk',fare:0},jeepney:{fare:18,label:'Jeepney (M.F. Jhocson route)'}},
 };
+/* Pre-defined walking paths from transit station to university entrance.
+   line: transit line key, stationName: alighting station,
+   walk: [lat,lng] waypoints following real streets */
+const UNIVERSITY_WALK_PATHS = {
+  'ust':        {line:'lrt2',stationName:'Legarda',   walk:[[14.6008,120.9925],[14.6030,120.9918],[14.6055,120.9905],[14.6078,120.9896],[14.6097,120.9892]]},
+  'up diliman': {line:'lrt2',stationName:'Katipunan', walk:[[14.6308,121.0723],[14.6350,121.0712],[14.6405,121.0700],[14.6470,121.0692],[14.6540,121.0685]]},
+  'up manila':  {line:'lrt1',stationName:'Pedro Gil', walk:[[14.5766,120.9880],[14.5810,120.9876],[14.5870,120.9874],[14.5940,120.9882],[14.5999,120.9898]]},
+  'admu':       {line:'lrt2',stationName:'Katipunan', walk:[[14.6308,121.0723],[14.6340,121.0738],[14.6368,121.0754],[14.6392,121.0767],[14.6407,121.0774]]},
+  'ateneo':     {line:'lrt2',stationName:'Katipunan', walk:[[14.6308,121.0723],[14.6340,121.0738],[14.6368,121.0754],[14.6392,121.0767],[14.6407,121.0774]]},
+  'dlsu':       {line:'lrt1',stationName:'Vito Cruz', walk:[[14.5635,120.9948],[14.5640,120.9942],[14.5645,120.9936],[14.5648,120.9933]]},
+  'la salle':   {line:'lrt1',stationName:'Vito Cruz', walk:[[14.5635,120.9948],[14.5640,120.9942],[14.5645,120.9936],[14.5648,120.9933]]},
+  'feu':        {line:'lrt2',stationName:'Legarda',   walk:[[14.6008,120.9925],[14.6018,120.9912],[14.6024,120.9897],[14.6028,120.9882]]},
+  'ue manila':  {line:'lrt2',stationName:'Recto',     walk:[[14.6036,120.9831],[14.6028,120.9844],[14.6022,120.9858],[14.6017,120.9871]]},
+  'mapua':      {line:'lrt1',stationName:'C. Terminal',walk:[[14.5931,120.9815],[14.5926,120.9804],[14.5922,120.9790],[14.5921,120.9776]]},
+  'pup':        {line:'lrt2',stationName:'Pureza',    walk:[[14.6017,121.0050],[14.6005,121.0060],[14.5990,121.0068],[14.5972,121.0079]]},
+  'nu manila':  {line:'lrt2',stationName:'Legarda',   walk:[[14.6008,120.9925],[14.6007,120.9910],[14.6005,120.9892],[14.6004,120.9873]]},
+};
+
+/* University display list for search dropdown */
+const UNIVERSITY_LIST = [
+  {key:'ust',       name:'University of Santo Tomas',          short:'UST',    icon:'🏛️', line:'LRT-2', station:'Legarda'},
+  {key:'up diliman',name:'UP Diliman',                          short:'UPD',    icon:'🎓', line:'LRT-2', station:'Katipunan'},
+  {key:'up manila', name:'UP Manila',                           short:'UPM',    icon:'🏥', line:'LRT-1', station:'Pedro Gil'},
+  {key:'admu',      name:'Ateneo de Manila University',         short:'ADMU',   icon:'🦅', line:'LRT-2', station:'Katipunan'},
+  {key:'dlsu',      name:'De La Salle University',              short:'DLSU',   icon:'🟢', line:'LRT-1', station:'Vito Cruz'},
+  {key:'feu',       name:'Far Eastern University',              short:'FEU',    icon:'🏫', line:'LRT-2', station:'Legarda'},
+  {key:'ue manila', name:'University of the East Manila',       short:'UE',     icon:'🏫', line:'LRT-2', station:'Recto'},
+  {key:'mapua',     name:'Mapúa University',                    short:'Mapúa',  icon:'🏗️', line:'LRT-1', station:'C. Terminal'},
+  {key:'pup',       name:'Polytechnic Univ. of the Philippines',short:'PUP',    icon:'🔧', line:'LRT-2', station:'Pureza'},
+  {key:'nu manila', name:'National University Manila',          short:'NU',     icon:'🏫', line:'LRT-2', station:'Legarda'},
+];
+
 const TRAFFIC_STATES=[
   {id:'green', color:'#3ecf8e',weight:3,  mult:1.0},
   {id:'yellow',color:'#f5a623',weight:4.8,mult:1.4},
@@ -3329,6 +3455,302 @@ function clearRoute(){
   routeLayers=[];
 }
 
+/* ═══════════════════════════════════════════
+   UNIVERSITY ROUTING SYSTEM
+═══════════════════════════════════════════ */
+
+function initUniversitySearch() {
+  const input = document.getElementById('search-bar');
+  const dropdown = document.getElementById('univSearchDropdown');
+  if (!input || !dropdown) return;
+
+  input.addEventListener('focus', () => { showUnivDropdown(''); });
+  input.addEventListener('input', () => { showUnivDropdown(input.value); });
+  input.addEventListener('blur', () => { setTimeout(() => dropdown.classList.add('hidden'), 180); });
+}
+
+function showUnivDropdown(filter) {
+  const dropdown = document.getElementById('univSearchDropdown');
+  if (!dropdown) return;
+  const q = (filter || '').toLowerCase().trim();
+  const matches = q
+    ? UNIVERSITY_LIST.filter(u => u.name.toLowerCase().includes(q) || u.short.toLowerCase().includes(q) || u.key.includes(q))
+    : UNIVERSITY_LIST;
+
+  const LINE_BADGE_COLORS = { 'LRT-1': '#3ecf8e', 'LRT-2': '#4a90ff', 'MRT-3': '#f5a623' };
+
+  dropdown.innerHTML = matches.map(u => {
+    const badgeColor = LINE_BADGE_COLORS[u.line] || '#888';
+    return `<div class="usi-item" onmousedown="event.preventDefault();selectUniversity('${u.key}')">
+      <div class="usi-icon">${u.icon}</div>
+      <div class="usi-info">
+        <div class="usi-name">${u.name}</div>
+        <div class="usi-meta">Nearest: ${u.station}</div>
+      </div>
+      <div class="usi-line-badge" style="background:${badgeColor}22;color:${badgeColor};border:1px solid ${badgeColor}44;">${u.line}</div>
+    </div>`;
+  }).join('');
+
+  dropdown.classList.toggle('hidden', matches.length === 0);
+}
+
+function selectUniversity(key) {
+  const dropdown = document.getElementById('univSearchDropdown');
+  if (dropdown) dropdown.classList.add('hidden');
+  const univ = UNIVERSITY_LIST.find(u => u.key === key);
+  const input = document.getElementById('search-bar');
+  if (input && univ) input.value = univ.name;
+  activeUnivKey = key;
+  showRoutePrefModal(key);
+}
+
+function showRoutePrefModal(key) {
+  const modal = document.getElementById('routePrefModal');
+  const destEl = document.getElementById('rpfDest');
+  if (!modal) return;
+  const univ = UNIVERSITY_LIST.find(u => u.key === key);
+  if (destEl && univ) destEl.textContent = '📍 ' + univ.name;
+  modal.classList.remove('hidden');
+}
+
+function hideRoutePrefModal() {
+  const modal = document.getElementById('routePrefModal');
+  if (modal) modal.classList.add('hidden');
+}
+
+function confirmRoutePreference(pref) {
+  hideRoutePrefModal();
+  if (!activeUnivKey) return;
+  buildUniversityRoute(activeUnivKey, pref);
+}
+
+function findNearestStationIdx(geoArr, pos) {
+  let best = 0, bestDist = Infinity;
+  geoArr.forEach((st, i) => {
+    const d = Math.hypot(st.lat - pos[0], st.lng - pos[1]);
+    if (d < bestDist) { bestDist = d; best = i; }
+  });
+  return best;
+}
+
+function nearestTrackIdx(trackArr, pos) {
+  let best = 0, bestDist = Infinity;
+  trackArr.forEach((pt, i) => {
+    const d = Math.hypot(pt[0] - pos[0], pt[1] - pos[1]);
+    if (d < bestDist) { bestDist = d; best = i; }
+  });
+  return best;
+}
+
+function buildRoadAlignedPath(from, to) {
+  const steps = 6;
+  const pts = [from];
+  for (let i = 1; i < steps; i++) {
+    const t = i / steps;
+    const baseLat = from[0] + (to[0] - from[0]) * t;
+    const baseLng = from[1] + (to[1] - from[1]) * t;
+    let nearest = null, nearestDist = Infinity;
+    ROAD_CONGESTION_DATA.forEach(road => {
+      road.coords.forEach(c => {
+        const d = Math.hypot(c[0] - baseLat, c[1] - baseLng);
+        if (d < nearestDist && d < 0.006) { nearestDist = d; nearest = c; }
+      });
+    });
+    if (nearest && nearestDist < 0.004) {
+      const blend = 0.55;
+      pts.push([baseLat + (nearest[0] - baseLat) * blend, baseLng + (nearest[1] - baseLng) * blend]);
+    } else {
+      pts.push([baseLat, baseLng]);
+    }
+  }
+  pts.push(to);
+  return pts;
+}
+
+function buildUniversityRoute(univKey, pref) {
+  if (!leafletMap) return;
+  clearUniversityRoute();
+  clearRoute();
+
+  const fareData = UNIVERSITY_FARES[univKey];
+  const walkPath = UNIVERSITY_WALK_PATHS[univKey];
+  const univCoords = NCR_DESTINATIONS[univKey];
+  const univInfo = UNIVERSITY_LIST.find(u => u.key === univKey);
+  if (!fareData || !walkPath || !univCoords || !univInfo) { showToast('⚠️ Route data unavailable for this university.'); return; }
+
+  const lineKey = walkPath.line;
+  const geoArr = GEO_COORDS[lineKey];
+  const trackArr = TRACK_COORDS[lineKey];
+  const lineColor = LINE_COLORS[lineKey];
+
+  // Find alighting station (nearest on line to university)
+  const alightIdx = findNearestStationIdx(geoArr, univCoords);
+  const alightSt = geoArr[alightIdx];
+
+  // Find boarding station (nearest on same line to user)
+  const boardIdx = findNearestStationIdx(geoArr, userLatLng);
+  const boardSt = geoArr[boardIdx];
+
+  // Walk leg 1: user → boarding station (road-aligned)
+  const walkToBoardPath = buildRoadAlignedPath(userLatLng, [boardSt.lat, boardSt.lng]);
+  const walk1DistKm = Math.hypot(boardSt.lat - userLatLng[0], boardSt.lng - userLatLng[1]) * 111;
+  const walk1Min = Math.round(walk1DistKm / 0.067); // ~4km/h walk
+
+  // Transit leg: boarding → alighting via track geometry
+  const trackFromIdx = nearestTrackIdx(trackArr, [boardSt.lat, boardSt.lng]);
+  const trackToIdx   = nearestTrackIdx(trackArr, [alightSt.lat, alightSt.lng]);
+  const trackStart   = Math.min(trackFromIdx, trackToIdx);
+  const trackEnd     = Math.max(trackFromIdx, trackToIdx);
+  const transitPath  = trackArr.slice(trackStart, trackEnd + 1);
+  const stationCount = Math.abs(alightIdx - boardIdx);
+  const transitDistKm = transitPath.reduce((sum, pt, i) => {
+    if (i === 0) return sum;
+    return sum + Math.hypot(pt[0] - transitPath[i-1][0], pt[1] - transitPath[i-1][1]) * 111;
+  }, 0);
+  const waitMin   = 5;
+  const rideMin   = stationCount * 2;
+  const transitMin = waitMin + rideMin;
+
+  // Walk leg 2: alighting station → university (pre-defined path)
+  const walk2Path    = walkPath.walk.length > 1 ? walkPath.walk : [[alightSt.lat, alightSt.lng], univCoords];
+  const walk2DistKm  = Math.hypot(alightSt.lat - univCoords[0], alightSt.lng - univCoords[1]) * 111;
+  const walk2Min     = Math.round(walk2DistKm / 0.067);
+
+  // Preference-based timing/fare adjustments
+  const prefMult    = {efficiency:0.85, convenience:1.0, budget:1.15}[pref] || 1.0;
+  const railFare    = fareData.rail.fare;
+  const lastFare    = pref === 'budget' ? 0 : fareData.lastMile.fare;
+  const grabFare    = pref === 'efficiency' ? 40 : 0;
+  const totalFare   = pref === 'budget' ? fareData.jeepney.fare : (railFare + lastFare + grabFare);
+  const totalMin    = Math.round((walk1Min + transitMin + walk2Min) * prefMult);
+  const totalDistKm = (walk1DistKm + transitDistKm + walk2DistKm).toFixed(1);
+
+  // Render walk leg 1 (dashed white)
+  const walkStyle1 = {color:'#ffffff', weight:3, opacity:0.6, dashArray:'6 6', lineCap:'round'};
+  const walkLayer1 = L.polyline(walkToBoardPath, walkStyle1).addTo(leafletMap);
+
+  // Render transit leg (solid line color, thick)
+  if (transitPath.length > 1) {
+    const transitLayer = L.polyline(transitPath, {color:lineColor, weight:6, opacity:0.92, lineCap:'round'}).addTo(leafletMap);
+    univRouteLayers.push(transitLayer);
+    // Boarding station marker
+    const bMarker = L.circleMarker([boardSt.lat, boardSt.lng], {radius:9,color:'#fff',fillColor:lineColor,fillOpacity:1,weight:2}).addTo(leafletMap);
+    bMarker.bindTooltip('Board here: '+boardSt.name, {permanent:false, direction:'top'});
+    univRouteLayers.push(bMarker);
+    // Alighting station marker
+    const aMarker = L.circleMarker([alightSt.lat, alightSt.lng], {radius:9,color:lineColor,fillColor:'#fff',fillOpacity:1,weight:3}).addTo(leafletMap);
+    aMarker.bindTooltip('Alight here: '+alightSt.name, {permanent:false, direction:'top'});
+    univRouteLayers.push(aMarker);
+  }
+
+  // Render walk leg 2 (dashed teal)
+  const walkStyle2 = {color:'#3ecfcf', weight:3, opacity:0.7, dashArray:'5 5', lineCap:'round'};
+  const walkLayer2 = L.polyline(walk2Path, walkStyle2).addTo(leafletMap);
+
+  // University destination marker
+  const destMarker = L.marker(univCoords, {
+    icon: L.divIcon({className:'', html:`<div style="background:var(--gold);border:2px solid #fff;border-radius:999px;padding:4px 8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;color:#000;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.4);">${univInfo.short}</div>`, iconAnchor:[20,14]})
+  }).addTo(leafletMap);
+
+  univRouteLayers.push(walkLayer1, walkLayer2, destMarker);
+
+  // Fit map to route bounds
+  try {
+    const allPts = [...walkToBoardPath, ...transitPath, ...walk2Path];
+    leafletMap.fitBounds(L.polyline(allPts).getBounds().pad(0.12));
+  } catch(e) {}
+
+  // Update ETA badge
+  const etaBadge = document.getElementById('routeEtaBadge');
+  const etaDest  = document.getElementById('etaDest');
+  const etaTime  = document.getElementById('etaTime');
+  const etaFare  = document.getElementById('etaFare');
+  if (etaBadge) {
+    if (etaDest) etaDest.textContent = univInfo.icon + ' ' + univInfo.name;
+    if (etaTime) etaTime.textContent = '~' + totalMin + ' min';
+    if (etaFare) etaFare.textContent = '₱' + totalFare;
+    etaBadge.classList.remove('hidden');
+  }
+
+  // Store for fare card
+  window._lastResolvedDest = univKey;
+  if (typeof renderRouteFareCard === 'function') renderRouteFareCard(univKey);
+
+  // Build and render instructions
+  const lineName = {lrt1:'LRT-1', lrt2:'LRT-2', mrt3:'MRT-3'}[lineKey] || lineKey.toUpperCase();
+  const lineColorHex = lineColor;
+  const walk1Desc = walk1DistKm < 0.15 ? 'Short walk' : `Walk ~${(walk1DistKm*1000).toFixed(0)}m`;
+  const walk2Desc = walk2DistKm < 0.15 ? 'Short walk to campus' : `Walk ~${(walk2DistKm*1000).toFixed(0)}m to ${univInfo.short}`;
+
+  const dirNote = alightIdx < boardIdx ? 'northbound' : 'southbound';
+  const preferenceLabels = {efficiency:'⚡ Efficiency route — fastest option', convenience:'🛋️ Convenience route — comfortable option', budget:'💰 Budget route — lowest fare option'};
+
+  const steps = [];
+  if (walk1DistKm > 0.05) {
+    steps.push({icon:'🚶', action:`${walk1Desc} to ${lineName} ${boardSt.name} station`, detail:`Head toward the station · ~${walk1Min} min`, badge:null});
+  }
+  steps.push({icon:'🚇', action:`Take ${lineName} (${dirNote}) toward ${alightSt.name}`, detail:`Board at ${boardSt.name} · ${stationCount} stop${stationCount!==1?'s':''} · ~${rideMin} min ride + ${waitMin} min wait`, badge:{text:lineName,color:lineColorHex}, fare:'₱'+railFare});
+  if (pref === 'efficiency' && lastFare > 0) {
+    steps.push({icon:'🚕', action:`Grab/taxi last mile to ${univInfo.short}`, detail:`From ${alightSt.name} station · ~5–8 min · ₱${grabFare} est.`, badge:null});
+  } else if (pref === 'budget') {
+    steps.push({icon:'🚌', action:`Jeepney to ${univInfo.short}`, detail:`${fareData.jeepney.label} · ₱${fareData.jeepney.fare} · ~5–10 min`, badge:null});
+  } else {
+    if (walk2DistKm > 0.05) {
+      steps.push({icon:'🚶', action:walk2Desc, detail:`From ${alightSt.name} station · ~${walk2Min} min`, badge:null});
+    }
+  }
+  steps.push({icon:'🏫', action:`Arrive at ${univInfo.name}`, detail:`${totalDistKm} km total · ₱${totalFare} total fare`, badge:null});
+
+  renderRouteInstructions(steps, univInfo.name, totalMin, totalFare, preferenceLabels[pref]);
+
+  // Expand bottom sheet
+  if (typeof setSheetState === 'function') setSheetState('expanded');
+}
+
+function renderRouteInstructions(steps, destName, totalMin, totalFare, prefLabel) {
+  const sheetBody = document.getElementById('sheetBody');
+  if (!sheetBody) return;
+
+  const stepsHtml = steps.map((s, i) => {
+    const badgeHtml = s.badge ? `<span class="rs-step-badge" style="background:${s.badge.color}22;color:${s.badge.color};border:1px solid ${s.badge.color}44;">${s.badge.text}</span>` : '';
+    const fareHtml  = s.fare  ? `<span class="rs-step-badge" style="background:rgba(245,166,35,0.12);color:var(--gold);border:1px solid rgba(245,166,35,0.25);">${s.fare}</span>` : '';
+    return `<div class="route-step">
+      <div class="rs-step-icon">${s.icon}</div>
+      <div class="rs-step-body">
+        <div class="rs-step-action">${s.action}${badgeHtml}${fareHtml}</div>
+        <div class="rs-step-detail">${s.detail}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  sheetBody.innerHTML = `
+    <div class="route-header">
+      <div class="route-header-title">🗺️ Route to ${destName}</div>
+      <div class="route-header-sub">${prefLabel} · ~${totalMin} min · ₱${totalFare} total</div>
+    </div>
+    ${stepsHtml}
+    <div class="route-clear-btn" onclick="clearUniversityRoute()">✕ Clear Route</div>`;
+}
+
+function clearUniversityRoute() {
+  if (!leafletMap) return;
+  univRouteLayers.forEach(l => { try { leafletMap.removeLayer(l); } catch(e) {} });
+  univRouteLayers = [];
+  activeUnivKey = null;
+  const etaBadge = document.getElementById('routeEtaBadge');
+  if (etaBadge) etaBadge.classList.add('hidden');
+  const input = document.getElementById('search-bar');
+  if (input) input.value = '';
+  // Restore default sheet content
+  const mc = document.getElementById('modeContent');
+  const sheetBody = document.getElementById('sheetBody');
+  if (sheetBody && mc) {
+    mc.innerHTML = modeContent['commuter'];
+    if (typeof renderRouteFareCard === 'function') renderRouteFareCard();
+  }
+  if (typeof setSheetState === 'function') setSheetState('peek');
+}
+
 function retryMap(){
   const fb=document.getElementById('map-fallback');if(fb)fb.classList.add('hidden');
   try{if(!leafletMap)initLeafletMap();}catch(e){if(fb)fb.classList.remove('hidden');}
@@ -3486,10 +3908,17 @@ document.addEventListener('DOMContentLoaded',()=>{
   /* Stack bottom on load */
   window.addEventListener('load',()=>{setTimeout(()=>setStackBottom(getSnapVisible('peek')),150);});
 
-  /* Search bar routing */
+  /* Search bar routing + university search init */
+  initUniversitySearch();
   const searchInput=document.getElementById('search-bar');
   searchInput?.addEventListener('keydown',e=>{
-    if(e.key==='Enter'){doRouting(searchInput.value);searchInput.blur();}
+    if(e.key==='Enter'){
+      const q=searchInput.value.trim().toLowerCase();
+      const univMatch=UNIVERSITY_LIST.find(u=>u.key===q||u.short.toLowerCase()===q||u.name.toLowerCase().includes(q));
+      if(univMatch){selectUniversity(univMatch.key);}
+      else{doRouting(searchInput.value);}
+      searchInput.blur();
+    }
   });
 
   /* Leaflet map init */
