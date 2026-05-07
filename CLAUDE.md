@@ -3,6 +3,17 @@
 
 ---
 
+## RESPONSE DEFAULTS (apply to every reply unless overridden)
+
+- Answer directly. No preamble, filler, affirmations, or trailing summary clauses.
+- Use plain prose or tight lists. No decorative headers for short answers.
+- Do not use Extended Thinking or web search unless the prompt is explicitly complex or time-sensitive.
+- If a task is simple (formatting, grammar, short translation), note once that Haiku may suffice.
+- At 15+ messages, offer once to summarize key context for a fresh chat.
+- If a correction is requested, note once that editing the last message saves tokens.
+
+---
+
 ## 0. Mission
 
 Rebuild the Philippine transit app **MMITS (Metro Manila Integrated Traffic Safety)** from v15 into a single, self-contained `index.html` file designated **v16**. This is simultaneously a full visual overhaul (Liquid Glass / Apple aesthetic) and a functional upgrade (static SVG map → interactive Leaflet.js NCR map). Output **one file only** — no external JS files, no build step, no framework, pure vanilla HTML / CSS / JS.
@@ -413,5 +424,276 @@ All v15 IDs must be retained. New v16 IDs are additive.
 - `agent-potato-data/rail_geometries.json` — track waypoints (integrated into TRACK_* arrays)
 
 ---
+
+---
+
+## 14. New Features — v16.1 (2026-05-01)
+
+### E. Data Privacy Consent Checkbox ✅ (planned)
+- Add a checkbox row at the bottom of the onboarding form, above the Start button.
+- Text: "I agree that my personal data is collected and processed under the Data Privacy Act of 2012 (Republic Act No. 10173). <a>Terms & Conditions</a>"
+- Clicking "Terms & Conditions" opens a lightweight in-app modal (not a new tab) with a short summary.
+- The "Start My Journey" button stays disabled until: (a) role is selected AND (b) checkbox is checked.
+- Skipping bypasses the checkbox (anonymous mode — see §14.F).
+- CSS class: `.ob-privacy-row`, `.ob-privacy-link`, `.terms-modal`
+
+### F. Anonymous / Guest Mode ✅ (planned)
+- Add `let isGuest = false;` global state.
+- When `startJourney(true)` (skip), set `isGuest = true` and do NOT save any profile data.
+- `switchTab('profile')` checks `isGuest`:
+  - **Guest**: Show an anonymous avatar (`?`), username "Guest User", a message "Register or login to see your profile and points", and two gold-styled buttons: `[Login]` `[Register]` (both trigger `showToast` for now).
+  - **Logged-in**: Show the normal full profile (current behavior).
+- Profile screen HTML must contain both views; toggle visibility via `classList.add/remove('hidden')`.
+- IDs: `#profile-guest-view`, `#profile-user-view`
+
+### G. Corrected Train Track Coordinates ✅ (planned)
+Based on the reference map (manila-metro-map.png, UrbanRail.Net):
+
+**GEO_LRT1 corrections (south terminus)**:
+- EDSA: lat 14.5376, lng 120.9924 (was 14.5381, 120.9940)
+- Baclaran: lat 14.5197, lng 120.9998 (was 14.5342, 120.9974 — off by ~2km)
+- Add Redemptorist-Aseana terminus: lat 14.5155, lng 120.9929
+
+**TRACK_LRT1 corrections**:
+- Extend southern end to match corrected Baclaran / Redemptorist coords
+- Keeps the same northern FPJ endpoint
+
+**GEO_LRT2 corrections**:
+- Santolan: lat 14.6493, lng 121.0844 (was 14.6217, 121.0863 — off by ~3km)
+- Marikina: lat 14.6357, lng 121.0975 (was 14.6205, 121.1006)
+- Antipolo: lat 14.6249, lng 121.1746 (was 14.6248, 121.1214 — off by ~6km)
+
+**TRACK_LRT2 full replacement**:
+- Remove the incorrect big jump from lng 121.0453 to 121.0510
+- Reroute to follow GEO_LRT2 stations continuously
+- Extend to actual Antipolo endpoint
+
+**GEO_MRT3**: No structural changes needed; minor drift corrections acceptable.
+
+### H. Additional Stoplights ✅ (planned)
+Expand `STOPLIGHT_DATASET.items` from 25 to 50+ intersections.
+New intersections to add (all on real NCR roads):
+- Taft Ave at key crossings (Padre Faura, Vito Cruz, Pablo Ocampo, Libertad)
+- Katipunan Ave intersections (Ateneo, UP, Miriam, Blue Ridge)
+- Aurora Blvd intersections (Cubao, Gilmore, Katipunan jct)
+- Ortigas Ave (Lores, Valle Verde, C5)
+- Marcos Highway (Cainta, Marikina-Infanta Hwy)
+- Manila streets (Espana-Lacson, Legarda, Recto-Quezon Blvd)
+- Makati CBD (Ayala-Paseo, Makati Ave-Buendia, Jupiter-Rockwell)
+- Parañaque / Las Piñas (Ninoy Aquino Ave, Alabang-Zapote Rd)
+- Marikina / Pasig (Marcos Hwy, Rosario)
+All new items must align to actual road intersections (not random field coordinates).
+
+### I. Road Congestion Toggle in Commuter Mode ✅ (planned)
+- Add a "Road Colors" toggle row in the `#layerMenu`.
+- `let congestionToggleOn = true;` state.
+- Toggle calls `clearRoadCongestion()` / `drawRoadCongestion()` accordingly.
+- In **commuter mode**: toggle is available and defaults to OFF (roads hidden, transit lines shown).
+- In **driver mode**: toggle is always ON (roads shown), toggle hidden/disabled.
+- In **custom mode**: toggle available, defaults to ON.
+- Layer menu row: icon "🛣️", label "Road Colors", lm-toggle behavior.
+
+### J. Timestamps in Bottom Sheet ✅ (planned)
+Move `#mapUpdateStamp` out of the absolute map overlay into the bottom sheet's peek row.
+- Remove current CSS: `#mapUpdateStamp{position:absolute;left:12px;bottom:142px;}`.
+- Place `#mapUpdateStamp` as the last element inside `.sheet-peek-row` (between the expand hint and right edge).
+- When sheet is `state-collapsed` (only handle bar showing): stamp is hidden under the sheet → no obstruction.
+- When sheet is `state-peek` or `state-expanded`: stamp is visible within the sheet.
+- Apply `font-size:8px; color:var(--muted);` inline or via existing `.update-stamp` class.
+- `transitUpdateStamp` stays on the Transit screen (no change).
+
+---
+
+---
+
+## 15. Improvements Applied — v16.2 (2026-05-01)
+
+### E. Notification Map Bubbles ✅
+- `placeNotifMapMarkers()` — Leaflet markers for liveNotifs with lat/lng
+- `updateNotifMapMarkerVisibility()` — zoom >= 13 + viewport bounds guard
+- Called on map init and `zoomend moveend`
+
+### F. Bottom Sheet Peek Cleanup ✅
+- Removed "↑ Expand" hint + divider from `.sheet-peek-row`
+- Narrowed `.peek-mode-pill` padding to `3px 8px`
+
+### G. SOS Banner Repositioned ✅
+- `.loc-share-banner` moved from `top:58px` to `bottom:148px` (no longer blocks search bar)
+
+### H. Train Snap-to-Station ✅
+- `getTrainGeoPosSync` returns exact GEO[stationIdx] lat/lng when dwelling
+- Interpolates between GEO station coords when traveling (not track interpolation)
+
+### I. Station + Track Coordinates Updated ✅
+- GEO_LRT1/LRT2/MRT3 and TRACK_LRT1/LRT2/MRT3 replaced with OSM-accurate data
+- GEO_MRT3 corrected to 13 entries matching SVG_MRT3_WP (removed extra Betty Go / Santolan-Anapolis)
+- GEO_LRT2 Santolan/Antipolo corrected; TRACK_LRT2 extended continuously to 121.1746
+
+### J. Stoplights Expanded (50+) ✅
+- Added Katipunan, Aurora Blvd, Ortigas, Marcos Hwy, Makati CBD, Parañaque, Manila intersections
+
+### K. Notification Resolution Timers ✅
+- `scheduleNotifResolutions()` — auto-resolves accident/congestion notifs at 35s / 130s
+- Updates map bubble icon to ✅ on resolution
+
+### L. Profile 3-Subtab Layout ✅
+- Tabs: 🏆 Leaders | 🎫 Rewards | ⚙️ Settings
+- `switchProfileTab(tab)` — toggles `.psc-*` content divs
+
+### M. Community Forecast City Shuffle ✅
+- 17 Metro Manila cities with peak-hour data
+- Auto-shuffles every 5s; user tap pauses shuffle via `selectForecastCity()`
+- Pill row scrollable horizontally
+
+### N. Guest/User Profile Toggle ✅
+- `doLogin()` / `doRegister()` call `applyUserProfile()` which sets `isGuest=false` and shows `#profile-user-view`
+- `switchTab('profile')` re-evaluates `isGuest` on every visit
+
+---
+
+## 16. Improvements Applied — v16.3 (2026-05-01)
+
+### A. LRT-1 South Extension ✅
+- 5 new stations added: Redemptorist, MIA Road, PITX, Ninoy Aquino Ave, Dr. Santos
+- SVG_LRT1_WP extended (y:232–280), GEO_LRT1 extended with real coords, TRACK_LRT1 extended
+- SVG station circles added, lrt1Path polyline extended, viewBox updated to 305 height
+- VIEWBOXES.all/lrt1 constants updated
+- Linear route hscroll auto-extends from SVG_LRT1_WP
+
+### B. Map Bounds Extended ✅
+- NCR_BOUNDS SW: (14.43, 120.88), NE: (14.80, 121.22) — shows Antipolo (LRT-2) and Dr. Santos (LRT-1 south)
+
+### C. Timestamp Two-Line ✅
+- #mapUpdateStamp uses innerHTML with <br> to show "Map updated" / "X ago" on two lines
+- Removed white-space:nowrap from CSS
+
+### D. Mode Pill Narrowed ✅
+- .peek-mode-pill max-width:68px, padding reduced, font-size:8px — no longer reaches dividers
+
+### E. Notification Bubble Zoom Threshold ✅
+- updateNotifMapMarkerVisibility() now requires zoom >= 14 (was 13)
+
+### F. Driver Mode + Transit Follow ✅
+- transitFollowMode() calls showTransitLines() + showTrainDots() when currentMode==='driver'
+
+### G. Forecast Search Bar + Swipe ✅
+- City pill tabs replaced with search input + suggestions dropdown (autocomplete)
+- Touch swipe left/right on pred card cycles through cities
+- "← swipe to browse cities →" hint text added
+
+### H. Guest View Permanent Removal ✅
+- applyUserProfile() removes #profile-guest-view from DOM permanently via .remove()
+
+### I. Logo Splash Animation ✅
+- #splashAnim div shown for 1.8s after startJourney() — MMITS + Hiraya Transit + Bagong Galaw
+- Gold glow + staggered text reveal animations
+- Auto-fades out after 1.8s
+
+### J. Commuter Mode Hardened ✅
+- stopCongestionUpdates() called before clearRoadCongestion() to prevent redraw race
+- Removed duplicate stopCongestionUpdates() call
+
+---
+
+## 17. New Features — v16.4 (2026-05-02)
+
+### K. Splash Dark Mode Fix ✅
+- Theme (light/dark) is now applied AFTER splash animation completes, not before.
+- `.splash-anim` has `background:#080810 !important;color:#fff !important` so it always renders dark.
+- SOS `#ctrlZone` hidden during splash, restored after.
+
+### L. Definitive Notification Bubble Fix ✅
+- Added CSS: `#map-container.notifs-hidden .notif-bubble-marker { display:none !important }`.
+- `updateNotifMapMarkerVisibility()` now toggles `notifs-hidden` class on `#map-container` when zoom < 15, bypassing Leaflet layer management race conditions.
+- `placeNotifMapMarkers()` adds `notifs-hidden` initially; `notif-bubble-marker` class added to divIcon.
+
+### M. Commuter Mode Road Polygons OFF ✅
+- Confirmed: `selectMode('commuter')` already hardened with `clearRoadCongestion()`, `congestionToggleOn=false`, road toggle UI set to OFF.
+
+### N. Driver/Commuter Pill Reduced ✅
+- `max-width: 58px`, `padding: 3px 7px`, icon `9px`, text `8px`, gap `3px`.
+
+### O. Number Coding Date ✅
+- Added `#numCodingDate` span inside `modeContent.driver` coding-widget.
+- `updateNumCodingDate()` sets current date in "Month DD, YYYY" format on DOMContentLoaded.
+
+### P. Predictive Congestion Gallery Swipe Animation ✅
+- CSS classes: `swipe-left`, `swipe-right`, `swipe-enter-left`, `swipe-enter-right` on `#predCard`.
+- Content update extracted to `updateForecastContent(city)`.
+- `renderForecastCity(city, direction)` applies lean + exit/enter animation matching gallery swipe direction.
+- Touch swipe handler updated to pass `'left'`/`'right'` direction to `renderForecastCity`.
+
+### Q. Transit All-subtab Zoom/Pan ✅
+- `initTransitAllZoom()` adds wheel zoom (0.7× – 3×) and touch drag pan on `#transitMapWrap`.
+- Zoom buttons (+/−/Reset) added above SVG in transit all-routes view.
+- CSS: `.transit-all-wrap`, `.transit-all-svg`.
+- `#transitSVG` renamed to `#transitAllSvg`; all JS and CSS references updated.
+- `initTransitAllZoom()` called in DOMContentLoaded.
+
+### R. Linear Route Card Design Overhaul ✅
+- Header added to each linear route card: train icon + "Route Map" (left), 3 logo circles/diamond (right).
+- Glowing colored banner below header: green/LRT-1, blue/LRT-2, gold/MRT-3.
+- CSS: `.lr-card-header`, `.lr-card-header-left`, `.lr-card-header-logos`, `.lr-logo-circle`, `.lr-logo-diamond`, `.lr-banner`, `.lr-banner-lrt1`, `.lr-banner-lrt2`, `.lr-banner-mrt3`, `.lr-banner-text`.
+
+### S. Two Trains With Direction Arrows ✅
+- Train A labeled `▲` (northbound), Train B labeled `▼` (southbound) in linear route view.
+- Train B rendered at `opacity:0.8` to visually distinguish secondary train.
+- `title` attribute added for accessibility.
+
+### Key files modified
+- `MMITS Hiraya Transit.html` — all changes inline
+
+---
+
+## 18. New Features — v16.5 (2026-05-07)
+
+### A. Commuter-Focused Rebranding ✅
+- Onboarding tagline changed: "Bagong Galaw · Metro Manila Intelligent Transit" → "Your Commuter Map for Metro Manila"
+- Splash tag changed: "Bagong Galaw" → "THE Commuter Map · Metro Manila"
+- Status bar left label: "Metro Manila" → "Commuter Map · NCR"
+- Auth overlay subtitle: "Hiraya Transit — Metro Manila" → "Hiraya Transit · Student Commuter Edition"
+- `modeBannerContent.commuter.items[0]` updated to: "THE commuter map for Metro Manila"
+
+### B. Driver Mode Fully Removed ✅
+- Driver pill removed from onboarding role selector (kept: Commuter, Both)
+- `#pill-driver` seg-pill removed from bottom sheet mode switcher; `#pill-commuter` now starts active
+- `currentMode` global state now initializes to `'commuter'` (was `'driver'`)
+- `startJourney()` role fallback changed from `'driver'` to `'commuter'`; `'both'` role maps to `'custom'` mode
+- `modeMetrics`, `modeContent`, `modeBannerContent` objects all had `driver` key removed
+- `selectMode()`: driver icon/name removed, driver layer preset branch removed, always uses `SIMULATED` traffic provider
+- `applyModeLayerPresets()`: driver branch removed
+- `transitFollowMode()`: always calls `showTransitLines()` + `showTrainDots()` (no mode check)
+- Initial DOMContentLoaded loads `modeContent.commuter` (was `modeContent.driver`)
+- Post-init `if(currentMode==='driver')hideTrainDots()` line removed
+
+### C. Commuter's Choice Route Optimization ✅
+- `COMMUTER_CHOICE_MODES` object: three modes — **Efficiency** (⚡ teal), **Convenience** (🛋️ purple), **Budget** (💰 green)
+- `let commuterChoiceMode = 'efficiency';` global state
+- `setCommuterChoice(mode)` function: updates `.cc-btn.active` state, shows toast, triggers fare card refresh
+- Three-button widget prepended to commuter `modeContent` HTML
+- CSS `.cc-btn.active { filter:brightness(1.3); box-shadow:inset 0 0 0 1px currentColor; }`
+
+### D. University-Scoped Prototype ✅
+- `NCR_DESTINATIONS` extended with 12 university keys: `ust`, `up diliman`, `up manila`, `admu`, `ateneo`, `dlsu`, `la salle`, `feu`, `ue manila`, `mapua`, `pup`, `nu manila`
+- `UNIVERSITY_FARES` object added with 12 entries (rail line, fare, last-mile mode/cost, jeepney route/fare)
+- Commuter nudge card updated: title "🎓 Student Route Suggestion", UST/UP Manila fare example, "View University Routes →" action
+- Onboarding destination placeholder: "e.g. UST, UP Diliman, DLSU, Ateneo…"
+- Auth overlay subtitle: "Hiraya Transit · Student Commuter Edition"
+
+### E. Route Fare Breakdown Card ✅
+- `renderRouteFareCard(destKey)` function: generates a glass card with rail fare, last-mile fare, total, and all-mode comparison row
+- `<div id="routeFareCard">` mount point placed between Commuter's Choice widget and nudge card in commuter content
+- `doRouting()` stores `window._lastResolvedDest` and calls `renderRouteFareCard()` after every route resolution
+- `selectMode('commuter')` re-renders fare card if a destination was previously resolved (100ms delay)
+- Total displayed in active Commuter's Choice mode color; all three mode totals shown in comparison row
+
+### Agent Potato Data ✅
+- `agent-potato-data/university_data.json` — Metro Manila university coordinates + nearest LRT/MRT station + 2024 fares
+  - Source: OSM knowledge base + LRTA/MRTC published fare matrices (2024)
+  - Key correction: PUP coords updated to [14.5972, 121.0079] (Sta. Mesa) and nearest station is LRT-2 Anonas
+
+### Key files modified
+- `MMITS Hiraya Transit.html` — all changes inline
+- `agent-potato-data/university_data.json` — new file
 
 *End of CLAUDE.md — MMITS Hiraya Transit v16*
