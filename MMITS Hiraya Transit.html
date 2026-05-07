@@ -55,6 +55,7 @@ html.light {
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
+.hidden{display:none !important;}
 body{
   background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--text);
   min-height:100vh;display:flex;align-items:center;justify-content:center;
@@ -123,6 +124,47 @@ html.light .nav-item.active{background:rgba(245,166,35,0.18);}
 .ob-start-btn{width:100%;background:linear-gradient(135deg,var(--gold),#e8940f);color:#000;border:none;border-radius:16px;padding:15px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 6px 22px rgba(245,166,35,0.35);}
 .ob-start-btn:disabled{opacity:0.35;cursor:default;}
 .ob-skip{margin-top:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:rgba(96,96,138,0.7);cursor:pointer;text-align:center;letter-spacing:0.5px;text-decoration:underline;text-underline-offset:3px;}
+.ob-privacy-row{display:flex;align-items:flex-start;gap:9px;margin-bottom:14px;padding:10px 12px;background:rgba(124,92,191,0.06);border:1px solid rgba(124,92,191,0.18);border-radius:12px;}
+.ob-privacy-row input[type="checkbox"]{width:15px;height:15px;flex-shrink:0;margin-top:1px;accent-color:var(--gold);cursor:pointer;}
+.ob-privacy-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:9.5px;color:rgba(184,184,204,0.75);line-height:1.5;cursor:pointer;}
+.ob-privacy-label strong{color:rgba(184,184,204,0.9);}
+.ob-privacy-link{color:var(--gold);text-decoration:underline;text-underline-offset:2px;cursor:pointer;}
+.terms-modal-overlay{position:absolute;inset:0;z-index:10001;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;padding:20px;}
+.terms-modal-overlay.hidden{display:none;}
+.terms-modal-box{background:rgba(18,18,26,0.98);border:1px solid rgba(255,255,255,0.15);border-radius:22px;padding:20px 18px;max-height:80%;overflow-y:auto;width:100%;scrollbar-width:none;}
+.terms-modal-box::-webkit-scrollbar{display:none;}
+.terms-modal-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px;}
+.terms-modal-body{font-family:'Plus Jakarta Sans',sans-serif;font-size:9.5px;color:var(--muted);line-height:1.7;}
+.terms-modal-close{width:100%;margin-top:14px;background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.4);border-radius:12px;padding:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;color:var(--gold);cursor:pointer;}
+.auth-overlay{position:absolute;inset:0;z-index:10005;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:20px;}
+.auth-overlay.hidden{display:none;}
+.auth-box{background:rgba(16,16,26,0.98);border:1px solid rgba(255,255,255,0.15);border-radius:24px;padding:22px 18px 20px;width:100%;max-height:88%;overflow-y:auto;scrollbar-width:none;}
+.auth-box::-webkit-scrollbar{display:none;}
+.auth-tabs{display:flex;gap:4px;background:rgba(255,255,255,0.05);border-radius:12px;padding:3px;margin-bottom:18px;}
+.auth-tab{flex:1;padding:7px 4px;border-radius:10px;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.2s;}
+.auth-tab.active{background:rgba(245,166,35,0.15);color:var(--gold);border:1px solid rgba(245,166,35,0.4);}
+.auth-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px;}
+.auth-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--muted);margin-bottom:16px;}
+.auth-field{margin-bottom:11px;}
+.auth-field-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:8.5px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:rgba(245,166,35,0.7);margin-bottom:5px;}
+.auth-input{width:100%;background:rgba(26,26,42,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:11px 13px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:#e8e8f0;outline:none;transition:border-color 0.2s;-webkit-appearance:none;box-sizing:border-box;}
+.auth-input:focus{border-color:rgba(245,166,35,0.45);}
+.auth-input::placeholder{color:rgba(96,96,138,0.7);}
+.auth-privacy-row{display:flex;align-items:flex-start;gap:8px;margin:10px 0 14px;padding:9px 10px;background:rgba(124,92,191,0.06);border:1px solid rgba(124,92,191,0.15);border-radius:10px;}
+.auth-privacy-row input[type="checkbox"]{width:14px;height:14px;flex-shrink:0;margin-top:1px;accent-color:var(--gold);}
+.auth-privacy-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:rgba(184,184,204,0.7);line-height:1.5;}
+.auth-privacy-link{color:var(--gold);text-decoration:underline;cursor:pointer;}
+.auth-submit-btn{width:100%;background:linear-gradient(135deg,var(--gold),#e8940f);color:#000;border:none;border-radius:14px;padding:13px;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;transition:all 0.18s;margin-top:4px;}
+.auth-submit-btn:active{transform:scale(0.98);}
+.auth-close{position:absolute;top:10px;right:12px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);cursor:pointer;}
+.auth-form{display:none;}
+.auth-form.active{display:block;}
+.loc-share-banner{position:absolute;bottom:148px;left:12px;right:12px;z-index:45;background:rgba(255,50,50,0.18);border:1px solid rgba(255,50,50,0.4);border-radius:12px;padding:7px 12px;display:flex;align-items:center;gap:8px;pointer-events:none;}
+.loc-share-banner.hidden{display:none;}
+.loc-share-dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:blink 0.8s ease-in-out infinite;flex-shrink:0;}
+.loc-share-txt{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;color:#ff8888;line-height:1.3;}
+.sos-responder-dot{width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#ff4040,#cc0000);border:2px solid rgba(255,100,100,0.7);animation:responderPulse 0.9s ease-in-out infinite;}
+@keyframes responderPulse{0%,100%{box-shadow:0 0 0 3px rgba(255,50,50,0.4);}50%{box-shadow:0 0 0 9px rgba(255,50,50,0.1),0 0 20px rgba(200,0,0,0.4);}}
 
 /* ══════════════════════════════════════════
    MAP SCREEN — LEAFLET
@@ -154,6 +196,11 @@ html.light .nav-item.active{background:rgba(245,166,35,0.18);}
 .following-badge{position:absolute;top:114px;left:50%;transform:translateX(-50%);z-index:45;background:rgba(62,207,207,0.15);border:1px solid rgba(62,207,207,0.4);border-radius:999px;padding:5px 14px;font-size:9px;font-weight:600;color:var(--teal);letter-spacing:0.5px;pointer-events:none;animation:fadeBadge 0.3s ease;}
 .following-badge.hidden{display:none;}
 @keyframes fadeBadge{from{opacity:0;transform:translateX(-50%) translateY(-6px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.station-popup .leaflet-popup-content-wrapper{background:rgba(16,16,26,0.97);border:1px solid rgba(255,255,255,0.15);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.5);backdrop-filter:blur(12px);}
+.station-popup .leaflet-popup-tip{background:rgba(16,16,26,0.97);}
+.station-popup .leaflet-popup-content{margin:8px 12px;color:#e8e8f0;}
+html.light .station-popup .leaflet-popup-content-wrapper{background:rgba(255,255,255,0.97);border-color:rgba(0,0,0,0.1);}
+html.light .station-popup .leaflet-popup-content{color:#1a1a2e;}
 .map-fallback{position:absolute;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:rgba(6,6,16,0.92);backdrop-filter:blur(12px);}
 .map-fallback.hidden{display:none;}
 .mf-icon{font-size:36px;}.mf-title{font-size:13px;font-weight:600;color:var(--text);}.mf-sub{font-size:10px;color:var(--muted);}
@@ -190,6 +237,7 @@ html.light .mode-pill-float{background:rgba(255,255,255,0.62);border-color:rgba(
 .seg-pill{padding:6px 13px;border-radius:22px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.4px;color:var(--muted);cursor:pointer;transition:all 0.28s cubic-bezier(0.22,1,0.36,1);border:1px solid transparent;-webkit-tap-highlight-color:transparent;}
 .seg-pill.active{background:var(--seg-active-bg);border-color:rgba(245,166,35,0.45);color:var(--gold);box-shadow:var(--seg-active-glow);}
 html.light .seg-pill.active{background:rgba(245,166,35,0.18);color:#c47a0a;}
+.cc-btn.active{filter:brightness(1.3);box-shadow:inset 0 0 0 1px currentColor;}
 
 /* ══════════════════════════════════════════
    V15: RIGHT CONTROL ZONE — FIXED, z-index:9999
@@ -239,16 +287,17 @@ html.light .seg-pill.active{background:rgba(245,166,35,0.18);color:#c47a0a;}
 .sheet-handle-bar{width:40px;height:4px;border-radius:3px;background:rgba(255,255,255,0.18);transition:background 0.2s,width 0.2s;}
 html.light .sheet-handle-bar{background:rgba(0,0,0,0.15);}
 .bottom-sheet:hover .sheet-handle-bar{background:rgba(255,255,255,0.3);width:52px;}
-.sheet-peek-row{display:flex;align-items:center;justify-content:space-between;padding:0 18px 12px;flex-shrink:0;border-bottom:1px solid var(--border);}
+.sheet-peek-row{display:flex;align-items:center;padding:4px 12px 10px;flex-shrink:0;border-bottom:1px solid var(--border);gap:0;}
+.sheet-peek-row > *{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.sheet-peek-row .peek-divider{flex:0 0 1px;width:1px;height:28px;background:var(--border);align-self:center;}
 .peek-stat{display:flex;flex-direction:column;align-items:center;gap:2px;}
 .peek-stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:var(--gold);line-height:1;transition:color 0.25s ease;}
 .peek-stat-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:7px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
-.peek-divider{width:1px;height:32px;background:var(--border);}
-.peek-mode-pill{display:flex;align-items:center;gap:5px;background:var(--seg-active-bg);border:1px solid rgba(245,166,35,0.35);border-radius:12px;padding:5px 10px;}
-.peek-mode-icon{font-size:12px;}
-.peek-mode-txt{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;color:var(--gold);}
+.peek-mode-pill{display:flex;align-items:center;justify-content:center;gap:3px;background:rgba(245,166,35,0.09);border:1.5px solid rgba(245,166,35,0.65);border-radius:999px;padding:3px 7px;max-width:58px;margin:0 2px;box-shadow:0 0 8px rgba(245,166,35,0.18);}
+.peek-mode-icon{font-size:9px;line-height:1;}
+.peek-mode-txt{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:700;color:var(--gold);white-space:nowrap;letter-spacing:0.02em;}
 .peek-expand-hint{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:400;color:var(--muted);display:flex;align-items:center;gap:3px;}
-.peek-expand-hint::before{content:'↑';color:var(--teal);font-size:10px;}
+#mapUpdateStamp{font-size:7.5px;color:var(--muted);flex:1;text-align:center;line-height:1.35;padding:0 3px;}
 .sheet-body{overflow-y:auto;padding:12px 16px 20px;flex:1;scrollbar-width:none;overscroll-behavior:contain;touch-action:pan-y;}
 .sheet-body::-webkit-scrollbar{display:none;}
 .alert-strip{display:flex;align-items:center;gap:8px;padding:8px 0 10px;border-bottom:1px solid var(--border);margin-bottom:10px;}
@@ -324,7 +373,24 @@ html.light .tlt-btn{background:rgba(0,0,0,0.04);}
 .transit-map-wrap.morphing-out{opacity:0;pointer-events:none;}
 .transit-svg-wrap{position:relative;width:100%;background:rgba(8,10,24,0.6);border:1px solid rgba(255,255,255,0.05);border-radius:14px;overflow:hidden;}
 html.light .transit-svg-wrap{background:rgba(210,220,240,0.5);}
-#transitSVG{width:100%;height:230px;display:block;}
+.transit-all-wrap{overflow:hidden;touch-action:none;cursor:grab;user-select:none;position:relative;}
+.transit-all-wrap:active{cursor:grabbing;}
+.transit-all-svg{transform-origin:top center;transition:transform 0.1s ease;}
+.lr-card-header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 6px;background:#0a0a14;border-radius:16px 16px 0 0;}
+.lr-card-header-left{display:flex;align-items:center;gap:6px;}
+.lr-train-icon{font-size:16px;}
+.lr-route-map-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;color:#fff;letter-spacing:0.5px;}
+.lr-card-header-logos{display:flex;align-items:center;gap:4px;}
+.lr-logo-circle{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;}
+.lr-logo-diamond{width:18px;height:18px;transform:rotate(45deg);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;}
+.lr-logo-diamond span{transform:rotate(-45deg);}
+.lr-logo-img{width:24px;height:24px;object-fit:contain;border:none;outline:none;border-radius:0;background:transparent;}
+.lr-banner{padding:8px 12px;display:flex;align-items:center;justify-content:center;}
+.lr-banner-lrt1{background:linear-gradient(90deg,#1a5a2a,#2a7a3a,#1a5a2a);box-shadow:0 0 16px rgba(62,207,142,0.4),inset 0 1px 0 rgba(255,255,255,0.1);}
+.lr-banner-lrt2{background:linear-gradient(90deg,#1a2a6a,#2a4a9a,#1a2a6a);box-shadow:0 0 16px rgba(74,144,255,0.4),inset 0 1px 0 rgba(255,255,255,0.1);}
+.lr-banner-mrt3{background:linear-gradient(90deg,#5a4a0a,#8a7010,#5a4a0a);box-shadow:0 0 16px rgba(245,166,35,0.4),inset 0 1px 0 rgba(255,255,255,0.1);}
+.lr-banner-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase;text-shadow:0 0 8px rgba(255,255,255,0.5);}
+#transitAllSvg{width:100%;height:230px;display:block;}
 .transit-tooltip{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);background:rgba(10,10,22,0.96);border:1px solid var(--border);border-radius:10px;padding:5px 10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:500;color:var(--text);white-space:nowrap;opacity:0;transition:opacity 0.2s;pointer-events:none;z-index:5;}
 html.light .transit-tooltip{background:rgba(250,252,255,0.98);}
 .transit-tooltip.show{opacity:1;}
@@ -550,6 +616,14 @@ html.light .hs-st-dot{background:rgba(220,228,248,0.95);}
 .si-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--text);flex:1;}
 .si-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;color:var(--muted);margin-top:1px;}
 .si-arrow{font-size:11px;color:var(--muted);}
+#profile-guest-view{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px 20px;text-align:center;}
+.guest-avatar{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.06);border:2px dashed rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--muted);}
+.guest-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;color:var(--text);}
+.guest-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--muted);line-height:1.6;max-width:240px;}
+.guest-btns{display:flex;gap:10px;margin-top:4px;}
+.guest-btn{padding:10px 22px;border-radius:14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;cursor:pointer;border:1px solid rgba(245,166,35,0.5);color:var(--gold);background:rgba(245,166,35,0.1);}
+.guest-btn.primary{background:linear-gradient(135deg,var(--gold),#e8940f);color:#000;border:none;}
+.guest-hint{font-family:'Plus Jakarta Sans',sans-serif;font-size:8.5px;color:var(--muted);opacity:0.6;margin-top:4px;}
 
 /* ── EMERGENCY ── */
 .emergency-modal{position:absolute;inset:0;z-index:200;background:var(--em-bg);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px;animation:fadeInUp 0.3s ease;}
@@ -598,6 +672,65 @@ html.light .hs-st-dot{background:rgba(220,228,248,0.95);}
 body.eco-mode .user-pulse,body.eco-mode .user-loc-dot,body.eco-mode .alert-dot,body.eco-mode .live-dot,body.eco-mode .bell-notif-dot,body.eco-mode .mcd,body.eco-mode .ra-dot,body.eco-mode .sos-stack-btn{animation:none !important;}
 body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s linear,opacity 0.15s linear,background 0.15s !important;}
 
+/* ── UPDATE STAMPS ── */
+.update-stamp{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:400;color:var(--muted);background:rgba(8,8,20,0.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:3px 10px;pointer-events:none;white-space:nowrap;}
+html.light .update-stamp{background:rgba(255,255,255,0.72);border-color:rgba(0,0,0,0.08);}
+/* ── STOPLIGHT TOGGLE BUTTON ── */
+#stoplightToggleBtn{opacity:0.35;pointer-events:none;}
+#stoplightToggleBtn.commuter-available{opacity:1;pointer-events:all;}
+/* ── RIGHT STACK DRAWER ── */
+.right-stack-drawer{display:flex;flex-direction:column;align-items:center;gap:5px;overflow:hidden;max-height:0;opacity:0;transition:max-height 0.35s cubic-bezier(0.22,1,0.36,1),opacity 0.28s ease;}
+.right-stack-drawer.open{max-height:400px;opacity:1;}
+#mapControlToggle svg{transition:transform 0.3s ease;}
+#mapControlToggle.active-state svg{transform:rotate(180deg);}
+.notif-map-bubble{width:30px;height:30px;border-radius:50%;background:rgba(10,10,22,0.92);border:1.5px solid rgba(255,255,255,0.28);display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 10px rgba(0,0,0,0.55);cursor:pointer;transition:transform 0.15s ease;}
+.notif-map-bubble:hover{transform:scale(1.15);}
+#map-container.notifs-hidden .notif-bubble-marker,
+#map-container.notifs-hidden .notif-bubble-popup{display:none !important;}
+.profile-subtabs{display:flex;gap:6px;padding:0 16px;margin:10px 0 4px;flex-shrink:0;}
+.pst-btn{flex:1;text-align:center;padding:7px 4px;border-radius:999px;font-size:9px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;border:1px solid var(--border);color:var(--text2);cursor:pointer;background:transparent;transition:all 0.25s ease;letter-spacing:0.04em;text-transform:uppercase;}
+.pst-btn.active{background:rgba(245,166,35,0.18);border-color:rgba(245,166,35,0.5);color:var(--gold);}
+.profile-subtab-content{display:none;}
+.profile-subtab-content.active{display:block;}
+.pred-city-tabs{display:flex;gap:4px;flex-wrap:wrap;padding:4px 0 8px;overflow-x:auto;scrollbar-width:none;}
+.pred-city-tabs::-webkit-scrollbar{display:none;}
+.pred-city-pill{padding:4px 10px;border-radius:999px;font-size:8px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:all 0.2s ease;white-space:nowrap;flex-shrink:0;}
+.pred-city-pill.active{background:rgba(245,166,35,0.18);border-color:rgba(245,166,35,0.5);color:var(--gold);}
+.pred-search-wrap{position:relative;margin-bottom:8px;}
+.pred-search-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:7px 12px 7px 32px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--text);outline:none;transition:border-color 0.2s;}
+.pred-search-input:focus{border-color:rgba(245,166,35,0.5);}
+.pred-search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:12px;pointer-events:none;}
+.pred-city-suggestions{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface3);border:1px solid var(--border);border-radius:12px;z-index:200;max-height:150px;overflow-y:auto;scrollbar-width:none;display:none;}
+.pred-city-suggestions::-webkit-scrollbar{display:none;}
+.pred-city-suggestions.open{display:block;}
+.pred-city-sug-item{padding:7px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;color:var(--text2);cursor:pointer;transition:background 0.15s;}
+.pred-city-sug-item:hover{background:rgba(245,166,35,0.08);color:var(--gold);}
+.pred-swipe-hint{text-align:center;font-size:7.5px;color:var(--muted);margin-bottom:4px;letter-spacing:0.5px;}
+#predCard{transition:transform 0.32s cubic-bezier(0.22,1,0.36,1),opacity 0.32s ease;}
+#predCard.swipe-left{transform:translateX(-100%) rotate(-8deg);opacity:0;}
+#predCard.swipe-right{transform:translateX(100%) rotate(8deg);opacity:0;}
+#predCard.swipe-enter-left{transform:translateX(100%) rotate(8deg);opacity:0;}
+#predCard.swipe-enter-right{transform:translateX(-100%) rotate(-8deg);opacity:0;}
+.splash-anim{position:absolute;inset:0;z-index:9990;background:#080810 !important;color:#fff !important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;opacity:0;pointer-events:none;transition:opacity 0.5s ease;}
+.splash-anim.show{opacity:1;pointer-events:all;}
+.splash-anim.fade-out{opacity:0;}
+.splash-glow{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,0.28) 0%,transparent 68%);filter:blur(35px);animation:splashGlowPulse 1.8s ease-out forwards;}
+.splash-wordmark{font-family:'Plus Jakarta Sans',sans-serif;font-size:44px;font-weight:800;color:#ffffff;letter-spacing:-1px;line-height:1;animation:splashReveal 0.9s cubic-bezier(0.22,1,0.36,1) both;}
+.splash-wordmark span{color:var(--gold);}
+.splash-brand-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:400;color:var(--muted);letter-spacing:3px;text-transform:uppercase;animation:splashReveal 0.9s 0.15s cubic-bezier(0.22,1,0.36,1) both;}
+.splash-tag{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:600;color:rgba(245,166,35,0.6);letter-spacing:4px;text-transform:uppercase;margin-top:4px;animation:splashReveal 0.9s 0.3s cubic-bezier(0.22,1,0.36,1) both;}
+@keyframes splashReveal{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes splashGlowPulse{0%{opacity:0;transform:scale(0.6);}60%{opacity:1;transform:scale(1.05);}100%{opacity:0.7;transform:scale(1);}}
+
+/* ── ONBOARDING AUTH STEP ── */
+.ob-auth-tabs{display:flex;gap:6px;margin-bottom:12px;width:100%;}
+.ob-auth-tab{flex:1;padding:9px 6px;border-radius:12px;text-align:center;background:rgba(26,26,42,0.8);border:1px solid rgba(255,255,255,0.08);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(184,184,204,0.7);cursor:pointer;transition:all 0.22s;}
+.ob-auth-tab.active{background:rgba(245,166,35,0.12);border-color:rgba(245,166,35,0.5);color:var(--gold);}
+.ob-auth-form{width:100%;margin-bottom:10px;display:flex;flex-direction:column;gap:8px;}
+.ob-auth-divider{width:100%;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:rgba(96,96,138,0.6);margin:6px 0;letter-spacing:1px;}
+#obAuthStep{display:flex;flex-direction:column;align-items:center;width:100%;}
+#obProfileStep{display:none;flex-direction:column;align-items:center;width:100%;}
+
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
@@ -620,34 +753,75 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
     <div class="ob-glow"></div>
     <div class="ob-logo">MM<span>ITS</span></div>
     <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:400;color:rgba(184,184,204,0.6);margin-top:-6px;margin-bottom:4px;letter-spacing:0.3px;">Hiraya Transit</div>
-    <div class="ob-tagline">Bagong Galaw · Metro Manila Intelligent Transit</div>
-    <div class="ob-step">
-      <div class="ob-q-label">01 · Identity</div>
-      <div class="ob-q-text">Who are you?</div>
-      <div class="ob-pills">
-        <div class="ob-pill" data-role="driver" onclick="selectRole(this)"><span class="ob-pill-icon">🚗</span>Driver</div>
-        <div class="ob-pill" data-role="commuter" onclick="selectRole(this)"><span class="ob-pill-icon">🚌</span>Commuter</div>
-        <div class="ob-pill" data-role="both" onclick="selectRole(this)"><span class="ob-pill-icon">🗺️</span>Both</div>
+    <div class="ob-tagline">Your Commuter Map for Metro Manila</div>
+    <!-- ── AUTH STEP (shown first) ── -->
+    <div id="obAuthStep">
+      <div class="ob-auth-tabs">
+        <div class="ob-auth-tab active" id="obTabLogin" onclick="obSwitchAuthTab('login')">🔑 Sign In</div>
+        <div class="ob-auth-tab" id="obTabRegister" onclick="obSwitchAuthTab('register')">✨ Register</div>
+      </div>
+      <div id="obLoginForm" class="ob-auth-form">
+        <input class="ob-input" id="obLoginEmail" type="email" placeholder="Email or username" autocomplete="email">
+        <input class="ob-input" id="obLoginPass" type="password" placeholder="Password" autocomplete="current-password">
+      </div>
+      <div id="obRegisterForm" class="ob-auth-form" style="display:none;">
+        <input class="ob-input" id="obRegName" type="text" placeholder="Full name" autocomplete="name">
+        <input class="ob-input" id="obRegEmail" type="email" placeholder="Email" autocomplete="email">
+        <input class="ob-input" id="obRegPass" type="password" placeholder="Password" autocomplete="new-password">
+      </div>
+      <div class="ob-auth-divider">— OR —</div>
+      <div class="ob-privacy-row" id="obAuthPrivacyRow">
+        <input type="checkbox" id="obAuthPrivacyCheck" onchange="checkObAuthReady()">
+        <label for="obAuthPrivacyCheck" class="ob-privacy-label">I agree my data is collected under the <strong>Data Privacy Act of 2012</strong> (RA 10173). <span class="ob-privacy-link" onclick="showTermsModal()">Terms &amp; Conditions</span></label>
+      </div>
+      <button class="ob-start-btn" id="obAuthNextBtn" onclick="obProceedFromAuth()" disabled>Get Started →</button>
+      <div class="ob-skip" onclick="obSkipAuth()">Skip — Continue as Guest</div>
+    </div>
+
+    <!-- ── PROFILE STEP (shown after auth) ── -->
+    <div id="obProfileStep">
+      <div class="ob-step">
+        <div class="ob-q-label">01 · Identity</div>
+        <div class="ob-q-text">Who are you?</div>
+        <div class="ob-pills">
+          <div class="ob-pill" data-role="commuter" onclick="selectRole(this)"><span class="ob-pill-icon">🚌</span>Commuter</div>
+          <div class="ob-pill" data-role="both" onclick="selectRole(this)"><span class="ob-pill-icon">🗺️</span>Both</div>
+        </div>
+      </div>
+      <div class="ob-step">
+        <div class="ob-q-label">02 · Profile</div>
+        <div class="ob-q-text">What is your age?</div>
+        <input class="ob-input" id="obAge" type="number" min="1" max="120" placeholder="e.g. 28">
+      </div>
+      <div class="ob-step" style="margin-bottom:24px;">
+        <div class="ob-q-label">03 · Commute</div>
+        <div class="ob-q-text">Where do you usually go?</div>
+        <input class="ob-input" id="obDest" type="text" placeholder="e.g. UST, UP Diliman, DLSU, Ateneo…">
+      </div>
+      <button class="ob-start-btn" id="obStartBtn" onclick="startJourney()" disabled>Start My Journey →</button>
+    </div>
+    <div class="terms-modal-overlay hidden" id="termsModalOverlay">
+      <div class="terms-modal-box">
+        <div class="terms-modal-title">📋 Terms &amp; Conditions</div>
+        <div class="terms-modal-body">
+          <strong>MMITS Hiraya Transit — Data Privacy Notice</strong><br><br>
+          In compliance with Republic Act No. 10173, the <em>Data Privacy Act of 2012</em>, and its Implementing Rules and Regulations, MMITS Hiraya Transit collects and processes the following personal data:<br><br>
+          • <strong>Name &amp; Age</strong> — for personalized experience and leaderboard.<br>
+          • <strong>Usual destination</strong> — for commute suggestions and traffic insights.<br>
+          • <strong>GPS location</strong> — to display your position on the map and assist emergency services when SOS is activated.<br>
+          • <strong>Incident reports</strong> — submitted voluntarily, shared with MMDA for verification.<br><br>
+          Your data is used solely for app functionality and NCR traffic safety improvements. It is not sold to third parties. You may request deletion at any time via Profile → Privacy &amp; Data.<br><br>
+          By proceeding, you consent to data collection as described above. This app is a prototype; data is stored locally in your browser session only.
+        </div>
+        <button class="terms-modal-close" onclick="closeTermsModal()">I Understand — Close</button>
       </div>
     </div>
-    <div class="ob-step">
-      <div class="ob-q-label">02 · Profile</div>
-      <div class="ob-q-text">What is your age?</div>
-      <input class="ob-input" id="obAge" type="number" min="1" max="120" placeholder="e.g. 28">
-    </div>
-    <div class="ob-step" style="margin-bottom:24px;">
-      <div class="ob-q-label">03 · Commute</div>
-      <div class="ob-q-text">Where do you usually go?</div>
-      <input class="ob-input" id="obDest" type="text" placeholder="e.g. BGC, Ortigas, Makati…">
-    </div>
-    <button class="ob-start-btn" id="obStartBtn" onclick="startJourney()" disabled>Start My Journey →</button>
-    <div class="ob-skip" onclick="startJourney(true)">Skip for now</div>
   </div>
 
   <div class="dynamic-island"><div class="di-time" id="clock">9:41</div></div>
 
   <div class="status-bar">
-    <div class="status-left">Metro Manila</div>
+    <div class="status-left">Commuter Map · NCR</div>
     <div class="status-right">
       <span class="status-icon">▲▲▲</span>
       <span class="status-icon">📶</span>
@@ -669,6 +843,10 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
           <div class="mf-retry" onclick="retryMap()">Retry</div>
         </div>
         <div id="followingBadge" class="following-badge hidden"></div>
+        <div id="locShareBanner" class="loc-share-banner hidden">
+          <div class="loc-share-dot"></div>
+          <div class="loc-share-txt">📡 Your location is being shared with emergency responders</div>
+        </div>
 
         <!-- V15: RIGHT CONTROL ZONE — z-index:9999 -->
         <div class="ctrl-zone" id="ctrlZone">
@@ -679,6 +857,11 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
             <div class="lm-row"><div class="lm-icon">🅿️</div><div class="lm-label">Parking</div><div class="lm-toggle" id="lt-parking" onclick="toggleLmLayer(this,'parking')"><div class="lm-knob"></div></div></div>
             <div class="lm-row"><div class="lm-icon">🚧</div><div class="lm-label">Construction</div><div class="lm-toggle on" id="lt-construction" onclick="toggleLmLayer(this,'construction')"><div class="lm-knob"></div></div></div>
             <div class="lm-row"><div class="lm-icon">🚶</div><div class="lm-label">Pedestrian</div><div class="lm-toggle" id="lt-pedestrian" onclick="toggleLmLayer(this,'pedestrian')"><div class="lm-knob"></div></div></div>
+            <div class="lm-row" id="congestionToggleRow" onclick="toggleCongestionLayer()">
+              <div class="lm-icon">🛣️</div>
+              <div class="lm-label">Road Colors</div>
+              <div class="lm-toggle on" id="congestionToggle"><div class="lm-knob"></div></div>
+            </div>
           </div>
           <div class="map-key-popup" id="mapKeyPopup">
             <div class="leg-row"><div class="leg-dot" style="background:var(--red);"></div><span class="leg-txt">Heavy</span></div>
@@ -686,24 +869,41 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
             <div class="leg-row"><div class="leg-dot" style="background:var(--green);"></div><span class="leg-txt">Clear</span></div>
           </div>
           <div class="right-stack">
-            <div class="rcmd-btn" id="bellBtn" onclick="triggerBell()" title="Notifications">🔔<div class="bell-notif-dot"></div></div>
-            <div class="rcmd-div"></div>
-            <div class="rcmd-btn" onclick="zoomMap(1)" title="Zoom In" style="font-size:18px;">+</div>
-            <div class="rcmd-btn" onclick="zoomMap(-1)" title="Zoom Out" style="font-size:18px;">−</div>
-            <div class="rcmd-btn" id="locateBtn" onclick="locateUser()" title="My Location">
-              <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                <circle cx="7.5" cy="7.5" r="3" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="7.5" y1="0" x2="7.5" y2="4" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="7.5" y1="11" x2="7.5" y2="15" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="0" y1="7.5" x2="4" y2="7.5" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="11" y1="7.5" x2="15" y2="7.5" stroke="currentColor" stroke-width="1.5"/>
+            <div class="rcmd-btn" id="mapControlToggle" onclick="toggleMapControls()" title="Map Controls">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="2.5" r="1.5" fill="currentColor"/>
+                <circle cx="7" cy="7" r="1.5" fill="currentColor"/>
+                <circle cx="7" cy="11.5" r="1.5" fill="currentColor"/>
               </svg>
             </div>
-            <div class="rcmd-div"></div>
-            <div class="rcmd-btn" id="layerBtn" onclick="toggleLayerMenu()" title="Map Layers">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5.5L8 2.5L14 5.5L8 8.5L2 5.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/><path d="M2 9L8 12L14 9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M2 12.5L8 15.5L14 12.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <div class="right-stack-drawer" id="rightStackDrawer">
+              <div class="rcmd-btn" id="bellBtn" onclick="triggerBell()" title="Notifications">🔔<div class="bell-notif-dot"></div></div>
+              <div class="rcmd-div"></div>
+              <div class="rcmd-btn" onclick="zoomMap(1)" title="Zoom In" style="font-size:18px;">+</div>
+              <div class="rcmd-btn" onclick="zoomMap(-1)" title="Zoom Out" style="font-size:18px;">−</div>
+              <div class="rcmd-btn" id="locateBtn" onclick="locateUser()" title="My Location">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <circle cx="7.5" cy="7.5" r="3" stroke="currentColor" stroke-width="1.5"/>
+                  <line x1="7.5" y1="0" x2="7.5" y2="4" stroke="currentColor" stroke-width="1.5"/>
+                  <line x1="7.5" y1="11" x2="7.5" y2="15" stroke="currentColor" stroke-width="1.5"/>
+                  <line x1="0" y1="7.5" x2="4" y2="7.5" stroke="currentColor" stroke-width="1.5"/>
+                  <line x1="11" y1="7.5" x2="15" y2="7.5" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <div class="rcmd-div"></div>
+              <div class="rcmd-btn" id="layerBtn" onclick="toggleLayerMenu()" title="Map Layers">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5.5L8 2.5L14 5.5L8 8.5L2 5.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/><path d="M2 9L8 12L14 9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M2 12.5L8 15.5L14 12.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="rcmd-btn" id="mapKeyBtn" onclick="toggleMapKey()" title="Map Key">🗝️</div>
+              <div class="rcmd-btn" id="stoplightToggleBtn" onclick="toggleCommuterStoplights()" title="Toggle Stoplights">
+                <svg width="14" height="22" viewBox="0 0 14 22" fill="none">
+                  <rect x="1" y="1" width="12" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/>
+                  <circle cx="7" cy="6" r="2.5" fill="currentColor" opacity="0.3" class="sl-tog-r"/>
+                  <circle cx="7" cy="11" r="2.5" fill="currentColor" opacity="0.3" class="sl-tog-y"/>
+                  <circle cx="7" cy="16" r="2.5" fill="currentColor" opacity="0.9" class="sl-tog-g"/>
+                </svg>
+              </div>
             </div>
-            <div class="rcmd-btn" id="mapKeyBtn" onclick="toggleMapKey()" title="Map Key">🗝️</div>
             <div class="rcmd-div"></div>
             <div class="sos-stack-btn" onclick="openEmergency()"><span>🚨</span><small>SOS</small></div>
           </div>
@@ -716,13 +916,13 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
         <div class="bottom-sheet state-peek" id="bottomSheet">
           <div class="sheet-handle" id="sheetHandle"><div class="sheet-handle-bar"></div></div>
           <div class="sheet-peek-row">
-            <div class="peek-stat"><div class="peek-stat-val" id="peekMetricVal">14.2</div><div class="peek-stat-lbl" id="peekMetricLbl">KM Driven</div></div>
+            <div class="peek-stat"><div class="peek-stat-val" id="peekMetricVal">14.2</div><div class="peek-stat-lbl" id="peekMetricLbl">KM</div></div>
             <div class="peek-divider"></div>
             <div class="peek-stat"><div class="peek-stat-val" style="color:var(--teal);">4 min</div><div class="peek-stat-lbl">ETA</div></div>
             <div class="peek-divider"></div>
             <div class="peek-mode-pill" id="peekModePill"><span class="peek-mode-icon">🚗</span><span class="peek-mode-txt" id="peekModeTxt">Driver</span></div>
             <div class="peek-divider"></div>
-            <div class="peek-expand-hint">Expand</div>
+            <div id="mapUpdateStamp" class="update-stamp" style="font-size:7.5px;text-align:center;background:none;border:none;padding:0;">just now</div>
           </div>
           <div class="sheet-body" id="sheetBody">
             <div class="alert-strip"><div class="alert-dot"></div><div class="alert-text"><strong>Accident — EDSA Ortigas</strong>Dispatcher en route · 2 verified reports</div></div>
@@ -740,8 +940,7 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
       </div>
       <div class="search-float"><span class="search-icon">🔍</span><input id="search-bar" class="search-input" type="text" placeholder="Search roads, stations, places…" autocomplete="off" /><span class="search-filter" onclick="clearRoute()">✕</span></div>
       <div class="mode-pill-float">
-        <div class="seg-pill active" id="pill-driver" onclick="selectMode('driver',this)">🚗 Driver</div>
-        <div class="seg-pill" id="pill-commuter" onclick="selectMode('commuter',this)">🚌 Commuter</div>
+        <div class="seg-pill active" id="pill-commuter" onclick="selectMode('commuter',this)">🚌 Commuter</div>
         <div class="seg-pill" id="pill-custom" onclick="selectMode('custom',this)">⚙️ Custom</div>
       </div>
     </div>
@@ -779,6 +978,7 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
       <div class="screen-header">
         <div class="screen-title">Transit Tracker</div>
         <div class="screen-sub">Live LRT/MRT positions · Tap a train to auto‑follow</div>
+        <div id="transitUpdateStamp" class="update-stamp" style="margin-top:5px;display:inline-block;">Transit updated just now</div>
       </div>
       <div class="screen-body">
 
@@ -790,22 +990,27 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
 
         <!-- V15: Line selector tabs -->
         <div class="transit-line-tabs">
-          <div class="tlt-btn all-active" id="tlt-all"  onclick="setTransitView('all')">🗺 All</div>
+          <div class="tlt-btn all-active" id="tlt-all"  onclick="setTransitView('all')"><img src="train-icon.jpg" style="width:13px;height:13px;object-fit:cover;border-radius:2px;vertical-align:middle;margin-right:3px;"> All</div>
           <div class="tlt-btn" id="tlt-lrt1" onclick="setTransitView('lrt1')">🟢 LRT 1</div>
           <div class="tlt-btn" id="tlt-lrt2" onclick="setTransitView('lrt2')">🔵 LRT 2</div>
           <div class="tlt-btn" id="tlt-mrt3" onclick="setTransitView('mrt3')">🟡 MRT 3</div>
         </div>
 
         <!-- ─── V15: MACRO SVG MAP (default visible) ─── -->
-        <div class="transit-map-wrap" id="transitMapWrap">
+        <div class="transit-map-wrap transit-all-wrap" id="transitMapWrap" aria-label="All transit lines map">
+          <div style="display:flex;gap:6px;justify-content:flex-end;padding:4px 8px 2px;">
+            <button id="transitAllZoomIn" style="background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.4);border-radius:8px;color:var(--gold);font-size:14px;width:28px;height:28px;cursor:pointer;">+</button>
+            <button id="transitAllZoomOut" style="background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.4);border-radius:8px;color:var(--gold);font-size:14px;width:28px;height:28px;cursor:pointer;">−</button>
+            <button id="transitAllReset" style="background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.4);border-radius:8px;color:var(--text2);font-size:9px;width:40px;height:28px;cursor:pointer;">Reset</button>
+          </div>
           <div class="transit-svg-wrap">
-            <svg id="transitSVG" viewBox="-15 -5 325 265" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-              <rect x="-15" y="-5" width="325" height="270" fill="rgba(4,6,18,0)" rx="0"/>
+            <svg id="transitAllSvg" viewBox="-15 -5 325 305" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" class="transit-all-svg">
+              <rect x="-15" y="-5" width="325" height="310" fill="rgba(4,6,18,0)" rx="0"/>
               <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.6" fill="rgba(255,255,255,0.06)"/></pattern>
-              <rect x="-15" y="-5" width="325" height="270" fill="url(#dotGrid)"/>
+              <rect x="-15" y="-5" width="325" height="310" fill="url(#dotGrid)"/>
               <text x="-10" y="-1" font-size="6" fill="rgba(255,255,255,0.18)" font-family="'Plus Jakarta Sans',sans-serif" letter-spacing="0.5">N ↑</text>
               <!-- Routes -->
-              <polyline id="lrt1Path" points="55,10 55,24 55,36 55,48 55,60 55,72 55,84 55,94 55,102 55,110 55,122 55,133 55,144 55,154 55,163 55,172 55,182 55,192 55,205 55,220" stroke="#3ecf8e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
+              <polyline id="lrt1Path" points="55,10 55,24 55,36 55,48 55,60 55,72 55,84 55,94 55,102 55,110 55,122 55,133 55,144 55,154 55,163 55,172 55,182 55,192 55,205 55,220 55,232 55,244 55,256 55,268 55,280" stroke="#3ecf8e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
               <polyline id="lrt2Path" points="55,110 74,110 93,110 112,110 130,110 148,110 164,110 180,110 197,110 215,110 235,110 256,110 278,110" stroke="#4a90ff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
               <polyline id="mrt3Path" points="180,14 180,35 180,57 180,110 180,130 180,148 180,163 180,178 180,193 180,205 180,217 180,229 180,245" stroke="#f5a623" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
               <!-- Interchanges -->
@@ -834,6 +1039,11 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
                 <circle class="sv-st" cx="55" cy="192" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8"/><text x="48" y="196"   text-anchor="end"    font-size="6.5" fill="rgba(255,255,255,0.4)"  font-family="'Plus Jakarta Sans',sans-serif">Libertad</text>
                 <circle class="sv-st interchange" cx="55" cy="205" r="4.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="2.2" onclick="svStationClick('LRT-1 · EDSA','High crowd · near MRT-3 Taft')"/><text x="48" y="202" text-anchor="end" font-size="7" fill="#3ecf8e" font-weight="bold" font-family="'Plus Jakarta Sans',sans-serif">EDSA</text>
                 <circle class="sv-st" cx="55" cy="220" r="4"   fill="#0a0e18" stroke="#3ecf8e" stroke-width="2"   onclick="svStationClick('LRT-1 · Baclaran','Medium crowd')"/><text x="48" y="224"   text-anchor="end"    font-size="7"   fill="rgba(255,255,255,0.65)" font-family="'Plus Jakarta Sans',sans-serif">Baclaran</text>
+                <circle class="sv-st" cx="55" cy="232" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8" onclick="svStationClick('LRT-1 · Redemptorist','Low crowd')"/><text x="48" y="236" text-anchor="end" font-size="6.5" fill="rgba(255,255,255,0.5)"  font-family="'Plus Jakarta Sans',sans-serif">Redemptorist</text>
+                <circle class="sv-st" cx="55" cy="244" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8" onclick="svStationClick('LRT-1 · MIA Road','Low crowd')"/>    <text x="48" y="248" text-anchor="end" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">MIA Road</text>
+                <circle class="sv-st" cx="55" cy="256" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8" onclick="svStationClick('LRT-1 · PITX','Low crowd')"/>        <text x="48" y="260" text-anchor="end" font-size="6.5" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif">PITX</text>
+                <circle class="sv-st" cx="55" cy="268" r="3.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="1.8" onclick="svStationClick('LRT-1 · Ninoy Aquino Ave','Low crowd')"/><text x="48" y="272" text-anchor="end" font-size="6.5" fill="rgba(255,255,255,0.4)"  font-family="'Plus Jakarta Sans',sans-serif">Ninoy Aquino</text>
+                <circle class="sv-st" cx="55" cy="280" r="4.5" fill="#0a0e18" stroke="#3ecf8e" stroke-width="2.2" onclick="svStationClick('LRT-1 · Dr. Santos','Low crowd — Southern Terminus')"/><text x="48" y="284" text-anchor="end" font-size="7" fill="#3ecf8e" font-weight="bold" font-family="'Plus Jakarta Sans',sans-serif">Dr. Santos</text>
               </g>
               <!-- LRT-2 Stations -->
               <g id="lrt2Stations">
@@ -870,12 +1080,18 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
               <!-- Transfer line -->
               <line x1="55" y1="205" x2="180" y2="245" stroke="rgba(255,255,255,0.18)" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round"/>
               <!-- Train dots — clickable -->
-              <circle id="svgLrt1A" cx="55"  cy="36"  r="7"   fill="#3ecf8e" stroke="#fff" stroke-width="1.5" opacity="0.97" style="cursor:pointer;" onclick="selectTrain('lrt1','A',event)"/>
-              <circle id="svgLrt1B" cx="55"  cy="154" r="5.5" fill="#3ecf8e" stroke="#fff" stroke-width="1"   opacity="0.8"  style="cursor:pointer;" onclick="selectTrain('lrt1','B',event)"/>
-              <circle id="svgLrt2A" cx="93"  cy="110" r="7"   fill="#4a90ff" stroke="#fff" stroke-width="1.5" opacity="0.97" style="cursor:pointer;" onclick="selectTrain('lrt2','A',event)"/>
-              <circle id="svgLrt2B" cx="215" cy="110" r="5.5" fill="#4a90ff" stroke="#fff" stroke-width="1"   opacity="0.8"  style="cursor:pointer;" onclick="selectTrain('lrt2','B',event)"/>
-              <circle id="svgMrt3A" cx="180" cy="57"  r="7"   fill="#f5a623" stroke="#fff" stroke-width="1.5" opacity="0.97" style="cursor:pointer;" onclick="selectTrain('mrt3','A',event)"/>
-              <circle id="svgMrt3B" cx="180" cy="193" r="5.5" fill="#f5a623" stroke="#fff" stroke-width="1"   opacity="0.8"  style="cursor:pointer;" onclick="selectTrain('mrt3','B',event)"/>
+              <circle id="svgLrt1A" cx="55"  cy="36"  r="7"   fill="#3ecf8e" stroke="#fff" stroke-width="1.5" opacity="0.97" style="cursor:pointer;" onclick="selectTrain('lrt1','A',event)" title="LRT-1 Train A ▲"/>
+              <circle id="svgLrt1C" cx="55"  cy="95"  r="5"   fill="#3ecf8e" stroke="#fff" stroke-width="1"   opacity="0.75" style="cursor:pointer;" onclick="selectTrain('lrt1','C',event)" title="LRT-1 Train C ▲"/>
+              <circle id="svgLrt1B" cx="55"  cy="154" r="5.5" fill="#3ecf8e" stroke="#fff" stroke-width="1"   opacity="0.8"  style="cursor:pointer;" onclick="selectTrain('lrt1','B',event)" title="LRT-1 Train B ▼"/>
+              <circle id="svgLrt1D" cx="55"  cy="220" r="5"   fill="#3ecf8e" stroke="#fff" stroke-width="1"   opacity="0.75" style="cursor:pointer;" onclick="selectTrain('lrt1','D',event)" title="LRT-1 Train D ▼"/>
+              <circle id="svgLrt2A" cx="93"  cy="110" r="7"   fill="#4a90ff" stroke="#fff" stroke-width="1.5" opacity="0.97" style="cursor:pointer;" onclick="selectTrain('lrt2','A',event)" title="LRT-2 Train A ▲"/>
+              <circle id="svgLrt2C" cx="153" cy="110" r="5"   fill="#4a90ff" stroke="#fff" stroke-width="1"   opacity="0.75" style="cursor:pointer;" onclick="selectTrain('lrt2','C',event)" title="LRT-2 Train C ▲"/>
+              <circle id="svgLrt2B" cx="215" cy="110" r="5.5" fill="#4a90ff" stroke="#fff" stroke-width="1"   opacity="0.8"  style="cursor:pointer;" onclick="selectTrain('lrt2','B',event)" title="LRT-2 Train B ▼"/>
+              <circle id="svgLrt2D" cx="250" cy="110" r="5"   fill="#4a90ff" stroke="#fff" stroke-width="1"   opacity="0.75" style="cursor:pointer;" onclick="selectTrain('lrt2','D',event)" title="LRT-2 Train D ▼"/>
+              <circle id="svgMrt3A" cx="180" cy="57"  r="7"   fill="#f5a623" stroke="#fff" stroke-width="1.5" opacity="0.97" style="cursor:pointer;" onclick="selectTrain('mrt3','A',event)" title="MRT-3 Train A ▲"/>
+              <circle id="svgMrt3C" cx="180" cy="125" r="5"   fill="#f5a623" stroke="#fff" stroke-width="1"   opacity="0.75" style="cursor:pointer;" onclick="selectTrain('mrt3','C',event)" title="MRT-3 Train C ▲"/>
+              <circle id="svgMrt3B" cx="180" cy="193" r="5.5" fill="#f5a623" stroke="#fff" stroke-width="1"   opacity="0.8"  style="cursor:pointer;" onclick="selectTrain('mrt3','B',event)" title="MRT-3 Train B ▼"/>
+              <circle id="svgMrt3D" cx="180" cy="240" r="5"   fill="#f5a623" stroke="#fff" stroke-width="1"   opacity="0.75" style="cursor:pointer;" onclick="selectTrain('mrt3','D',event)" title="MRT-3 Train D ▼"/>
               <!-- Selection ring -->
               <circle id="svgSelRing" cx="0" cy="0" r="0" fill="none" stroke="#fff" stroke-width="2.5" opacity="0" stroke-dasharray="4,2" style="pointer-events:none;"/>
             </svg>
@@ -887,6 +1103,29 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
         <div class="linear-route-container" id="linearRouteLRT1">
           <div class="back-all-lines" onclick="setTransitView('all')">
             <span class="back-arrow">←</span> Back to All Lines
+          </div>
+          <div class="lr-card-header lrt1-header">
+            <div class="lr-card-header-left">
+              <span class="lr-train-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 4px #3ecf8e88);color:#3ecf8e;display:block;">
+                  <rect x="4" y="2" width="16" height="18" rx="4" ry="4"/>
+                  <rect x="6" y="4" width="12" height="7" rx="2" ry="2" fill="#0a0a14"/>
+                  <circle cx="8" cy="16" r="2" fill="#0a0a14"/>
+                  <circle cx="16" cy="16" r="2" fill="#0a0a14"/>
+                  <rect x="8" y="20" width="2" height="2" rx="0.5" fill="currentColor" opacity="0.7"/>
+                  <rect x="14" y="20" width="2" height="2" rx="0.5" fill="currentColor" opacity="0.7"/>
+                </svg>
+              </span>
+              <span class="lr-route-map-lbl">Route Map</span>
+            </div>
+            <div class="lr-card-header-logos">
+              <img src="Department-of-Transportation.png" class="lr-logo-img" alt="DOT" title="Department of Transportation">
+              <img src="light-rail-transit-authority.png" class="lr-logo-img" alt="LRTA" title="Light Rail Transit Authority">
+              <img src="lrmc_logo_upres.png" class="lr-logo-img" alt="LRMC" title="Light Rail Manila Corporation">
+            </div>
+          </div>
+          <div class="lr-banner lr-banner-lrt1">
+            <span class="lr-banner-text">LIGHT RAIL TRANSIT — LINE 1</span>
           </div>
           <div class="follow-mode-badge" id="followBadgeLRT1" onclick="resumeFollowMode('lrt1')">📍 Follow Mode Active</div>
           <div class="hscroll-wrap" id="hscrollLRT1">
@@ -902,6 +1141,29 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
           <div class="back-all-lines" onclick="setTransitView('all')">
             <span class="back-arrow">←</span> Back to All Lines
           </div>
+          <div class="lr-card-header lrt2-header">
+            <div class="lr-card-header-left">
+              <span class="lr-train-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 4px #4a90ff88);color:#4a90ff;display:block;">
+                  <rect x="4" y="2" width="16" height="18" rx="4" ry="4"/>
+                  <rect x="6" y="4" width="12" height="7" rx="2" ry="2" fill="#0a0a14"/>
+                  <circle cx="8" cy="16" r="2" fill="#0a0a14"/>
+                  <circle cx="16" cy="16" r="2" fill="#0a0a14"/>
+                  <rect x="8" y="20" width="2" height="2" rx="0.5" fill="currentColor" opacity="0.7"/>
+                  <rect x="14" y="20" width="2" height="2" rx="0.5" fill="currentColor" opacity="0.7"/>
+                </svg>
+              </span>
+              <span class="lr-route-map-lbl">Route Map</span>
+            </div>
+            <div class="lr-card-header-logos">
+              <img src="Department-of-Transportation.png" class="lr-logo-img" alt="DOT" title="Department of Transportation">
+              <img src="light-rail-transit-authority.png" class="lr-logo-img" alt="LRTA" title="Light Rail Transit Authority">
+              <img src="lrmc_logo_upres.png" class="lr-logo-img" alt="LRMC" title="Light Rail Manila Corporation">
+            </div>
+          </div>
+          <div class="lr-banner lr-banner-lrt2">
+            <span class="lr-banner-text">LIGHT RAIL TRANSIT — LINE 2</span>
+          </div>
           <div class="follow-mode-badge" id="followBadgeLRT2" onclick="resumeFollowMode('lrt2')">📍 Follow Mode Active</div>
           <div class="hscroll-wrap" id="hscrollLRT2">
             <div class="hscroll-track" id="hscrollTrackLRT2">
@@ -915,6 +1177,29 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
         <div class="linear-route-container" id="linearRouteMRT3">
           <div class="back-all-lines" onclick="setTransitView('all')">
             <span class="back-arrow">←</span> Back to All Lines
+          </div>
+          <div class="lr-card-header mrt3-header">
+            <div class="lr-card-header-left">
+              <span class="lr-train-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 4px #f5a62388);color:#f5a623;display:block;">
+                  <rect x="4" y="2" width="16" height="18" rx="4" ry="4"/>
+                  <rect x="6" y="4" width="12" height="7" rx="2" ry="2" fill="#0a0a14"/>
+                  <circle cx="8" cy="16" r="2" fill="#0a0a14"/>
+                  <circle cx="16" cy="16" r="2" fill="#0a0a14"/>
+                  <rect x="8" y="20" width="2" height="2" rx="0.5" fill="currentColor" opacity="0.7"/>
+                  <rect x="14" y="20" width="2" height="2" rx="0.5" fill="currentColor" opacity="0.7"/>
+                </svg>
+              </span>
+              <span class="lr-route-map-lbl">Route Map</span>
+            </div>
+            <div class="lr-card-header-logos">
+              <img src="Department-of-Transportation.png" class="lr-logo-img" alt="DOT" title="Department of Transportation">
+              <img src="light-rail-transit-authority.png" class="lr-logo-img" alt="LRTA" title="Light Rail Transit Authority">
+              <img src="lrmc_logo_upres.png" class="lr-logo-img" alt="LRMC" title="Light Rail Manila Corporation">
+            </div>
+          </div>
+          <div class="lr-banner lr-banner-mrt3">
+            <span class="lr-banner-text">METRO RAIL TRANSIT — LINE 3</span>
           </div>
           <div class="follow-mode-badge" id="followBadgeMRT3" onclick="resumeFollowMode('mrt3')">📍 Follow Mode Active</div>
           <div class="hscroll-wrap" id="hscrollMRT3">
@@ -945,9 +1230,15 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
         </div>
 
         <!-- Predictive Congestion -->
-        <div class="section-label" style="margin-bottom:10px;">🔮 Predictive Congestion — EDSA</div>
-        <div class="pred-card">
-          <div class="pred-card-hdr">Community Forecast · Today</div>
+        <div class="section-label" style="margin-bottom:10px;">🔮 Predictive Congestion</div>
+        <div class="pred-card" id="predCard">
+          <div class="pred-card-hdr">Community Forecast · Manila</div>
+          <div class="pred-swipe-hint">← swipe to browse cities →</div>
+          <div class="pred-search-wrap">
+            <span class="pred-search-icon">🔍</span>
+            <input class="pred-search-input" id="predCitySearch" type="text" placeholder="Search Metro Manila city…" autocomplete="off">
+            <div class="pred-city-suggestions" id="predCitySuggestions"></div>
+          </div>
           <div class="pred-row"><div class="pred-time">6 AM</div><div class="pred-bar-outer"><div class="pred-bar-inner low"></div></div><div class="pred-lbl low">Light</div></div>
           <div class="pred-row"><div class="pred-time">7 AM</div><div class="pred-bar-outer"><div class="pred-bar-inner mid"></div></div><div class="pred-lbl mid">Moderate</div></div>
           <div class="pred-row"><div class="pred-time">8 AM</div><div class="pred-bar-outer"><div class="pred-bar-inner peak"></div></div><div class="pred-lbl peak">Peak</div></div>
@@ -961,47 +1252,77 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
 
     <!-- ═══ PROFILE SCREEN ═══ -->
     <div class="screen" id="screen-profile">
+      <!-- GUEST VIEW -->
+      <div id="profile-guest-view" class="hidden">
+        <div class="guest-avatar">?</div>
+        <div class="guest-title">Guest User</div>
+        <div class="guest-sub">Register or log in to see your profile, points, leaderboard rank, and rewards.</div>
+        <div class="guest-btns">
+          <button class="guest-btn" onclick="openAuth();switchAuthTab('login')">Login</button>
+          <button class="guest-btn primary" onclick="openAuth();switchAuthTab('register')">Register</button>
+        </div>
+        <div class="guest-hint">Your reports made while guest are not saved.</div>
+      </div>
+      <!-- REGISTERED USER VIEW -->
+      <div id="profile-user-view">
       <div class="profile-header">
         <div class="avatar" id="profileAvatar">JD</div>
         <div class="profile-name" id="profileName">Juan dela Cruz</div>
         <div class="profile-rank">🥈 Silver Reporter · <span id="profileArea">Quezon City</span></div>
       </div>
-      <div class="profile-body">
-        <div class="pts-card">
-          <div class="pts-num">4,820</div>
-          <div class="pts-sublbl">Total Points</div>
-          <div class="prog-wrap"><div class="prog-fill" style="width:64%;"></div></div>
-          <div class="prog-labels"><span>Silver</span><span>4,820 / 7,500 → Gold</span></div>
-        </div>
-        <div class="stats-row">
-          <div class="stat-cell"><div class="stat-num" style="color:var(--gold);">23</div><div class="stat-lbl">Reports</div></div>
-          <div class="stat-cell"><div class="stat-num" style="color:var(--green);">91%</div><div class="stat-lbl">Verified</div></div>
-          <div class="stat-cell"><div class="stat-num" style="color:var(--teal);">#14</div><div class="stat-lbl">QC Rank</div></div>
-        </div>
-        <div class="section-label" style="margin-bottom:8px;">🏆 Barangay Leaderboard</div>
-        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:18px;padding:10px 14px;margin-bottom:14px;">
-          <div class="lb-row"><div class="lb-rank gold">1</div><div class="lb-av" style="background:linear-gradient(135deg,#f5a623,#c47f0a);">MR</div><div class="lb-info"><div class="lb-name">Maria Reyes</div><div class="lb-area">Batasan Hills</div></div><div class="lb-pts">8,430</div></div>
-          <div class="lb-row"><div class="lb-rank silver">2</div><div class="lb-av" style="background:linear-gradient(135deg,#7c5cbf,#3ecfcf);">AS</div><div class="lb-info"><div class="lb-name">Angelo Santos</div><div class="lb-area">Cubao</div></div><div class="lb-pts">7,210</div></div>
-          <div class="lb-row"><div class="lb-rank bronze">3</div><div class="lb-av" style="background:linear-gradient(135deg,#3ecf8e,#0f6e56);">CL</div><div class="lb-info"><div class="lb-name">Carla Lopez</div><div class="lb-area">Fairview</div></div><div class="lb-pts">6,875</div></div>
-          <div class="lb-row" style="background:rgba(245,166,35,0.05);border-radius:10px;padding:6px;margin:2px -6px 0;">
-            <div class="lb-rank you">14</div><div class="lb-av" style="background:var(--surface3);border:1px solid var(--border);color:var(--muted);">JD</div>
-            <div class="lb-info"><div class="lb-name" style="color:var(--gold);">You</div><div class="lb-area">Quezon City</div></div>
-            <div class="lb-pts you">4,820</div>
-          </div>
-        </div>
-        <div class="redeem-lbl">Redeem Rewards</div>
-        <div class="reward-item" onclick="showToast('🎫 Beep Card top-up initiated!')"><div class="reward-ico">🎫</div><div class="reward-name">Beep Card Top-Up ₱20</div><div class="reward-cost">500 pts</div></div>
-        <div class="reward-item" onclick="showToast('💸 GCash credit requested!')"><div class="reward-ico">💸</div><div class="reward-name">GCash ₱50 Credit</div><div class="reward-cost">1,200 pts</div></div>
-        <div class="reward-item" onclick="showToast('🏪 7-Eleven QR sent!')"><div class="reward-ico">🏪</div><div class="reward-name">7-Eleven Discount</div><div class="reward-cost">800 pts</div></div>
-        <div class="settings-section">
-          <div class="settings-hdr">Settings</div>
-          <div class="settings-item" onclick="showToast('✏️ Edit Profile coming soon!')"><div class="si-icon">✏️</div><div style="flex:1;"><div class="si-label">Edit Profile</div><div class="si-sub">Name, photo, commute details</div></div><div class="si-arrow">›</div></div>
-          <div class="settings-item" onclick="showToast('🔒 Account Info coming soon!')"><div class="si-icon">🔒</div><div style="flex:1;"><div class="si-label">Account Information</div><div class="si-sub">Email, phone, linked accounts</div></div><div class="si-arrow">›</div></div>
-          <div class="settings-item" onclick="showToast('🎨 Customize your app!')"><div class="si-icon">🎨</div><div style="flex:1;"><div class="si-label">App Customization</div><div class="si-sub">Theme, notifications, map layers</div></div><div class="si-arrow">›</div></div>
-          <div class="settings-item" onclick="showToast('🛡️ Privacy &amp; Data settings')"><div class="si-icon">🛡️</div><div style="flex:1;"><div class="si-label">Privacy &amp; Data</div><div class="si-sub">Location sharing, data usage</div></div><div class="si-arrow">›</div></div>
-        </div>
-        <div class="spacer"></div>
+      <div class="profile-subtabs">
+        <div class="pst-btn active" id="pst-leaderboard" onclick="switchProfileTab('leaderboard')">🏆 Leaders</div>
+        <div class="pst-btn" id="pst-rewards" onclick="switchProfileTab('rewards')">🎫 Rewards</div>
+        <div class="pst-btn" id="pst-settings" onclick="switchProfileTab('settings')">⚙️ Settings</div>
       </div>
+      <div class="profile-body">
+        <!-- LEADERBOARD TAB -->
+        <div class="profile-subtab-content active" id="psc-leaderboard">
+          <div class="pts-card">
+            <div class="pts-num">4,820</div>
+            <div class="pts-sublbl">Total Points</div>
+            <div class="prog-wrap"><div class="prog-fill" style="width:64%;"></div></div>
+            <div class="prog-labels"><span>Silver</span><span>4,820 / 7,500 → Gold</span></div>
+          </div>
+          <div class="stats-row">
+            <div class="stat-cell"><div class="stat-num" style="color:var(--gold);">23</div><div class="stat-lbl">Reports</div></div>
+            <div class="stat-cell"><div class="stat-num" style="color:var(--green);">91%</div><div class="stat-lbl">Verified</div></div>
+            <div class="stat-cell"><div class="stat-num" style="color:var(--teal);">#14</div><div class="stat-lbl">QC Rank</div></div>
+          </div>
+          <div class="section-label" style="margin-bottom:8px;">🏆 Barangay Leaderboard</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:18px;padding:10px 14px;margin-bottom:14px;">
+            <div class="lb-row"><div class="lb-rank gold">1</div><div class="lb-av" style="background:linear-gradient(135deg,#f5a623,#c47f0a);">MR</div><div class="lb-info"><div class="lb-name">Maria Reyes</div><div class="lb-area">Batasan Hills</div></div><div class="lb-pts">8,430</div></div>
+            <div class="lb-row"><div class="lb-rank silver">2</div><div class="lb-av" style="background:linear-gradient(135deg,#7c5cbf,#3ecfcf);">AS</div><div class="lb-info"><div class="lb-name">Angelo Santos</div><div class="lb-area">Cubao</div></div><div class="lb-pts">7,210</div></div>
+            <div class="lb-row"><div class="lb-rank bronze">3</div><div class="lb-av" style="background:linear-gradient(135deg,#3ecf8e,#0f6e56);">CL</div><div class="lb-info"><div class="lb-name">Carla Lopez</div><div class="lb-area">Fairview</div></div><div class="lb-pts">6,875</div></div>
+            <div class="lb-row" style="background:rgba(245,166,35,0.05);border-radius:10px;padding:6px;margin:2px -6px 0;">
+              <div class="lb-rank you">14</div><div class="lb-av" style="background:var(--surface3);border:1px solid var(--border);color:var(--muted);">JD</div>
+              <div class="lb-info"><div class="lb-name" style="color:var(--gold);">You</div><div class="lb-area">Quezon City</div></div>
+              <div class="lb-pts you">4,820</div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <!-- REWARDS TAB -->
+        <div class="profile-subtab-content" id="psc-rewards">
+          <div class="redeem-lbl">Redeem Rewards</div>
+          <div class="reward-item" onclick="showToast('🎫 Beep Card top-up initiated!')"><div class="reward-ico">🎫</div><div class="reward-name">Beep Card Top-Up ₱20</div><div class="reward-cost">500 pts</div></div>
+          <div class="reward-item" onclick="showToast('💸 GCash credit requested!')"><div class="reward-ico">💸</div><div class="reward-name">GCash ₱50 Credit</div><div class="reward-cost">1,200 pts</div></div>
+          <div class="reward-item" onclick="showToast('🏪 7-Eleven QR sent!')"><div class="reward-ico">🏪</div><div class="reward-name">7-Eleven Discount</div><div class="reward-cost">800 pts</div></div>
+          <div class="spacer"></div>
+        </div>
+        <!-- SETTINGS TAB -->
+        <div class="profile-subtab-content" id="psc-settings">
+          <div class="settings-section">
+            <div class="settings-hdr">Settings</div>
+            <div class="settings-item" onclick="showToast('✏️ Edit Profile coming soon!')"><div class="si-icon">✏️</div><div style="flex:1;"><div class="si-label">Edit Profile</div><div class="si-sub">Name, photo, commute details</div></div><div class="si-arrow">›</div></div>
+            <div class="settings-item" onclick="showToast('🔒 Account Info coming soon!')"><div class="si-icon">🔒</div><div style="flex:1;"><div class="si-label">Account Information</div><div class="si-sub">Email, phone, linked accounts</div></div><div class="si-arrow">›</div></div>
+            <div class="settings-item" onclick="showToast('🎨 Customize your app!')"><div class="si-icon">🎨</div><div style="flex:1;"><div class="si-label">App Customization</div><div class="si-sub">Theme, notifications, map layers</div></div><div class="si-arrow">›</div></div>
+            <div class="settings-item" onclick="showToast('🛡️ Privacy &amp; Data settings')"><div class="si-icon">🛡️</div><div style="flex:1;"><div class="si-label">Privacy &amp; Data</div><div class="si-sub">Location sharing, data usage</div></div><div class="si-arrow">›</div></div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+      </div>
+      </div><!-- /profile-user-view -->
     </div>
 
   </div><!-- /screens -->
@@ -1013,12 +1334,53 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
     <div class="nav-item" id="nav-profile" onclick="switchTab('profile')"><div class="nav-icon">👤</div><div class="nav-lbl">Profile</div></div>
   </div>
 
+  <!-- SPLASH ANIMATION -->
+  <div class="splash-anim" id="splashAnim">
+    <div class="splash-glow"></div>
+    <div class="splash-wordmark">MM<span>ITS</span></div>
+    <div class="splash-brand-lbl">Hiraya Transit</div>
+    <div class="splash-tag">THE Commuter Map · Metro Manila</div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <div class="responders-alert" id="respondersAlert">
     <div class="ra-icon">🚨</div>
     <div class="ra-body"><div class="ra-title">Responders Dispatched!</div><div class="ra-sub">MMDA units en route · Your GPS shared · Stay visible</div></div>
     <div class="ra-dots"><div class="ra-dot"></div><div class="ra-dot"></div><div class="ra-dot"></div></div>
+  </div>
+
+  <!-- ═══ AUTH OVERLAY ═══ -->
+  <div class="auth-overlay hidden" id="authOverlay">
+    <div class="auth-box" style="position:relative;">
+      <div class="auth-close" onclick="closeAuth()">✕</div>
+      <div class="auth-title">Welcome to MMITS</div>
+      <div class="auth-sub">Hiraya Transit · Student Commuter Edition</div>
+      <div class="auth-tabs">
+        <div class="auth-tab active" id="authTabLogin" onclick="switchAuthTab('login')">Login</div>
+        <div class="auth-tab" id="authTabRegister" onclick="switchAuthTab('register')">Register</div>
+      </div>
+      <!-- LOGIN FORM -->
+      <div class="auth-form active" id="authFormLogin">
+        <div class="auth-field"><div class="auth-field-lbl">Email or Username</div><input class="auth-input" id="authLoginEmail" type="email" placeholder="you@email.com"></div>
+        <div class="auth-field"><div class="auth-field-lbl">Password</div><input class="auth-input" id="authLoginPass" type="password" placeholder="••••••••"></div>
+        <button class="auth-submit-btn" onclick="doLogin()">Login →</button>
+        <div style="margin-top:10px;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--muted);">Don't have an account? <span style="color:var(--gold);cursor:pointer;" onclick="switchAuthTab('register')">Register →</span></div>
+      </div>
+      <!-- REGISTER FORM -->
+      <div class="auth-form" id="authFormRegister">
+        <div class="auth-field"><div class="auth-field-lbl">Full Name</div><input class="auth-input" id="authRegName" type="text" placeholder="Juan dela Cruz"></div>
+        <div class="auth-field"><div class="auth-field-lbl">Age</div><input class="auth-input" id="authRegAge" type="number" min="1" max="120" placeholder="e.g. 28"></div>
+        <div class="auth-field"><div class="auth-field-lbl">Usual Destination</div><input class="auth-input" id="authRegDest" type="text" placeholder="BGC, Ortigas, Makati…"></div>
+        <div class="auth-field"><div class="auth-field-lbl">Email</div><input class="auth-input" id="authRegEmail" type="email" placeholder="you@email.com"></div>
+        <div class="auth-field"><div class="auth-field-lbl">Password</div><input class="auth-input" id="authRegPass" type="password" placeholder="Min. 8 characters"></div>
+        <div class="auth-privacy-row">
+          <input type="checkbox" id="authPrivacyCheck">
+          <label for="authPrivacyCheck" class="auth-privacy-lbl">I agree that my data is collected under the <strong>Data Privacy Act of 2012</strong> (RA 10173). <span class="auth-privacy-link" onclick="showTermsModal()">Terms &amp; Conditions</span></label>
+        </div>
+        <button class="auth-submit-btn" onclick="doRegister()">Create Account →</button>
+      </div>
+    </div>
   </div>
 
   <div class="emergency-modal" id="emergencyModal">
@@ -1061,7 +1423,8 @@ body.eco-mode .bottom-sheet,body.eco-mode .notif-card{transition:transform 0.15s
    GLOBAL STATE
 ══════════════════════════════════════════ */
 let obRole=null,isLight=false,toastTimer=null;
-let mapKeyOpen=false,layerMenuOpen=false,currentMode='driver';
+let isGuest=false;
+let mapKeyOpen=false,layerMenuOpen=false,currentMode='commuter',rightDrawerOpen=false;
 let ecoMode=false,notifIntervalId=null,trainAnimRunning=true;
 let svgAnimStart=0,currentTransitView='all',selectedTrain=null,isAutoFollowing=false,morphingTransition=false,tooltipTimer=null;
 let currentVB={x:-15,y:-5,w:325,h:265},targetVB={x:-15,y:-5,w:325,h:265},vbAnimating=false,vbStart=null;
@@ -1079,17 +1442,123 @@ function updateClock(){const el=document.getElementById('clock');if(!el)return;c
 /* ══════════════════════════════════════════
    ONBOARDING
 ══════════════════════════════════════════ */
-function selectRole(el){document.querySelectorAll('.ob-pill').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');obRole=el.dataset.role;const btn=document.getElementById('obStartBtn');if(btn)btn.disabled=false;}
+function selectRole(el){document.querySelectorAll('.ob-pill').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');obRole=el.dataset.role;checkObReady();}
+function checkObReady(){const hasRole=!!obRole;const btn=document.getElementById('obStartBtn');if(btn)btn.disabled=!hasRole;}
+function checkObAuthReady(){const hasPrivacy=document.getElementById('obAuthPrivacyCheck')?.checked||false;const btn=document.getElementById('obAuthNextBtn');if(btn)btn.disabled=!hasPrivacy;}
+function obSwitchAuthTab(tab){
+  document.getElementById('obTabLogin')?.classList.toggle('active',tab==='login');
+  document.getElementById('obTabRegister')?.classList.toggle('active',tab==='register');
+  const lf=document.getElementById('obLoginForm');const rf=document.getElementById('obRegisterForm');
+  if(lf)lf.style.display=tab==='login'?'flex':'none';
+  if(rf)rf.style.display=tab==='register'?'flex':'none';
+}
+function obProceedFromAuth(){
+  const isLoginTab=document.getElementById('obTabLogin')?.classList.contains('active');
+  if(isLoginTab){
+    const email=document.getElementById('obLoginEmail')?.value.trim();
+    const pass=document.getElementById('obLoginPass')?.value;
+    if(email&&pass){
+      const stored=JSON.parse(localStorage.getItem('mmitsUser')||'null');
+      if(stored&&stored.email===email){applyUserProfile(stored);showToast('✅ Welcome back, '+stored.name+'!');}
+      else{showToast('⚠️ Account not found — proceeding with privacy accepted.');}
+    }
+  }else{
+    const name=document.getElementById('obRegName')?.value.trim();
+    const email=document.getElementById('obRegEmail')?.value.trim();
+    const pass=document.getElementById('obRegPass')?.value;
+    if(name&&email&&pass){
+      const user={name,email,passHash:btoa(pass)};
+      try{localStorage.setItem('mmitsUser',JSON.stringify(user));}catch(e){}
+      applyUserProfile(user);showToast('✅ Account created! Welcome, '+name+'!');
+    }
+  }
+  isGuest=false;
+  obShowProfileStep();
+}
+function obSkipAuth(){isGuest=true;obShowProfileStep();}
+function obShowProfileStep(){
+  const a=document.getElementById('obAuthStep');const p=document.getElementById('obProfileStep');
+  if(a)a.style.display='none';
+  if(p){p.style.display='flex';}
+}
+function showTermsModal(){const m=document.getElementById('termsModalOverlay');if(m)m.classList.remove('hidden');}
+function closeTermsModal(){const m=document.getElementById('termsModalOverlay');if(m)m.classList.add('hidden');}
+function openAuth(){const o=document.getElementById('authOverlay');if(o)o.classList.remove('hidden');}
+function closeAuth(){const o=document.getElementById('authOverlay');if(o)o.classList.add('hidden');}
+function switchAuthTab(tab){
+  document.getElementById('authTabLogin')?.classList.toggle('active',tab==='login');
+  document.getElementById('authTabRegister')?.classList.toggle('active',tab==='register');
+  document.getElementById('authFormLogin')?.classList.toggle('active',tab==='login');
+  document.getElementById('authFormRegister')?.classList.toggle('active',tab==='register');
+}
+function doLogin(){
+  const email=document.getElementById('authLoginEmail')?.value.trim();
+  const pass=document.getElementById('authLoginPass')?.value;
+  if(!email||!pass){showToast('⚠️ Please fill in all fields.');return;}
+  const stored=JSON.parse(localStorage.getItem('mmitsUser')||'null');
+  if(stored&&stored.email===email){
+    applyUserProfile(stored);closeAuth();showToast('✅ Welcome back, '+stored.name+'!');
+  }else{showToast('⚠️ Account not found. Please register first.');}
+}
+function doRegister(){
+  const name=document.getElementById('authRegName')?.value.trim();
+  const age=document.getElementById('authRegAge')?.value;
+  const dest=document.getElementById('authRegDest')?.value.trim();
+  const email=document.getElementById('authRegEmail')?.value.trim();
+  const pass=document.getElementById('authRegPass')?.value;
+  const privacy=document.getElementById('authPrivacyCheck')?.checked;
+  if(!name||!email||!pass){showToast('⚠️ Please fill in required fields.');return;}
+  if(!privacy){showToast('⚠️ Please accept the Privacy Policy.');return;}
+  const user={name,age,dest,email,passHash:btoa(pass)};
+  try{localStorage.setItem('mmitsUser',JSON.stringify(user));}catch(e){}
+  applyUserProfile(user);closeAuth();showToast('✅ Account created! Welcome, '+name+'!');
+}
+function switchProfileTab(tab){
+  ['leaderboard','rewards','settings'].forEach(t=>{
+    document.getElementById('pst-'+t)?.classList.toggle('active',t===tab);
+    document.getElementById('psc-'+t)?.classList.toggle('active',t===tab);
+  });
+}
+function applyUserProfile(user){
+  isGuest=false;
+  const pn=document.getElementById('profileName');if(pn)pn.textContent=user.name||'User';
+  const pa=document.getElementById('profileArea');if(pa)pa.textContent=user.dest||'Metro Manila';
+  const av=document.getElementById('profileAvatar');if(av)av.textContent=(user.name||'U').substring(0,2).toUpperCase();
+  const gv=document.getElementById('profile-guest-view');if(gv)gv.remove();
+  document.getElementById('profile-user-view')?.classList.remove('hidden');
+}
 function startJourney(skip=false){
   const overlay=document.getElementById('onboardingOverlay');if(!overlay)return;
   overlay.classList.add('hidden');setTimeout(()=>overlay.style.display='none',520);
+  isGuest=skip;
   const dest=document.getElementById('obDest')?.value.trim()||'';
-  const role=skip?'driver':(obRole||'driver');
-  const ti=document.getElementById('themeIcon'),tl=document.getElementById('themeLabel');
-  if(role==='commuter'){document.documentElement.classList.add('light');isLight=true;if(ti)ti.textContent='🌙';if(tl)tl.textContent='Dark Mode';}
-  else{document.documentElement.classList.remove('light');isLight=false;if(ti)ti.textContent='☀️';if(tl)tl.textContent='Light Mode';}
-  const pillId=role==='commuter'?'pill-commuter':'pill-driver';
-  const pillEl=document.getElementById(pillId);if(pillEl)selectMode(role==='commuter'?'commuter':'driver',pillEl);
+  const role=skip?'commuter':(obRole||'commuter');
+  /* Hide SOS and right controls during splash */
+  const ctrlZone=document.getElementById('ctrlZone');if(ctrlZone)ctrlZone.classList.add('hidden');
+  const layerMenu=document.getElementById('layerMenu');if(layerMenu)layerMenu.classList.remove('open');
+  const layerBtn=document.getElementById('layerBtn');if(layerBtn)layerBtn.classList.remove('active-state');
+  const sosModal=document.getElementById('sosModal');if(sosModal)sosModal.classList.add('hidden');
+  /* Splash animation — theme applied AFTER splash fades so dark mode stays during splash */
+  const splash=document.getElementById('splashAnim');
+  if(splash){
+    splash.classList.remove('fade-out');
+    splash.classList.add('show');
+    setTimeout(()=>{
+      splash.classList.add('fade-out');
+      setTimeout(()=>{
+        splash.classList.remove('show','fade-out');
+        /* theme unchanged — user controls theme separately */
+        /* Restore controls */
+        if(ctrlZone)ctrlZone.classList.remove('hidden');
+      },520);
+    },1800);
+  } else {
+    /* theme unchanged — user controls theme separately */
+    if(ctrlZone)ctrlZone.classList.remove('hidden');
+  }
+  const mappedMode=(role==='both')?'custom':'commuter';
+  const mappedPill=(role==='both')?'pill-custom':'pill-commuter';
+  const pillEl=document.getElementById(mappedPill);if(pillEl)selectMode(mappedMode,pillEl);
   if(dest){const pa=document.getElementById('profileArea');if(pa)pa.textContent=dest;}
 }
 
@@ -1106,8 +1575,13 @@ function switchTab(tab){
   tabs.forEach(t=>{document.getElementById('screen-'+t)?.classList.remove('active');document.getElementById('nav-'+t)?.classList.remove('active');});
   document.getElementById('screen-'+tab)?.classList.add('active');
   document.getElementById('nav-'+tab)?.classList.add('active');
+  if(tab==='profile'){
+    const gv=document.getElementById('profile-guest-view');
+    const uv=document.getElementById('profile-user-view');
+    if(gv&&uv){gv.classList.toggle('hidden',!isGuest);uv.classList.toggle('hidden',isGuest);}
+  }
   if(tab==='map'){
-    if(leafletMap){startStoplights();startCongestionUpdates();}
+    if(leafletMap){if(currentMode!=='commuter'||(currentMode==='commuter'&&commuterStoplightsOn))startStoplights();startCongestionUpdates();}
     setTimeout(()=>leafletMap?.invalidateSize(),80);
   } else {
     stopStoplights();
@@ -1163,16 +1637,85 @@ function triggerBell(){showNextNotif();showToast('🔔 Notifications','teal');do
 /* ══════════════════════════════════════════
    MODE METRICS & CONTENT
 ══════════════════════════════════════════ */
-const modeMetrics={driver:{val:'14.2',lbl:'KM Driven',color:'var(--gold)'},commuter:{val:'4,250',lbl:'Steps Today',color:'var(--teal)'},custom:{val:'4,820',lbl:'Total Points',color:'var(--gold)'}};
-function updatePeekMetrics(mode){const m=modeMetrics[mode]||modeMetrics.driver;const val=document.getElementById('peekMetricVal');const lbl=document.getElementById('peekMetricLbl');if(val){val.textContent=m.val;val.style.color=m.color;}if(lbl)lbl.textContent=m.lbl;}
+const modeMetrics={commuter:{val:'4,250',lbl:'Steps Today',color:'var(--teal)'},custom:{val:'4,820',lbl:'Total Points',color:'var(--gold)'}};
+function updatePeekMetrics(mode){const m=modeMetrics[mode]||modeMetrics.commuter;const val=document.getElementById('peekMetricVal');const lbl=document.getElementById('peekMetricLbl');if(val){val.textContent=m.val;val.style.color=m.color;}if(lbl)lbl.textContent=m.lbl;}
 const modeContent={
-  driver:'<div class="section-label">Live Road Status</div><div class="traffic-card" onclick="showToast(\'🔴 EDSA heavy — avg 8 km/h\')"><div class="tc-dot" style="background:var(--red);box-shadow:0 0 0 4px rgba(255,79,79,0.2);"></div><div class="tc-info"><div class="tc-road">EDSA — Ortigas to Shaw</div><div class="tc-detail">Avg speed 8 km/h · 4.2 km</div></div><div class="tc-badge red">Heavy</div></div><div class="traffic-card" onclick="showToast(\'🟡 C5 moderate — avg 22 km/h\')"><div class="tc-dot" style="background:var(--gold);box-shadow:0 0 0 4px rgba(245,166,35,0.2);"></div><div class="tc-info"><div class="tc-road">C5 — Katipunan to BGC</div><div class="tc-detail">Avg speed 22 km/h · 7.1 km</div></div><div class="tc-badge gold">Moderate</div></div><div class="traffic-card" onclick="showToast(\'🟢 Marcos Hwy clear — avg 54 km/h\')"><div class="tc-dot" style="background:var(--green);box-shadow:0 0 0 4px rgba(62,207,142,0.2);"></div><div class="tc-info"><div class="tc-road">Marcos Highway</div><div class="tc-detail">Avg speed 54 km/h · 5.8 km</div></div><div class="tc-badge green">Clear</div></div><div class="coding-widget"><div><div class="coding-label">Number Coding Today</div><div class="coding-nums"><div class="coding-num inactive">1</div><div class="coding-num inactive">2</div><div class="coding-num active">3</div><div class="coding-num active">4</div><div class="coding-num inactive">5</div></div><div class="coding-sub">Plates ending in 3 &amp; 4 · 7AM–8PM</div></div></div><div class="section-label" style="margin-top:6px;">🅿️ Smart Parking</div><div class="parking-card" onclick="showToast(\'🅿️ SM Megamall: 340 slots\')"><div class="pk-icon">🏬</div><div class="pk-info"><div class="pk-name">SM Megamall</div><div class="pk-detail">340 slots · 0.4 km · B1-B4</div></div><div class="pk-badge">340</div></div><div class="parking-card" onclick="showToast(\'🅿️ Robinsons: 88 slots\')"><div class="pk-icon">🏢</div><div class="pk-info"><div class="pk-name">Robinsons Galleria</div><div class="pk-detail">88 slots · 0.8 km · Level 3</div></div><div class="pk-badge">88</div></div><div class="spacer"></div>',
-  commuter:'<div class="nudge-card"><div class="nudge-title">🧠 Smart Travel Suggestion</div><div class="nudge-desc">EDSA is at peak congestion. Taking MRT-3 from Cubao to Ayala saves <strong style="color:var(--teal);">42 minutes</strong> and earns <strong style="color:var(--gold);">+30 pts</strong>.</div><div class="nudge-action" onclick="showToast(\'🚆 MRT-3 route loaded!\')">View MRT Route →</div></div><div class="section-label">Live Train Status</div><div class="traffic-card" onclick="switchTab(\'transit\')"><div class="tc-dot" style="background:var(--teal);box-shadow:0 0 0 4px rgba(62,207,207,0.2);"></div><div class="tc-info"><div class="tc-road">MRT-3 · Cubao Station</div><div class="tc-detail">Next: 2 min · Crowd: High</div></div><div class="tc-badge" style="background:rgba(62,207,207,0.1);color:var(--teal);">Live</div></div><div class="traffic-card" onclick="switchTab(\'transit\')"><div class="tc-dot" style="background:#8e44ad;box-shadow:0 0 0 4px rgba(142,68,173,0.2);"></div><div class="tc-info"><div class="tc-road">LRT-2 · Pureza Station</div><div class="tc-detail">Next: 4 min · Crowd: Medium</div></div><div class="tc-badge" style="background:rgba(142,68,173,0.1);color:#a87de8;">Live</div></div><div class="nudge-card" style="border-color:rgba(245,166,35,0.2);background:rgba(245,166,35,0.05);"><div class="nudge-title" style="color:var(--gold);">💰 Off-Peak Bonus</div><div class="nudge-desc">Travel before 7AM or after 9AM on weekdays to earn <strong style="color:var(--gold);">+20 bonus points</strong>.</div></div><div class="spacer"></div>',
+  commuter:'<div class="section-label">🗺️ Commuter\'s Choice</div><div style="display:flex;gap:6px;margin-bottom:12px;"><div class="cc-btn active" data-cc="efficiency" onclick="setCommuterChoice(\'efficiency\')" style="flex:1;padding:10px 6px;border-radius:14px;text-align:center;background:rgba(62,207,207,0.08);border:1px solid rgba(62,207,207,0.35);font-family:\'Plus Jakarta Sans\',sans-serif;font-size:10px;font-weight:700;color:var(--teal);cursor:pointer;transition:all 0.2s;">⚡<br><span style="font-size:8px;font-weight:500;opacity:0.8;">Efficiency</span></div><div class="cc-btn" data-cc="convenience" onclick="setCommuterChoice(\'convenience\')" style="flex:1;padding:10px 6px;border-radius:14px;text-align:center;background:rgba(124,92,191,0.06);border:1px solid rgba(124,92,191,0.22);font-family:\'Plus Jakarta Sans\',sans-serif;font-size:10px;font-weight:700;color:var(--purple);cursor:pointer;transition:all 0.2s;">🛋️<br><span style="font-size:8px;font-weight:500;opacity:0.8;">Convenience</span></div><div class="cc-btn" data-cc="budget" onclick="setCommuterChoice(\'budget\')" style="flex:1;padding:10px 6px;border-radius:14px;text-align:center;background:rgba(62,207,142,0.06);border:1px solid rgba(62,207,142,0.22);font-family:\'Plus Jakarta Sans\',sans-serif;font-size:10px;font-weight:700;color:var(--green);cursor:pointer;transition:all 0.2s;">💰<br><span style="font-size:8px;font-weight:500;opacity:0.8;">Budget</span></div></div><div id="routeFareCard"></div><div class="nudge-card"><div class="nudge-title">🎓 Student Route Suggestion</div><div class="nudge-desc">Heading to UST or UP Manila? Take LRT-1 to España — saves <strong style="color:var(--teal);">35 minutes</strong> vs jeep, costs only <strong style="color:var(--gold);">₱20</strong>, and earns <strong style="color:var(--gold);">+25 pts</strong>.</div><div class="nudge-action" onclick="showToast(\'🎓 University routes loaded! UST · UP · DLSU · Ateneo\');renderRouteFareCard(\'ust\');">View University Routes →</div></div><div class="section-label">Live Train Status</div><div class="traffic-card" onclick="switchTab(\'transit\')"><div class="tc-dot" style="background:var(--teal);box-shadow:0 0 0 4px rgba(62,207,207,0.2);"></div><div class="tc-info"><div class="tc-road">MRT-3 · Cubao Station</div><div class="tc-detail">Next: 2 min · Crowd: High</div></div><div class="tc-badge" style="background:rgba(62,207,207,0.1);color:var(--teal);">Live</div></div><div class="traffic-card" onclick="switchTab(\'transit\')"><div class="tc-dot" style="background:#8e44ad;box-shadow:0 0 0 4px rgba(142,68,173,0.2);"></div><div class="tc-info"><div class="tc-road">LRT-2 · Pureza Station</div><div class="tc-detail">Next: 4 min · Crowd: Medium</div></div><div class="tc-badge" style="background:rgba(142,68,173,0.1);color:#a87de8;">Live</div></div><div class="nudge-card" style="border-color:rgba(245,166,35,0.2);background:rgba(245,166,35,0.05);"><div class="nudge-title" style="color:var(--gold);">💰 Off-Peak Bonus</div><div class="nudge-desc">Travel before 7AM or after 9AM on weekdays to earn <strong style="color:var(--gold);">+20 bonus points</strong>.</div></div><div class="spacer"></div>',
   custom:'<div class="section-label">⚙️ Customize Your View</div><div class="custom-toggles"><div class="toggle-row"><div class="toggle-icon">🔴</div><div class="toggle-lbl">Traffic Congestion</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🚇</div><div class="toggle-lbl">Train Stations</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🅿️</div><div class="toggle-lbl">Smart Parking</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🚧</div><div class="toggle-lbl">Road Works</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🚨</div><div class="toggle-lbl">Incidents</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🚶</div><div class="toggle-lbl">Pedestrian Safety</div><div class="toggle-switch" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div><div class="toggle-row"><div class="toggle-icon">🧠</div><div class="toggle-lbl">Smart Nudges</div><div class="toggle-switch on" onclick="toggleSwitch(this)"><div class="toggle-knob"></div></div></div></div><div class="spacer"></div>'
 };
+const COMMUTER_CHOICE_MODES = {
+  efficiency: {
+    label: '⚡ Efficiency',
+    desc: 'Fastest route — fewest transfers, least waiting.',
+    color: 'var(--teal)',
+    multiplier: 0.75,
+    fareNote: 'May involve short taxi/Grab hop for last mile.',
+  },
+  convenience: {
+    label: '🛋️ Convenience',
+    desc: 'Most comfortable — direct routes, uncrowded stations.',
+    color: 'var(--purple)',
+    multiplier: 1.0,
+    fareNote: 'Balanced fare — jeepney or UV Express for last mile.',
+  },
+  budget: {
+    label: '💰 Budget',
+    desc: 'Lowest fare — prefers LRT/MRT over premium options.',
+    color: 'var(--green)',
+    multiplier: 1.2,
+    fareNote: 'Uses jeepney/tricycle for last mile. Lowest total cost.',
+  }
+};
+let commuterChoiceMode = 'efficiency';
+function setCommuterChoice(mode) {
+  commuterChoiceMode = mode;
+  document.querySelectorAll('.cc-btn').forEach(b => b.classList.toggle('active', b.dataset.cc === mode));
+  const cfg = COMMUTER_CHOICE_MODES[mode];
+  showToast(cfg.label + ' · ' + cfg.desc, 'teal');
+  if (typeof renderRouteFareCard === 'function') renderRouteFareCard();
+}
+function renderRouteFareCard(destKey) {
+  destKey = (destKey || window._lastResolvedDest || '').toLowerCase().trim();
+  const fareData = UNIVERSITY_FARES[destKey];
+  const choiceCfg = COMMUTER_CHOICE_MODES[commuterChoiceMode];
+  const container = document.getElementById('routeFareCard');
+  if (!container) return;
+  if (!fareData) { container.innerHTML = ''; return; }
+  const railFare = fareData.rail.fare;
+  const lastMileFare = fareData.lastMile.fare;
+  const jeepFare = fareData.jeepney.fare;
+  const efficiencyTotal = Math.round((railFare + lastMileFare + 30) * 1.0);
+  const convenienceTotal = Math.round(railFare + lastMileFare + 15);
+  const budgetTotal = jeepFare;
+  const totals = { efficiency: efficiencyTotal, convenience: convenienceTotal, budget: budgetTotal };
+  const activeTotal = totals[commuterChoiceMode];
+  container.innerHTML = `
+    <div class="section-label" style="margin-top:4px;">🎫 Fare Breakdown · ${fareData.name}</div>
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px;font-family:'Plus Jakarta Sans',sans-serif;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:11px;color:var(--text-muted);">🚉 ${fareData.rail.line} (to ${fareData.nearestStation})</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);">₱${railFare}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:11px;color:var(--text-muted);">🚶 Last Mile · ${fareData.lastMile.mode}</span>
+        <span style="font-size:11px;font-weight:700;color:var(--text);">${lastMileFare > 0 ? '₱' + lastMileFare : 'Free'}</span>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:8px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:12px;font-weight:700;color:var(--text);">Est. Total</span>
+        <span style="font-size:15px;font-weight:800;color:${choiceCfg.color};">₱${activeTotal}</span>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px;">
+        ${Object.entries(totals).map(([m, t]) => `
+          <div style="flex:1;text-align:center;padding:5px 4px;border-radius:10px;background:${m === commuterChoiceMode ? 'rgba(255,255,255,0.08)' : 'transparent'};border:1px solid ${m === commuterChoiceMode ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.05)'};">
+            <div style="font-size:9px;color:var(--text-muted);">${m.charAt(0).toUpperCase()+m.slice(1)}</div>
+            <div style="font-size:11px;font-weight:700;color:var(--text);">₱${t}</div>
+          </div>`).join('')}
+      </div>
+      <div style="margin-top:8px;font-size:9px;color:var(--text-muted);text-align:center;">${choiceCfg.fareNote}</div>
+    </div>`;
+}
 const modeBannerContent={
-  driver:{title:'🚗 Driver Mode Activated',items:['Number coding alerts enabled','Smart parking finder active','Highway CCTV feeds loaded','EDSA carousel status shown']},
-  commuter:{title:'🚌 Commuter Mode Activated',items:['LRT/MRT live tracker enabled','Off-peak travel bonus active','Smart route suggestions on','Station crowd levels shown']},
+  commuter:{title:'🚌 Commuter Mode Activated',items:['THE commuter map for Metro Manila','LRT/MRT live tracker enabled','Smart route suggestions on','Station crowd levels shown']},
   custom:{title:'⚙️ Custom Mode',items:['Choose which layers to display','Mix driver and commuter features','Set your alert preferences','Saved to your profile']}
 };
 function showTrainDots(){
@@ -1189,29 +1732,69 @@ function selectMode(mode,el){
   el.classList.add('active');currentMode=mode;
   const mc=document.getElementById('modeContent');if(mc)mc.innerHTML=modeContent[mode];
   showModeBanner(mode);applyModeLayerPresets(mode);updatePeekMetrics(mode);
-  const icons={driver:'🚗',commuter:'🚌',custom:'⚙️'};
-  const names={driver:'Driver',commuter:'Commuter',custom:'Custom'};
+  updateNumCodingDate();
+  const icons={commuter:'🚌',custom:'⚙️'};
+  const names={commuter:'Commuter',custom:'Custom'};
   const pt=document.getElementById('peekModeTxt');if(pt)pt.textContent=names[mode];
   const pi=document.querySelector('#peekModePill .peek-mode-icon');if(pi)pi.textContent=icons[mode];
   clearRoute();
-  setTrafficProvider(mode==='driver'?TRAFFIC_PROVIDER_KEYS.OPEN_DATA:TRAFFIC_PROVIDER_KEYS.SIMULATED);
+  setTrafficProvider(TRAFFIC_PROVIDER_KEYS.SIMULATED);
+  if(mode==='commuter'){setTimeout(()=>{if(window._lastResolvedDest)renderRouteFareCard(window._lastResolvedDest);},100);}
   if(mode==='commuter'){
     showTransitLines();
     showTrainDots();
     stopCongestionUpdates();
     stopStoplights();
-  }else if(mode==='driver'){
-    hideTransitLines();
-    hideTrainDots();
-    startCongestionUpdates();
-    startStoplights();
+    commuterStoplightsOn=false;
+    const slBtn=document.getElementById('stoplightToggleBtn');
+    if(slBtn){slBtn.classList.remove('active-state');slBtn.classList.add('commuter-available');}
+    congestionToggleOn=false;
+    const ctr=document.getElementById('congestionToggleRow');if(ctr)ctr.style.display='';
+    const ctog=document.getElementById('congestionToggle');if(ctog)ctog.classList.remove('on');
+    stopCongestionUpdates();clearRoadCongestion();
   }else{
     showTransitLines();
     showTrainDots();
     startCongestionUpdates();
     startStoplights();
+    const slBtnC=document.getElementById('stoplightToggleBtn');
+    if(slBtnC)slBtnC.classList.remove('commuter-available','active-state');
   }
 }
+function stripWhiteFromImages(){
+  document.querySelectorAll('.lr-logo-img').forEach(img=>{
+    function process(){
+      try{
+        const w=img.naturalWidth||24,h=img.naturalHeight||24;
+        const c=document.createElement('canvas');c.width=w;c.height=h;
+        const ctx=c.getContext('2d');
+        ctx.drawImage(img,0,0);
+        const id=ctx.getImageData(0,0,w,h);const d=id.data;
+        for(let i=0;i<d.length;i+=4){
+          const r=d[i],g=d[i+1],b=d[i+2];
+          if(r>215&&g>215&&b>215){d[i+3]=0;}
+        }
+        ctx.putImageData(id,0,0);
+        img.src=c.toDataURL('image/png');
+        img.style.background='transparent';
+        img.style.mixBlendMode='normal';
+        img.style.filter='brightness(2.5) saturate(1.4) drop-shadow(0 0 2px rgba(255,255,255,0.5))';
+      }catch(e){
+        img.style.mixBlendMode='normal';
+        img.style.filter='none';
+        img.style.background='rgba(255,255,255,0.92)';
+        img.style.borderRadius='50%';
+        img.style.padding='2px';
+        img.style.width='20px';
+        img.style.height='20px';
+      }
+    }
+    if(img.complete&&img.naturalWidth>0)process();
+    else img.addEventListener('load',process,{once:true});
+  });
+}
+function updateNumCodingDate(){const ncd=document.getElementById('numCodingDate');if(ncd){const d=new Date();ncd.textContent=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});}}
+
 function showModeBanner(mode){const b=document.getElementById('modeBanner');if(!b)return;const d=modeBannerContent[mode];b.innerHTML=`<div class="mnb-title">${d.title}</div><div class="mnb-items">${d.items.map(i=>`<div class="mnb-item">${i}</div>`).join('')}</div>`;b.classList.add('show');setTimeout(()=>b.classList.remove('show'),3000);}
 
 /* ══════════════════════════════════════════
@@ -1229,13 +1812,17 @@ function toggleLmLayer(el,cls){
   else{document.querySelectorAll('.mpin.'+cls).forEach(p=>p.style.opacity=on?'1':'0');showToast(on?'✅ Layer enabled':'Layer hidden');}
 }
 function applyModeLayerPresets(mode){
-  if(mode==='driver'){setLT('lt-traffic',true,'traffic');setLT('lt-parking',true,'parking');setLT('lt-stations',false,'station');setLT('lt-pedestrian',false,'pedestrian');}
-  else if(mode==='commuter'){setLT('lt-stations',true,'station');setLT('lt-pedestrian',true,'pedestrian');setLT('lt-traffic',false,'traffic');setLT('lt-parking',false,'parking');}
+  if(mode==='commuter'){setLT('lt-stations',true,'station');setLT('lt-pedestrian',true,'pedestrian');setLT('lt-traffic',false,'traffic');setLT('lt-parking',false,'parking');}
 }
 function setLT(id,on,cls){const el=document.getElementById(id);if(!el)return;const was=el.classList.contains('on');if(on)el.classList.add('on');else el.classList.remove('on');if(was!==on)silentLayer(cls,on);}
 function silentLayer(cls,on){if(cls==='traffic'){const e=document.getElementById('edsa-cong'),c=document.getElementById('c5-cong');if(e)e.style.opacity=on?'0.7':'0';if(c)c.style.opacity=on?'0.5':'0';}else if(cls!=='pedestrian'){document.querySelectorAll('.mpin.'+cls).forEach(p=>p.style.opacity=on?'1':'0');}}
 function toggleSwitch(el){el.classList.toggle('on');showToast(el.classList.contains('on')?'✅ Layer enabled':'Layer disabled');}
 function showIncidentInfo(t,d){showToast(`📍 ${t} · ${d}`);}
+function toggleMapControls(){
+  rightDrawerOpen=!rightDrawerOpen;
+  document.getElementById('rightStackDrawer')?.classList.toggle('open',rightDrawerOpen);
+  document.getElementById('mapControlToggle')?.classList.toggle('active-state',rightDrawerOpen);
+}
 
 /* ══════════════════════════════════════════
    REPORT / EMERGENCY
@@ -1247,7 +1834,59 @@ function openEmergency(){document.getElementById('emergencyModal')?.classList.ad
 function closeEmergency(){document.getElementById('emergencyModal')?.classList.remove('show');}
 function selectEmType(el){document.querySelectorAll('.em-type').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');}
 function submitEmergency(){closeEmergency();const cs=document.getElementById('mockCallScreen');if(!cs)return;cs.classList.add('show');const conn=document.getElementById('callConnecting');if(conn)conn.style.display='block';document.getElementById('callSuccess')?.classList.remove('show');setTimeout(()=>{const c=document.getElementById('callConnecting');if(c)c.style.display='none';document.getElementById('callSuccess')?.classList.add('show');},3000);}
-function closeMockCall(){document.getElementById('mockCallScreen')?.classList.remove('show');const al=document.getElementById('respondersAlert');if(al){al.classList.add('show');setTimeout(()=>al.classList.remove('show'),5000);}showToast('📡 Dispatcher confirmed · Map updated','red');setTimeout(()=>showToast('🚨 Responders en route · Stay safe'),2500);}
+function closeMockCall(){
+  document.getElementById('mockCallScreen')?.classList.remove('show');
+  const al=document.getElementById('respondersAlert');
+  if(al){al.classList.add('show');setTimeout(()=>al.classList.remove('show'),6000);}
+  showToast('📡 Dispatcher confirmed · Map updated','red');
+  setTimeout(()=>showToast('🚨 Responders en route · Stay safe'),2500);
+  startSOSResponders();
+}
+function startSOSResponders(){
+  if(!leafletMap)return;
+  stopSOSResponders();
+  sosActive=true;
+  const banner=document.getElementById('locShareBanner');if(banner)banner.classList.remove('hidden');
+  const user=userLatLng||[14.5995,120.9842];
+  const offsets=[[0.025,-0.018],[-0.020,0.022],[0.010,0.030]];
+  const responderStarts=offsets.map(([dlat,dlng])=>[
+    Math.max(14.35,Math.min(14.80,user[0]+dlat)),
+    Math.max(120.90,Math.min(121.15,user[1]+dlng))
+  ]);
+  sosResponderMarkers=responderStarts.map((start,i)=>{
+    const el=L.divIcon({className:'',html:'<div class="sos-responder-dot"></div>',iconSize:[18,18],iconAnchor:[9,9]});
+    const m=L.marker(start,{icon:el,zIndexOffset:500}).addTo(leafletMap);
+    m._sosStart=[...start];m._sosStep=0;m._sosTotal=40+(i*8);return m;
+  });
+  sosResponderInterval=setInterval(()=>{
+    if(!leafletMap||!sosActive)return;
+    const user2=userLatLng||[14.5995,120.9842];
+    let allArrived=true;
+    sosResponderMarkers.forEach(m=>{
+      if(m._sosStep>=m._sosTotal)return;
+      m._sosStep++;
+      const t=m._sosStep/m._sosTotal;
+      const eased=t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+      const jLat=(Math.random()-0.5)*0.0005;
+      const jLng=(Math.random()-0.5)*0.0005;
+      const lat=m._sosStart[0]+(user2[0]-m._sosStart[0])*eased+jLat;
+      const lng=m._sosStart[1]+(user2[1]-m._sosStart[1])*eased+jLng;
+      try{m.setLatLng([lat,lng]);}catch(e){}
+      if(m._sosStep<m._sosTotal)allArrived=false;
+    });
+    if(allArrived){
+      clearInterval(sosResponderInterval);sosResponderInterval=null;
+      setTimeout(()=>stopSOSResponders(),8000);
+    }
+  },350);
+}
+function stopSOSResponders(){
+  sosActive=false;
+  if(sosResponderInterval){clearInterval(sosResponderInterval);sosResponderInterval=null;}
+  sosResponderMarkers.forEach(m=>{try{if(leafletMap?.hasLayer(m))leafletMap.removeLayer(m);}catch(e){}});
+  sosResponderMarkers=[];
+  const banner=document.getElementById('locShareBanner');if(banner)banner.classList.add('hidden');
+}
 
 /* ══════════════════════════════════════════
    ECO MODE
@@ -1263,17 +1902,112 @@ function toggleEcoMode(){
 /* ══════════════════════════════════════════
    LIVE NOTIFICATIONS
 ══════════════════════════════════════════ */
+let notifMapMarkers=[];
+let notifResolutionTimers=[];
 const liveNotifs=[
-  {type:'notif-red',icon:'🚨',title:'Accident — EDSA Guadalupe',desc:'2 vehicles · Lane 2 blocked',time:'Now'},
-  {type:'notif-gold',icon:'⚠️',title:'Heavy Traffic — C5 Libis',desc:'Peak congestion for next 45 min',time:'2m ago'},
-  {type:'notif-teal',icon:'🚆',title:'MRT-3 Delay Alert',desc:'Cubao → Ayala: 8 min delay',time:'5m ago'},
-  {type:'notif-green',icon:'✅',title:'Road Cleared — Shaw Blvd',desc:'Accident resolved · Now clear',time:'8m ago'},
-  {type:'notif-gold',icon:'🚧',title:'Road Works Notice',desc:'Marcos Hwy closure 10PM–5AM',time:'15m ago'},
-  {type:'notif-red',icon:'🌊',title:'Flooding — Tandang Sora',desc:'Avoid · MMDA team deployed',time:'20m ago'},
-  {type:'notif-green',icon:'💰',title:'Off-Peak Bonus Available',desc:'Travel now — earn +20 pts!',time:'Now'}
+  {type:'notif-red',icon:'🚨',title:'Accident — EDSA Guadalupe',desc:'2 vehicles · Lane 2 blocked',time:'Now',lat:14.5667,lng:121.0454},
+  {type:'notif-gold',icon:'⚠️',title:'Heavy Traffic — C5 Libis',desc:'Peak congestion for next 45 min',time:'2m ago',lat:14.6042,lng:121.0710},
+  {type:'notif-teal',icon:'🚆',title:'MRT-3 Delay Alert',desc:'Cubao → Ayala: 8 min delay',time:'5m ago',lat:14.6197,lng:121.0523},
+  {type:'notif-green',icon:'✅',title:'Road Cleared — Shaw Blvd',desc:'Accident resolved · Now clear',time:'8m ago',lat:14.5810,lng:121.0535},
+  {type:'notif-gold',icon:'🚧',title:'Road Works Notice',desc:'Marcos Hwy closure 10PM–5AM',time:'15m ago',lat:14.6230,lng:121.1050},
+  {type:'notif-red',icon:'🌊',title:'Flooding — Tandang Sora',desc:'Avoid · MMDA team deployed',time:'20m ago',lat:14.6693,lng:121.0570},
+  {type:'notif-green',icon:'💰',title:'Off-Peak Bonus Available',desc:'Travel now — earn +20 pts!',time:'Now',lat:null,lng:null}
 ];
-function showNextNotif(){if(ecoMode||!panel)return;if(notifQueue.length===0)notifQueue=[...liveNotifs];if(activeNotifs.length>=2)return;const n=notifQueue.shift();const el=document.createElement('div');el.className=`notif-card ${n.type}`;el.innerHTML=`<div class="notif-icon">${n.icon}</div><div class="notif-body"><div class="notif-title">${n.title}</div><div class="notif-desc">${n.desc}</div></div><div class="notif-time">${n.time}</div>`;el.onclick=()=>dismissNotif(el);panel.appendChild(el);activeNotifs.push(el);setTimeout(()=>el.classList.add('show'),50);setTimeout(()=>dismissNotif(el),6000);}
+function isNotifInView(n){
+  if(!leafletMap)return false;
+  try{
+    const z=leafletMap.getZoom();
+    if(z<14)return false;
+    if(!n.lat||!n.lng)return true;
+    const b=leafletMap.getBounds();
+    return b.contains(L.latLng(n.lat,n.lng));
+  }catch(e){return false;}
+}
+function showNextNotif(){
+  if(ecoMode||!panel)return;
+  if(notifQueue.length===0)notifQueue=[...liveNotifs];
+  if(activeNotifs.length>=2)return;
+  let n=null;let tries=0;
+  while(tries<notifQueue.length){
+    const candidate=notifQueue.shift();
+    if(isNotifInView(candidate)){n=candidate;break;}
+    notifQueue.push(candidate);tries++;
+  }
+  if(!n)return;
+  const el=document.createElement('div');
+  el.className=`notif-card ${n.type}`;
+  el.innerHTML=`<div class="notif-icon">${n.icon}</div><div class="notif-body"><div class="notif-title">${n.title}</div><div class="notif-desc">${n.desc}</div></div><div class="notif-time">${n.time}</div>`;
+  el.onclick=()=>dismissNotif(el);
+  panel.appendChild(el);activeNotifs.push(el);
+  setTimeout(()=>el.classList.add('show'),50);
+  setTimeout(()=>dismissNotif(el),6000);
+}
 function dismissNotif(el){el.classList.remove('show');setTimeout(()=>{el.remove();activeNotifs=activeNotifs.filter(x=>x!==el);},400);}
+function placeNotifMapMarkers(){
+  if(!leafletMap)return;
+  notifMapMarkers.forEach(m=>{try{leafletMap.removeLayer(m);}catch(e){}});
+  notifMapMarkers=[];
+  liveNotifs.forEach((n,idx)=>{
+    if(!n.lat||!n.lng)return;
+    const icon=L.divIcon({className:'notif-bubble-marker',html:`<div class="notif-map-bubble" id="nmb-${idx}">${n.icon}</div>`,iconSize:[30,30],iconAnchor:[15,15]});
+    const m=L.marker([n.lat,n.lng],{icon,zIndexOffset:300});
+    m._notifData=n;m._notifIdx=idx;
+    m.on('click',()=>showToast(`${n.icon} ${n.title} · ${n.desc}`,n.type.replace('notif-','')));
+    notifMapMarkers.push(m);
+  });
+  const mc2=document.getElementById('map-container');
+  if(mc2)mc2.classList.add('notifs-hidden');
+  setTimeout(()=>updateNotifMapMarkerVisibility(),400);
+}
+function updateNotifMapMarkerVisibility(){
+  if(!leafletMap)return;
+  const zoom=leafletMap.getZoom();
+  const mc=document.getElementById('map-container');
+  if(mc)mc.classList.toggle('notifs-hidden',zoom<15);
+  if(zoom<14){
+    notifMapMarkers.forEach(m=>{try{if(leafletMap.hasLayer(m))leafletMap.removeLayer(m);}catch(e){}});
+    /* Also dismiss any currently-showing notification panel cards */
+    activeNotifs.slice().forEach(el=>{try{dismissNotif(el);}catch(e){}});
+    return;
+  }
+  if(zoom<15){
+    notifMapMarkers.forEach(m=>{try{if(leafletMap.hasLayer(m))leafletMap.removeLayer(m);}catch(e){}});
+    return;
+  }
+  const bounds=leafletMap.getBounds();
+  notifMapMarkers.forEach(m=>{
+    if(!m._notifData?.lat||!m._notifData?.lng)return;
+    const inBounds=bounds.contains(L.latLng(m._notifData.lat,m._notifData.lng));
+    try{
+      const onMap=leafletMap.hasLayer(m);
+      if(inBounds&&!onMap)m.addTo(leafletMap);
+      else if(!inBounds&&onMap)leafletMap.removeLayer(m);
+    }catch(e){}
+  });
+}
+function scheduleNotifResolutions(){
+  notifResolutionTimers.forEach(t=>clearTimeout(t));
+  notifResolutionTimers=[];
+  const resolutions=[
+    {idx:3,delayMs:35000,msg:'✅ Shaw Blvd fully clear · Traffic flowing'},
+    {idx:0,delayMs:130000,msg:'✅ EDSA Guadalupe cleared · 1 lane open'}
+  ];
+  resolutions.forEach(r=>{
+    const t=setTimeout(()=>{
+      if(liveNotifs[r.idx]){
+        liveNotifs[r.idx].type='notif-green';
+        liveNotifs[r.idx].icon='✅';
+        liveNotifs[r.idx].title=r.msg.replace('✅ ','');
+        liveNotifs[r.idx].desc='Situation resolved · Road clear';
+        liveNotifs[r.idx].time='just now';
+      }
+      const marker=notifMapMarkers.find(m=>m._notifIdx===r.idx);
+      if(marker){const el=marker.getElement()?.querySelector('.notif-map-bubble');if(el){el.textContent='✅';el.style.borderColor='var(--green)';}}
+      showToast(r.msg,'green');
+    },r.delayMs);
+    notifResolutionTimers.push(t);
+  });
+}
 
 /* ══════════════════════════════════════════
    V15: TRANSIT ENGINE — Smart Follow + Realistic Timing
@@ -1290,7 +2024,10 @@ const SVG_LRT1_WP=[
   {x:55,y:144,crowd:'medium',name:'UN'},{x:55,y:154,crowd:'medium',name:'Pedro Gil'},
   {x:55,y:163,crowd:'low',name:'Quirino'},{x:55,y:172,crowd:'low',name:'Vito Cruz'},
   {x:55,y:182,crowd:'medium',name:'Gil Puyat'},{x:55,y:192,crowd:'medium',name:'Libertad'},
-  {x:55,y:205,crowd:'high',name:'EDSA'},{x:55,y:220,crowd:'medium',name:'Baclaran'}
+  {x:55,y:205,crowd:'high',name:'EDSA'},{x:55,y:220,crowd:'medium',name:'Baclaran'},
+  {x:55,y:232,crowd:'medium',name:'Redemptorist'},{x:55,y:244,crowd:'low',name:'MIA Road'},
+  {x:55,y:256,crowd:'low',name:'PITX'},{x:55,y:268,crowd:'low',name:'Ninoy Aquino Ave'},
+  {x:55,y:280,crowd:'low',name:'Dr. Santos'}
 ];
 const SVG_LRT2_WP=[
   {x:55,y:110,crowd:'high',name:'Recto'},{x:74,y:110,crowd:'medium',name:'Legarda'},
@@ -1312,13 +2049,13 @@ const SVG_MRT3_WP=[
 ];
 
 const LINE_CONFIGS={
-  lrt1:{waypoints:SVG_LRT1_WP,color:'#3ecf8e',name:'LRT-1',svIdA:'svgLrt1A',svIdB:'svgLrt1B',
+  lrt1:{waypoints:SVG_LRT1_WP,color:'#3ecf8e',name:'LRT-1',svIdA:'svgLrt1A',svIdB:'svgLrt1B',svIdC:'svgLrt1C',svIdD:'svgLrt1D',
         linearContainer:'linearRouteLRT1',hscrollTrack:'hscrollTrackLRT1',hscrollWrap:'hscrollLRT1',
         trainInfoCard:'trainInfoCardLRT1',followBadge:'followBadgeLRT1'},
-  lrt2:{waypoints:SVG_LRT2_WP,color:'#4a90ff',name:'LRT-2',svIdA:'svgLrt2A',svIdB:'svgLrt2B',
+  lrt2:{waypoints:SVG_LRT2_WP,color:'#4a90ff',name:'LRT-2',svIdA:'svgLrt2A',svIdB:'svgLrt2B',svIdC:'svgLrt2C',svIdD:'svgLrt2D',
         linearContainer:'linearRouteLRT2',hscrollTrack:'hscrollTrackLRT2',hscrollWrap:'hscrollLRT2',
         trainInfoCard:'trainInfoCardLRT2',followBadge:'followBadgeLRT2'},
-  mrt3:{waypoints:SVG_MRT3_WP,color:'#f5a623',name:'MRT-3',svIdA:'svgMrt3A',svIdB:'svgMrt3B',
+  mrt3:{waypoints:SVG_MRT3_WP,color:'#f5a623',name:'MRT-3',svIdA:'svgMrt3A',svIdB:'svgMrt3B',svIdC:'svgMrt3C',svIdD:'svgMrt3D',
         linearContainer:'linearRouteMRT3',hscrollTrack:'hscrollTrackMRT3',hscrollWrap:'hscrollMRT3',
         trainInfoCard:'trainInfoCardMRT3',followBadge:'followBadgeMRT3'}
 };
@@ -1374,6 +2111,35 @@ function computeSVGTrainPos(waypoints, timeOffsetMs){
           nextStation:last, prevStation:waypoints[n-2], dwellRem:0, travelPerSeg};
 }
 
+/* ── Pre-computed reversed waypoints for southbound→northbound trains ── */
+const REVERSED_LINE_WP={};
+/* Populated after LINE_CONFIGS is defined — see initReversedWP() call in DOMContentLoaded */
+function initReversedWP(){Object.keys(LINE_CONFIGS).forEach(k=>{REVERSED_LINE_WP[k]=[...LINE_CONFIGS[k].waypoints].reverse();});}
+
+/* ── computeSVGTrainPosOneWay: one-direction loop, no bounce ── */
+function computeSVGTrainPosOneWay(waypoints,timeOffsetMs){
+  const n=waypoints.length,nSegs=n-1;
+  if(nSegs<=0)return{x:waypoints[0].x,y:waypoints[0].y,crowd:'low',isDwelling:true,stationIdx:0,segT:0,nextStation:waypoints[0],prevStation:waypoints[0],dwellRem:5000,travelPerSeg:0};
+  const OW_DWELL=5000;
+  const travelPerSeg=Math.max(1000,(TRAIN_LOOP-n*OW_DWELL)/nSegs);
+  const elapsed=(performance.now()-svgAnimStart+timeOffsetMs)%TRAIN_LOOP;
+  let rem=elapsed;
+  for(let i=0;i<n;i++){
+    if(rem<OW_DWELL)return{x:waypoints[i].x,y:waypoints[i].y,crowd:waypoints[i].crowd,isDwelling:true,stationIdx:i,segT:0,nextStation:waypoints[Math.min(i+1,n-1)],prevStation:waypoints[Math.max(i-1,0)],dwellRem:OW_DWELL-rem,travelPerSeg};
+    rem-=OW_DWELL;
+    if(i<nSegs){
+      if(rem<travelPerSeg){
+        const rawT=rem/travelPerSeg;
+        const easedT=rawT<0.02?0:rawT>0.98?1:easeInOut(rawT);
+        const from=waypoints[i],to=waypoints[i+1];
+        return{x:lerp(from.x,to.x,easedT),y:lerp(from.y,to.y,easedT),crowd:rawT>0.5?to.crowd:from.crowd,isDwelling:false,stationIdx:i,segT:rawT,nextStation:to,prevStation:from,dwellRem:0,travelPerSeg};
+      }
+      rem-=travelPerSeg;
+    }
+  }
+  return{x:waypoints[n-1].x,y:waypoints[n-1].y,crowd:waypoints[n-1].crowd,isDwelling:true,stationIdx:n-1,segT:0,nextStation:waypoints[n-1],prevStation:waypoints[n-2]||waypoints[n-1],dwellRem:OW_DWELL,travelPerSeg};
+}
+
 /* ── getETAForTrain — reliable ARRIVING NOW during DWELL ── */
 function getETAForTrain(waypoints, timeOffsetMs){
   const n = waypoints.length, nSegs = n - 1;
@@ -1412,7 +2178,7 @@ function formatETA(etaMs, travelPerSeg, nextStation){
 
 /* ── SVG glow filters ── */
 function injectSVGFilters(){
-  const svg=document.getElementById('transitSVG');
+  const svg=document.getElementById('transitAllSvg');
   if(!svg||svg.querySelector('#glow-low'))return;
   const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
   defs.innerHTML='<filter id="glow-low" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="glow-medium" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur in="SourceGraphic" stdDeviation="4.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="glow-high" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
@@ -1439,13 +2205,13 @@ function svStationClick(name,crowd){
 }
 
 /* ── ViewBox zoom ── */
-const VIEWBOXES={all:'-15 -5 325 265',lrt1:'-20 0 130 240',lrt2:'30 90 280 50',mrt3:'148 5 125 250'};
+const VIEWBOXES={all:'-15 -5 325 305',lrt1:'-20 0 130 300',lrt2:'30 90 280 50',mrt3:'148 5 125 250'};
 function parseVB(str){const[x,y,w,h]=str.split(' ').map(Number);return{x,y,w,h};}
 function animateViewBox(){
   if(!vbAnimating)return;
   const now=performance.now();const t=Math.min((now-vbStart)/VB_DUR,1);const e=easeInOut(t);
   const vb={x:lerp(currentVB.x,targetVB.x,e),y:lerp(currentVB.y,targetVB.y,e),w:lerp(currentVB.w,targetVB.w,e),h:lerp(currentVB.h,targetVB.h,e)};
-  const svg=document.getElementById('transitSVG');if(svg)svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+  const svg=document.getElementById('transitAllSvg');if(svg)svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
   if(t<1){requestAnimationFrame(animateViewBox);}else{currentVB={...targetVB};vbAnimating=false;}
 }
 function zoomToViewBox(key){const parsed=parseVB(VIEWBOXES[key]||VIEWBOXES.all);targetVB=parsed;vbStart=performance.now();if(!vbAnimating){vbAnimating=true;requestAnimationFrame(animateViewBox);}}
@@ -1483,11 +2249,16 @@ function buildLinearRoute(lineKey){
     track.appendChild(st);
   });
 
-  ['A','B'].forEach((letter,idx)=>{
+  const TRAIN_OFFSETS={A:0,C:HALF/2,B:HALF,D:HALF+HALF/2};
+  const TRAIN_DIR={A:'▲',B:'▼',C:'▲',D:'▼'};
+  const TRAIN_LABEL={A:'Northbound',B:'Southbound',C:'Northbound',D:'Southbound'};
+  ['A','C','B','D'].forEach((letter)=>{
     const trainEl=document.createElement('div');
     trainEl.className='hs-train';
+    const isSecondary=(letter==='C'||letter==='D');
+    if(isSecondary)trainEl.style.opacity='0.75';
     trainEl.id=`hsTrain_${lineKey}_${letter}`;
-    trainEl.innerHTML=`<div class="hs-train-inner" style="background:${cfg.color};">${letter}</div>`;
+    trainEl.innerHTML=`<div class="hs-train-inner" style="background:${cfg.color};" title="${TRAIN_LABEL[letter]}">${TRAIN_DIR[letter]}</div>`;
     trainEl.onclick=e=>{e.stopPropagation();selectTrain(lineKey,letter,e);};
     track.appendChild(trainEl);
   });
@@ -1520,12 +2291,18 @@ function updateLinearTrainPositions(lineKey){
   const wp=cfg.waypoints;
   const BASE_X=30;
 
-  ['A','B'].forEach((letter,idx)=>{
+  const n=wp.length;
+  const TRAIN_OFFSETS_UPD={A:0,C:HALF/2,B:0,D:HALF/2};
+  const revWpLin=REVERSED_LINE_WP[lineKey]||wp;
+  ['A','C','B','D'].forEach((letter)=>{
     const el=document.getElementById(`hsTrain_${lineKey}_${letter}`);if(!el)return;
-    const timeOffset=idx===0?0:HALF;
-    const pos=computeSVGTrainPos(wp,timeOffset);
-    const fracIdx=pos.isDwelling ? pos.stationIdx : pos.stationIdx + pos.segT;
-    const xPx=BASE_X + fracIdx*STATION_SPACING;
+    const timeOffset=TRAIN_OFFSETS_UPD[letter];
+    const isRev=(letter==='B'||letter==='D');
+    const useWp=isRev?revWpLin:wp;
+    const pos=computeSVGTrainPosOneWay(useWp,timeOffset);
+    const fracIdx=pos.isDwelling?pos.stationIdx:pos.stationIdx+pos.segT;
+    const displayIdx=isRev?(n-1-fracIdx):fracIdx;
+    const xPx=BASE_X+displayIdx*STATION_SPACING;
     el.style.left=xPx+'px';
 
     const inner=el.querySelector('.hs-train-inner');
@@ -1601,7 +2378,9 @@ function updateSelectedRing(){
   const ring=document.getElementById('svgSelRing');
   if(!selectedTrain||!ring){if(ring){ring.setAttribute('r','0');ring.setAttribute('opacity','0');}return;}
   const cfg=LINE_CONFIGS[selectedTrain.line];if(!cfg)return;
-  const pos=computeSVGTrainPos(cfg.waypoints,selectedTrain.train==='A'?0:HALF);
+  const _sRev=(selectedTrain.train==='B'||selectedTrain.train==='D');
+  const _sWp=_sRev?(REVERSED_LINE_WP[selectedTrain.line]||cfg.waypoints):cfg.waypoints;
+  const pos=computeSVGTrainPosOneWay(_sWp,({A:0,C:HALF/2,B:0,D:HALF/2}[selectedTrain.train]||0));
   ring.setAttribute('cx',pos.x.toFixed(2));
   ring.setAttribute('cy',pos.y.toFixed(2));
   ring.setAttribute('r','13');
@@ -1614,11 +2393,15 @@ function showTrainInfoCard(line,train){
   const cfg=LINE_CONFIGS[line];if(!cfg)return;
   document.querySelectorAll('.train-info-card').forEach(c=>c.classList.remove('show'));
   const card=document.getElementById(cfg.trainInfoCard);if(!card)return;
-  const pos=computeSVGTrainPos(cfg.waypoints,train==='A'?0:HALF);
-  const eta=getETAForTrain(cfg.waypoints,train==='A'?0:HALF);
+  const _tOff={A:0,C:HALF/2,B:0,D:HALF/2};
+  const _tRev=(train==='B'||train==='D');
+  const _tWp=_tRev?(REVERSED_LINE_WP[line]||cfg.waypoints):cfg.waypoints;
+  const pos=computeSVGTrainPosOneWay(_tWp,_tOff[train]||0);
+  const eta=getETAForTrain(_tWp,_tOff[train]||0);
   const crowdPct=pos.crowd==='high'?'87%':pos.crowd==='medium'?'54%':'28%';
   const dirLabels={lrt1:['Southbound','Northbound'],lrt2:['Eastbound','Westbound'],mrt3:['Southbound','Northbound']};
-  const direction=(dirLabels[line]||['Northbound','Southbound'])[train==='A'?0:1];
+  const _dirIdx=(train==='A'||train==='C')?0:1;
+  const direction=(dirLabels[line]||['Northbound','Southbound'])[_dirIdx];
   card.innerHTML=`
     <div class="tic-header">
       <div class="tic-train-id">🚆 ${cfg.name} · Train ${train}</div>
@@ -1642,7 +2425,9 @@ function showTrainInfoCard(line,train){
 function syncETACards(){
   if(!selectedTrain){document.querySelectorAll('.teta-card').forEach(c=>c.classList.remove('synced-train'));return;}
   const cfg=LINE_CONFIGS[selectedTrain.line];if(!cfg)return;
-  const eta=getETAForTrain(cfg.waypoints,selectedTrain.train==='A'?0:HALF);
+  const _scRev=(selectedTrain.train==='B'||selectedTrain.train==='D');
+  const _scWp=_scRev?(REVERSED_LINE_WP[selectedTrain.line]||cfg.waypoints):cfg.waypoints;
+  const eta=getETAForTrain(_scWp,({A:0,C:HALF/2,B:0,D:HALF/2}[selectedTrain.train]||0));
   const lineKey=selectedTrain.line;
   const etaEl=document.getElementById('eta'+lineKey.charAt(0).toUpperCase()+lineKey.slice(1));
   const stEl=document.getElementById('eta'+lineKey.charAt(0).toUpperCase()+lineKey.slice(1)+'St');
@@ -1670,6 +2455,32 @@ function updateSVGLineOpacity(line){
 /* ══════════════════════════════════════════
    V15: MORPHING TRANSITION
 ══════════════════════════════════════════ */
+function initTransitAllZoom(){
+  const wrap=document.getElementById('transitMapWrap');
+  const svg=document.getElementById('transitAllSvg');
+  if(!wrap||!svg)return;
+  let scale=1,panX=0,panY=0,isDragging=false,lastX=0,lastY=0;
+  function applyTransform(){svg.style.transform=`translate(${panX}px,${panY}px) scale(${scale})`;}
+  wrap.addEventListener('wheel',e=>{
+    e.preventDefault();
+    scale=Math.max(0.7,Math.min(3,scale*(e.deltaY<0?1.1:0.9)));
+    applyTransform();
+  },{passive:false});
+  wrap.addEventListener('touchstart',e=>{
+    if(e.touches.length===1){isDragging=true;lastX=e.touches[0].clientX;lastY=e.touches[0].clientY;}
+  },{passive:true});
+  wrap.addEventListener('touchmove',e=>{
+    if(isDragging&&e.touches.length===1){
+      panX+=e.touches[0].clientX-lastX;panY+=e.touches[0].clientY-lastY;
+      lastX=e.touches[0].clientX;lastY=e.touches[0].clientY;
+      applyTransform();
+    }
+  },{passive:true});
+  wrap.addEventListener('touchend',()=>{isDragging=false;});
+  document.getElementById('transitAllZoomIn')?.addEventListener('click',()=>{scale=Math.min(3,scale*1.2);applyTransform();});
+  document.getElementById('transitAllZoomOut')?.addEventListener('click',()=>{scale=Math.max(0.7,scale/1.2);applyTransform();});
+  document.getElementById('transitAllReset')?.addEventListener('click',()=>{scale=1;panX=0;panY=0;applyTransform();});
+}
 function setTransitView(line){
   if(morphingTransition)return;
   morphingTransition=true;
@@ -1729,16 +2540,20 @@ function runTrainAnimation(){
   if(!trainAnimRunning)return;
   try{
     Object.keys(LINE_CONFIGS).forEach(lineKey=>{
-      const cfg=LINE_CONFIGS[lineKey];const wp=cfg.waypoints;
-      ['A','B'].forEach((letter,idx)=>{
-        const svgId=idx===0?cfg.svIdA:cfg.svIdB;
+      const cfg=LINE_CONFIGS[lineKey];const fwdWp=cfg.waypoints;const revWp=REVERSED_LINE_WP[lineKey]||fwdWp;
+      const SVG_OFFSETS={A:0,C:HALF/2,B:0,D:HALF/2};
+      const SVG_IDS={A:cfg.svIdA,B:cfg.svIdB,C:cfg.svIdC,D:cfg.svIdD};
+      ['A','C','B','D'].forEach((letter)=>{
+        const svgId=SVG_IDS[letter];if(!svgId)return;
         const el=document.getElementById(svgId);
-        const timeOffset=idx===0?0:HALF;
-        const pos=computeSVGTrainPos(wp,timeOffset);
+        const isRev=(letter==='B'||letter==='D');
+        const wp=isRev?revWp:fwdWp;
+        const pos=computeSVGTrainPosOneWay(wp,SVG_OFFSETS[letter]);
         if(el){
           el.setAttribute('cx',pos.x.toFixed(2));el.setAttribute('cy',pos.y.toFixed(2));
           applySVGTrainStyle(el,pos.crowd);
-          el.setAttribute('stroke-width',(selectedTrain&&selectedTrain.line===lineKey&&selectedTrain.train===letter)?'3':'1.5');
+          const isSelected=selectedTrain&&selectedTrain.line===lineKey&&selectedTrain.train===letter;
+          el.setAttribute('stroke-width',isSelected?'3':(letter==='A'||letter==='B'?'1.5':'1'));
         }
       });
       if(currentTransitView===lineKey)updateLinearTrainPositions(lineKey);
@@ -1750,7 +2565,7 @@ function runTrainAnimation(){
       if(cfg){
         const card=document.getElementById(cfg.trainInfoCard);
         if(card&&card.classList.contains('show')){
-          const eta=getETAForTrain(cfg.waypoints,selectedTrain.train==='A'?0:HALF);
+          const eta=getETAForTrain(cfg.waypoints,({A:0,B:HALF,C:HALF/2,D:HALF+HALF/2}[selectedTrain.train]||0));
           const etaEl=card.querySelector('.tic-ns-eta');
           if(etaEl){etaEl.textContent=eta.isArriving?'🟢 ARRIVING NOW':'ETA: '+eta.display;etaEl.classList.toggle('arriving',eta.isArriving);}
           const nameEl=card.querySelector('.tic-ns-name');if(nameEl)nameEl.textContent='Next: '+eta.nextStation.name;
@@ -1776,12 +2591,17 @@ function runTrainAnimation(){
 ══════════════════════════════════════════ */
 let leafletMap=null,userLatLng=[14.5995,120.9842],userMarker=null,geoWatchId=null;
 let stoplightInterval=null,stoplightMarkers=[];
+let commuterStoplightsOn=false;
+let congestionToggleOn=true;
 let routeLayers=[],transitLineLayers=[],trainDotMarkers={};
 let roadCongestionLayers=[];
+let lastMapUpdate=Date.now(),lastTransitUpdate=Date.now();
 let congestionInterval=null;
 let followBadgeTimer=null;
+let sosResponderMarkers=[],sosResponderInterval=null,sosActive=false;
 
 const NCR_CENTER=[14.5995,120.9842];
+const STOPLIGHT_MIN_ZOOM=15;
 const TRAIN_COLORS={lrt1:'#3ecf8e',lrt2:'#4a90ff',mrt3:'#f5a623'};
 const TRAIN_LABELS={lrt1:'L1',lrt2:'L2',mrt3:'M3'};
 const LINE_COLORS={lrt1:'#3ecf8e',lrt2:'#4a90ff',mrt3:'#f5a623'};
@@ -1797,13 +2617,11 @@ const DATA_PIPELINE={
   overpassNcrStoplights:'[out:json][timeout:60];area["name"="Metro Manila"]["boundary"="administrative"]->.a;(node["highway"="traffic_signals"](area.a););out body;>;out skel qt;'
 };
 
-/* Station coordinates sourced from OpenStreetMap (Overpass API, 2026-04-30).
-   FPJ and Balintawak corrected: OSM returned anomalous lng ~121.02/121.00;
-   corrected to the verified ~120.98 LRT-1 corridor alignment. */
-function isInNCR(lat,lng){return lat>=14.35&&lat<=14.80&&lng>=120.90&&lng<=121.15;}
+/* Station coordinates updated 2026-05-01 — OSM-accurate alignment */
+function isInNCR(lat,lng){return lat>=14.43&&lat<=14.80&&lng>=120.88&&lng<=121.22;}
 const GEO_LRT1=[
-  {name:'FPJ',lat:14.6537,lng:120.9838},
-  {name:'Balintawak',lat:14.6502,lng:120.9820},
+  {name:'FPJ',lat:14.6574,lng:121.0216},
+  {name:'Balintawak',lat:14.6574,lng:121.0044},
   {name:'Monumento',lat:14.6546,lng:120.9839},
   {name:'5th Ave',lat:14.6444,lng:120.9836},
   {name:'R. Papa',lat:14.6360,lng:120.9823},
@@ -1820,8 +2638,13 @@ const GEO_LRT1=[
   {name:'Vito Cruz',lat:14.5635,lng:120.9948},
   {name:'Gil Puyat',lat:14.5541,lng:120.9972},
   {name:'Libertad',lat:14.5477,lng:120.9986},
-  {name:'EDSA',lat:14.5390,lng:121.0006},
-  {name:'Baclaran',lat:14.5339,lng:120.9981}
+  {name:'EDSA',lat:14.5389,lng:121.0006},
+  {name:'Baclaran',lat:14.5339,lng:120.9971},
+  {name:'Redemptorist',lat:14.5155,lng:120.9929},
+  {name:'MIA Road',lat:14.5050,lng:120.9910},
+  {name:'PITX',lat:14.4875,lng:120.9810},
+  {name:'Ninoy Aquino Ave',lat:14.4765,lng:120.9865},
+  {name:'Dr. Santos',lat:14.4660,lng:120.9950}
 ];
 const GEO_LRT2=[
   {name:'Recto',lat:14.6036,lng:120.9831},
@@ -1836,7 +2659,7 @@ const GEO_LRT2=[
   {name:'Katipunan',lat:14.6308,lng:121.0723},
   {name:'Santolan',lat:14.6217,lng:121.0863},
   {name:'Marikina',lat:14.6205,lng:121.1006},
-  {name:'Antipolo',lat:14.6248,lng:121.1214}
+  {name:'Antipolo',lat:14.6249,lng:121.1746}
 ];
 const GEO_MRT3=[
   {name:'North Ave',lat:14.6517,lng:121.0326},
@@ -1854,16 +2677,49 @@ const GEO_MRT3=[
   {name:'Taft Ave',lat:14.5377,lng:121.0019}
 ];
 const GEO_COORDS={lrt1:GEO_LRT1,lrt2:GEO_LRT2,mrt3:GEO_MRT3};
-/* Track waypoints from rail_geometries.json — more points than station stops for smoother animation */
-const TRACK_LRT1=[[14.5339,120.9971],[14.5390,120.9900],[14.5460,120.9832],[14.5490,120.9835],[14.5531,120.9843],[14.5555,120.9847],[14.5605,120.9854],[14.5620,120.9862],[14.5632,120.9879],[14.5645,120.9888],[14.5661,120.9899],[14.5678,120.9905],[14.5695,120.9912],[14.5714,120.9919],[14.5734,120.9927],[14.5750,120.9933],[14.5767,120.9940],[14.5784,120.9947],[14.5800,120.9955],[14.5816,120.9963],[14.5833,120.9978],[14.5850,120.9990],[14.5870,121.0005],[14.5880,121.0025],[14.5896,121.0070],[14.5902,121.0083],[14.5910,121.0095],[14.5914,121.0107],[14.5920,121.0118],[14.5928,121.0124],[14.5940,121.0132],[14.5950,121.0137],[14.5960,121.0141],[14.5968,121.0145],[14.5975,121.0148],[14.5984,121.0165],[14.5995,121.0192],[14.6005,121.0175],[14.6016,121.0154]];
-const TRACK_LRT2=[[14.6036,120.9831],[14.6042,120.9855],[14.6054,120.9900],[14.6061,120.9930],[14.6072,120.9960],[14.6080,120.9980],[14.6090,121.0000],[14.6095,121.0030],[14.6100,121.0063],[14.6100,121.0090],[14.6099,121.0118],[14.6092,121.0147],[14.6083,121.0176],[14.6079,121.0207],[14.6074,121.0239],[14.6066,121.0274],[14.6055,121.0310],[14.6045,121.0350],[14.6034,121.0388],[14.6026,121.0420],[14.6018,121.0453],[14.6008,121.0485],[14.5996,121.0516],[14.5980,121.0575],[14.5961,121.0640]];
-const TRACK_MRT3=[[14.5376,121.0019],[14.5430,121.0060],[14.5526,121.0193],[14.5590,121.0192],[14.5640,121.0192],[14.5708,121.0192],[14.5760,121.0380],[14.5810,121.0430],[14.5860,121.0450],[14.5873,121.0568],[14.5920,121.0534],[14.6010,121.0534],[14.6060,121.0534],[14.6120,121.0532],[14.6228,121.0532],[14.6300,121.0460],[14.6380,121.0261],[14.6430,121.0340],[14.6437,121.0354],[14.6523,121.0322]];
+/* Track waypoints — OSM-accurate, 2026-05-01 */
+const TRACK_LRT1=[
+  [14.4660,120.9950],[14.4700,120.9920],[14.4765,120.9865],
+  [14.4810,120.9840],[14.4875,120.9810],[14.4950,120.9850],
+  [14.5000,120.9880],[14.5050,120.9910],[14.5100,120.9925],
+  [14.5155,120.9929],[14.5197,120.9971],[14.5290,120.9985],
+  [14.5339,120.9971],[14.5389,121.0006],[14.5477,120.9986],
+  [14.5541,120.9972],[14.5635,120.9948],[14.5702,120.9916],
+  [14.5766,120.9880],[14.5826,120.9846],[14.5931,120.9815],
+  [14.5990,120.9813],[14.6053,120.9820],[14.6111,120.9825],
+  [14.6167,120.9827],[14.6228,120.9829],[14.6306,120.9815],
+  [14.6360,120.9823],[14.6444,120.9836],[14.6546,120.9839],
+  [14.6574,121.0044],[14.6574,121.0216]
+];
+const TRACK_LRT2=[
+  [14.6036,120.9831],[14.6025,120.9870],[14.6012,120.9915],
+  [14.6008,120.9925],[14.6010,120.9975],[14.6017,121.0050],
+  [14.6025,121.0110],[14.6035,121.0170],[14.6040,121.0170],
+  [14.6065,121.0215],[14.6095,121.0255],[14.6105,121.0261],
+  [14.6120,121.0300],[14.6135,121.0341],[14.6158,121.0385],
+  [14.6186,121.0428],[14.6210,121.0478],[14.6229,121.0530],
+  [14.6258,121.0586],[14.6280,121.0643],[14.6300,121.0685],
+  [14.6308,121.0723],[14.6265,121.0790],[14.6217,121.0863],
+  [14.6210,121.0935],[14.6205,121.1006],[14.6220,121.1200],
+  [14.6235,121.1400],[14.6249,121.1746]
+];
+const TRACK_MRT3=[
+  [14.6517,121.0326],[14.6480,121.0355],[14.6424,121.0386],
+  [14.6354,121.0433],[14.6290,121.0470],[14.6195,121.0511],
+  [14.6145,121.0540],[14.6075,121.0566],[14.5958,121.0593],
+  [14.5920,121.0585],[14.5884,121.0569],[14.5845,121.0553],
+  [14.5811,121.0534],[14.5780,121.0515],[14.5746,121.0487],
+  [14.5710,121.0468],[14.5676,121.0458],[14.5610,121.0405],
+  [14.5546,121.0346],[14.5495,121.0284],[14.5450,121.0236],
+  [14.5423,121.0199],[14.5400,121.0115],[14.5377,121.0019]
+];
 const TRACK_COORDS={lrt1:TRACK_LRT1,lrt2:TRACK_LRT2,mrt3:TRACK_MRT3};
 
 const STOPLIGHT_DATASET={
   source:'OpenStreetMap Overpass API',
   refreshedAt:'2026-04-30',
   items:[
+  /* EDSA corridor */
   {lat:14.5376,lng:121.0019,name:'EDSA-Taft Avenue'},
   {lat:14.5419,lng:121.0167,name:'EDSA-Magallanes'},
   {lat:14.5487,lng:121.0275,name:'EDSA-Ayala'},
@@ -1877,21 +2733,89 @@ const STOPLIGHT_DATASET={
   {lat:14.6353,lng:121.0433,name:'EDSA-GMA Kamuning'},
   {lat:14.6424,lng:121.0387,name:'EDSA-Quezon Avenue'},
   {lat:14.6517,lng:121.0326,name:'EDSA-North Avenue'},
+  /* C5 Road */
   {lat:14.6042,lng:121.0710,name:'C5-Libis'},
   {lat:14.5367,lng:121.0402,name:'C5-BGC Lawton'},
   {lat:14.5808,lng:121.0735,name:'C5-Ugong Pasig'},
+  {lat:14.5550,lng:121.0510,name:'C5-Fort Bonifacio'},
+  {lat:14.6200,lng:121.0800,name:'C5-Anonas'},
+  /* España / Lacson / Recto */
   {lat:14.6060,lng:120.9919,name:'España-Lacson'},
   {lat:14.6120,lng:120.9824,name:'España-Blumentritt'},
+  {lat:14.6016,lng:120.9831,name:'Recto-Quezon Blvd'},
+  {lat:14.5992,lng:120.9924,name:'Legarda-Espana'},
+  /* Taft Avenue */
+  {lat:14.5825,lng:120.9839,name:'Taft-Padre Faura'},
+  {lat:14.5740,lng:120.9862,name:'Taft-Pablo Ocampo'},
+  {lat:14.5640,lng:120.9904,name:'Taft-Vito Cruz'},
+  {lat:14.5527,lng:120.9940,name:'Taft-Vito Cruz Stn'},
+  {lat:14.5450,lng:120.9956,name:'Taft-Libertad'},
+  /* Roxas / Manila Bay */
+  {lat:14.5539,lng:120.9842,name:'Roxas Blvd-Buendia'},
+  {lat:14.5310,lng:120.9930,name:'Roxas Blvd-Paranaque'},
+  /* Katipunan / Ateneo area */
+  {lat:14.6360,lng:121.0990,name:'Marcos Highway-Marikina'},
+  {lat:14.6441,lng:121.0780,name:'Katipunan-LRT2 Stn'},
+  {lat:14.6530,lng:121.0748,name:'Katipunan-Ateneo'},
+  {lat:14.6545,lng:121.0692,name:'Katipunan-UP'},
+  {lat:14.6475,lng:121.0800,name:'Katipunan-Blue Ridge'},
+  /* Aurora Blvd */
+  {lat:14.6228,lng:121.0532,name:'Aurora Blvd-Araneta'},
+  {lat:14.6143,lng:121.0300,name:'Aurora-Gilmore'},
+  {lat:14.6007,lng:121.0050,name:'Aurora-Pureza'},
+  /* Commonwealth */
   {lat:14.6850,lng:121.0863,name:'Commonwealth-Batasan'},
   {lat:14.7018,lng:121.0600,name:'Commonwealth-Fairview'},
+  {lat:14.6650,lng:121.0705,name:'Commonwealth-UP Diliman'},
+  /* Quezon Ave / Timog */
   {lat:14.6350,lng:121.0420,name:'Quezon Ave-Timog'},
-  {lat:14.6228,lng:121.0532,name:'Aurora Blvd-Araneta'},
-  {lat:14.5539,lng:120.9842,name:'Roxas Blvd-Buendia'},
-  {lat:14.5825,lng:120.9839,name:'Taft Ave-Padre Faura'},
-  {lat:14.6360,lng:121.0990,name:'Marcos Highway-Marikina'}
+  {lat:14.6260,lng:121.0320,name:'Quezon Ave-Banawe'},
+  /* Makati CBD */
+  {lat:14.5550,lng:121.0200,name:'Ayala-Paseo de Roxas'},
+  {lat:14.5580,lng:121.0155,name:'Makati Ave-Buendia'},
+  {lat:14.5620,lng:121.0290,name:'Jupiter-Rockwell'},
+  /* Ortigas Center */
+  {lat:14.5873,lng:121.0564,name:'Ortigas-SM Megamall'},
+  {lat:14.5870,lng:121.0620,name:'Ortigas-Crowne Plaza'},
+  /* Parañaque / Las Piñas */
+  {lat:14.5090,lng:121.0140,name:'Ninoy Aquino Ave-Airport'},
+  {lat:14.4650,lng:121.0380,name:'Alabang-Zapote Rd'},
+  {lat:14.5130,lng:120.9905,name:'Parañaque-Quirino Ave'},
+  /* Katipunan corridor */
+  {lat:14.6555,lng:121.0748,name:'Katipunan-Ateneo Gate'},
+  {lat:14.6500,lng:121.0738,name:'Katipunan-UP Diliman'},
+  {lat:14.6439,lng:121.0780,name:'Katipunan-Miriam College'},
+  {lat:14.6382,lng:121.0762,name:'Katipunan-Blue Ridge'},
+  /* Aurora Blvd */
+  {lat:14.6230,lng:121.0533,name:'Aurora Blvd-Cubao'},
+  {lat:14.6140,lng:121.0300,name:'Aurora Blvd-Gilmore'},
+  {lat:14.6308,lng:121.0716,name:'Aurora-Katipunan Junction'},
+  /* Ortigas Ave */
+  {lat:14.5852,lng:121.0600,name:'Ortigas-Valle Verde'},
+  {lat:14.5940,lng:121.0660,name:'Ortigas-C5 Junction'},
+  {lat:14.5810,lng:121.0530,name:'Ortigas-Shaw Blvd'},
+  /* Marcos Highway */
+  {lat:14.6233,lng:121.0980,name:'Marcos Hwy-Cainta Junction'},
+  {lat:14.6350,lng:121.1050,name:'Marcos Hwy-Marikina-Infanta'},
+  /* Makati CBD */
+  {lat:14.5545,lng:121.0193,name:'Ayala Ave-Paseo de Roxas'},
+  {lat:14.5568,lng:121.0263,name:'Makati Ave-Buendia'},
+  {lat:14.5623,lng:121.0342,name:'Jupiter St-Rockwell'},
+  /* Parañaque / Las Piñas additional */
+  {lat:14.5095,lng:121.0164,name:'Ninoy Aquino Ave-NAIA'},
+  {lat:14.4950,lng:120.9960,name:'Alabang-Zapote Road'},
+  /* Marikina */
+  {lat:14.6200,lng:121.0980,name:'Marikina-Marcos Hwy Junction'},
+  /* Additional Manila streets */
+  {lat:14.5916,lng:120.9768,name:'Padre Faura-MH del Pilar'},
+  {lat:14.5536,lng:120.9829,name:'Roxas Blvd-Quirino Ave'},
+  {lat:14.6100,lng:120.9900,name:'España Ext-Lacson North'},
+  {lat:14.5890,lng:120.9800,name:'Taft-Pedro Gil Cross'},
+  {lat:14.6020,lng:120.9830,name:'Recto-Carriedo Cross'},
+  {lat:14.6300,lng:121.0640,name:'Anonas-New Manila'}
   ]
 };
-const SL_PHASE_MS=[0,9000,18000,27000,3000,12000,21000,6000,15000,24000,2000,19000,8000,17000,26000,5000,14000,23000,4000,13000,22000,7000,16000,25000,11000];
+const SL_PHASE_MS=[0,9000,18000,27000,3000,12000,21000,6000,15000,24000,2000,19000,8000,17000,26000,5000,14000,23000,4000,13000,22000,7000,16000,25000,11000,20000,1000,10000,28000,16500,7500,24500,3500,12500,21500,6500,15500,4500,13500,22500,8500,17500,26500,2500,11500,20500,9500,18500,27500,5500,10500,19500,28500,4000,13000,22000,7000,16000,25000,1500,10000,19000,28000,3000,12000,21000,6000,15000,24000,9000,18000,27000,2000,11000];
 const SL_CYCLE=70000;
 
 const STATIC_PINS=[
@@ -1905,6 +2829,12 @@ const STATIC_PINS=[
 ];
 
 const NCR_DESTINATIONS={
+  'ust':[14.6099,120.9893],'up diliman':[14.6540,121.0685],
+  'up manila':[14.5997,120.9898],'admu':[14.6407,121.0774],
+  'ateneo':[14.6407,121.0774],'dlsu':[14.5648,120.9933],
+  'la salle':[14.5648,120.9933],'feu':[14.6028,120.9882],
+  'ue manila':[14.6018,120.9877],'mapua':[14.5924,120.9800],
+  'pup':[14.5970,120.9886],'nu manila':[14.6005,120.9875],
   'sm mall of asia':[14.5350,120.9826],'moa':[14.5350,120.9826],
   'bgc':[14.5500,121.0500],'bonifacio':[14.5500,121.0500],
   'intramuros':[14.5920,120.9740],'trinoma':[14.6566,121.0323],
@@ -1917,6 +2847,20 @@ const NCR_DESTINATIONS={
   'pasay':[14.5346,121.0019],'taguig':[14.5264,121.0796]
 };
 
+const UNIVERSITY_FARES={
+  'ust':{name:'University of Santo Tomas',nearestStation:'LRT-1 España / Legarda',rail:{line:'LRT-1',fare:20},lastMile:{mode:'Walk / Tricycle',fare:15},jeepney:{fare:25,label:'Jeepney (España route)'}},
+  'up diliman':{name:'UP Diliman',nearestStation:'LRT-2 Katipunan',rail:{line:'LRT-2',fare:25},lastMile:{mode:'Tricycle / Walk',fare:20},jeepney:{fare:30,label:'Jeepney (Katipunan route)'}},
+  'up manila':{name:'UP Manila',nearestStation:'LRT-1 UN Avenue / Pedro Gil',rail:{line:'LRT-1',fare:18},lastMile:{mode:'Walk',fare:0},jeepney:{fare:20,label:'Jeepney (Taft-Padre Faura route)'}},
+  'admu':{name:'Ateneo de Manila University',nearestStation:'LRT-2 Katipunan',rail:{line:'LRT-2',fare:25},lastMile:{mode:'Walk / Tricycle',fare:15},jeepney:{fare:30,label:'Jeepney (Katipunan route)'}},
+  'ateneo':{name:'Ateneo de Manila University',nearestStation:'LRT-2 Katipunan',rail:{line:'LRT-2',fare:25},lastMile:{mode:'Walk / Tricycle',fare:15},jeepney:{fare:30,label:'Jeepney (Katipunan route)'}},
+  'dlsu':{name:'De La Salle University',nearestStation:'LRT-1 Vito Cruz',rail:{line:'LRT-1',fare:20},lastMile:{mode:'Walk',fare:0},jeepney:{fare:22,label:'Jeepney (Taft Avenue route)'}},
+  'la salle':{name:'De La Salle University',nearestStation:'LRT-1 Vito Cruz',rail:{line:'LRT-1',fare:20},lastMile:{mode:'Walk',fare:0},jeepney:{fare:22,label:'Jeepney (Taft Avenue route)'}},
+  'feu':{name:'Far Eastern University',nearestStation:'LRT-2 Legarda',rail:{line:'LRT-2',fare:15},lastMile:{mode:'Walk',fare:0},jeepney:{fare:18,label:'Jeepney (Recto-España route)'}},
+  'ue manila':{name:'University of the East',nearestStation:'LRT-2 Recto',rail:{line:'LRT-2',fare:15},lastMile:{mode:'Walk',fare:0},jeepney:{fare:18,label:'Jeepney (Claro M. Recto route)'}},
+  'mapua':{name:'Mapúa University',nearestStation:'LRT-1 UN Avenue',rail:{line:'LRT-1',fare:18},lastMile:{mode:'Tricycle',fare:15},jeepney:{fare:20,label:'Jeepney (Muralla route)'}},
+  'pup':{name:'Polytechnic University of the Philippines',nearestStation:'LRT-2 Legarda',rail:{line:'LRT-2',fare:15},lastMile:{mode:'Walk',fare:0},jeepney:{fare:20,label:'Jeepney (Sta. Mesa route)'}},
+  'nu manila':{name:'National University Manila',nearestStation:'LRT-2 Legarda',rail:{line:'LRT-2',fare:15},lastMile:{mode:'Walk',fare:0},jeepney:{fare:18,label:'Jeepney (M.F. Jhocson route)'}},
+};
 const TRAFFIC_STATES=[
   {id:'green', color:'#3ecf8e',weight:3,  mult:1.0},
   {id:'yellow',color:'#f5a623',weight:4.8,mult:1.4},
@@ -1931,7 +2875,7 @@ const TRAFFIC_OPEN_FEED_SAMPLE=[
   {name:'EDSA Ortigas-Cubao',lat:14.6040,lng:121.0540,speedKph:15},
   {name:'EDSA Cubao-North Ave',lat:14.6350,lng:121.0470,speedKph:18},
   {name:'C5 Libis-Pasig',lat:14.5950,lng:121.0760,speedKph:22},
-  {name:'C5 BGC-Guadalupe',lat:14.5490,lng:121.0510,speedKph:20},
+  {name:'C5 BGC-Guadalupe',lat:14.5590,lng:121.0560,speedKph:20},
   {name:'Commonwealth Ave',lat:14.6680,lng:121.0580,speedKph:35},
   {name:'Quezon Avenue',lat:14.6380,lng:121.0260,speedKph:25},
   {name:'Espana Blvd',lat:14.6090,lng:120.9870,speedKph:20},
@@ -1951,18 +2895,26 @@ const ROAD_CONGESTION_DATA=[
   {name:'EDSA Ortigas-Cubao',roadClass:'primary',speedKph:15,coords:[[14.5953,121.0593],[14.6017,121.0591],[14.6063,121.0571],[14.6092,121.0557],[14.6125,121.0542],[14.6162,121.0525],[14.6169,121.0522]]},
   {name:'EDSA Cubao-North Ave',roadClass:'primary',speedKph:18,coords:[[14.6169,121.0522],[14.6189,121.0514],[14.6201,121.0509],[14.6218,121.0501],[14.6240,121.0491],[14.6274,121.0473],[14.6286,121.0470],[14.6304,121.0458],[14.6317,121.0456],[14.6331,121.0445],[14.6336,121.0446],[14.6369,121.0424],[14.6419,121.0391],[14.6439,121.0379],[14.6524,121.0324]]},
   {name:'C5 Libis-Pasig',roadClass:'primary',speedKph:22,coords:[[14.5594,121.0654],[14.5610,121.0664],[14.5616,121.0675],[14.5697,121.0710],[14.5896,121.0766],[14.5937,121.0797],[14.6131,121.0752],[14.6155,121.0740],[14.6214,121.0807],[14.6232,121.0812],[14.6261,121.0815],[14.6266,121.0818]]},
-  {name:'C5 BGC-Guadalupe',roadClass:'primary',speedKph:20,coords:[[14.5022,121.0198],[14.5032,121.0208],[14.5054,121.0236],[14.5069,121.0260],[14.5099,121.0305],[14.5110,121.0320],[14.5147,121.0344],[14.5158,121.0378],[14.5167,121.0482],[14.5195,121.0526],[14.5232,121.0548],[14.5282,121.0568],[14.5328,121.0580],[14.5376,121.0572]]},
+  {name:'C5 BGC-Guadalupe',roadClass:'primary',speedKph:20,coords:[[14.5490,121.0510],[14.5520,121.0535],[14.5550,121.0555],[14.5585,121.0568],[14.5620,121.0575],[14.5660,121.0580],[14.5700,121.0578]]},
   {name:'Commonwealth Ave',roadClass:'primary',speedKph:35,coords:[[14.6522,121.0518],[14.6537,121.0527],[14.6573,121.0587],[14.6607,121.0638],[14.6632,121.0669],[14.6656,121.0705],[14.6690,121.0760],[14.6726,121.0803],[14.6755,121.0815],[14.6800,121.0843],[14.6830,121.0851],[14.6867,121.0871],[14.6891,121.0874],[14.6928,121.0872],[14.6995,121.0874],[14.7023,121.0862],[14.7050,121.0783],[14.7064,121.0655],[14.7085,121.0626],[14.7105,121.0612],[14.7151,121.0572],[14.7210,121.0525],[14.7254,121.0486],[14.7311,121.0474]]},
   {name:'Quezon Avenue',roadClass:'primary',speedKph:25,coords:[[14.6200,121.0043],[14.6212,121.0056],[14.6218,121.0061],[14.6229,121.0074],[14.6241,121.0088],[14.6252,121.0098],[14.6260,121.0108],[14.6275,121.0125],[14.6284,121.0132],[14.6296,121.0149],[14.6305,121.0158],[14.6317,121.0171],[14.6327,121.0186],[14.6332,121.0194],[14.6336,121.0202],[14.6343,121.0217],[14.6352,121.0231],[14.6359,121.0243],[14.6368,121.0257],[14.6373,121.0265],[14.6382,121.0282],[14.6389,121.0291],[14.6396,121.0303],[14.6408,121.0318],[14.6414,121.0328],[14.6424,121.0349],[14.6438,121.0372],[14.6447,121.0379],[14.6454,121.0397],[14.6463,121.0413],[14.6474,121.0429],[14.6485,121.0446],[14.6495,121.0458],[14.6506,121.0468]]},
   {name:'Espana Blvd',roadClass:'secondary',speedKph:20,coords:[[14.6054,120.9879],[14.6057,120.9883],[14.6064,120.9892],[14.6067,120.9894],[14.6085,120.9913],[14.6093,120.9924],[14.6096,120.9928],[14.6101,120.9932],[14.6105,120.9937],[14.6110,120.9943],[14.6113,120.9945],[14.6115,120.9947],[14.6118,120.9950],[14.6120,120.9954],[14.6124,120.9959],[14.6129,120.9965],[14.6134,120.9970],[14.6139,120.9975],[14.6144,120.9981],[14.6150,120.9985],[14.6155,120.9992],[14.6160,120.9996],[14.6163,121.0001],[14.6167,121.0006],[14.6174,121.0014],[14.6176,121.0017]]},
-  {name:'Taft Avenue',roadClass:'secondary',speedKph:18,coords:[[14.5324,120.9969],[14.5348,120.9988],[14.5364,120.9999],[14.5398,121.0004],[14.5419,120.9999],[14.5430,120.9997],[14.5452,120.9992],[14.5467,120.9989],[14.5483,120.9986],[14.5505,120.9979],[14.5526,120.9975],[14.5538,120.9973],[14.5554,120.9969],[14.5588,120.9960],[14.5602,120.9957],[14.5626,120.9951],[14.5644,120.9944],[14.5658,120.9938],[14.5675,120.9930],[14.5699,120.9918]]},
+  {name:'Taft Avenue',roadClass:'secondary',speedKph:18,coords:[[14.5324,120.9969],[14.5348,120.9988],[14.5364,120.9999],[14.5398,121.0004],[14.5419,120.9999],[14.5430,120.9997],[14.5452,120.9992],[14.5467,120.9989],[14.5483,120.9986],[14.5505,120.9979],[14.5526,120.9975],[14.5538,120.9973],[14.5554,120.9969],[14.5588,120.9960],[14.5602,120.9957],[14.5626,120.9951],[14.5644,120.9944],[14.5658,120.9938],[14.5675,120.9930],[14.5699,120.9918],[14.5714,120.9912],[14.5740,120.9900],[14.5780,120.9870],[14.5825,120.9840]]},
   {name:'Roxas Boulevard',roadClass:'primary',speedKph:40,coords:[[14.5181,120.9935],[14.5206,120.9937],[14.5236,120.9936],[14.5254,120.9936],[14.5267,120.9936],[14.5275,120.9935],[14.5298,120.9933],[14.5309,120.9931],[14.5336,120.9930],[14.5352,120.9926],[14.5368,120.9926],[14.5380,120.9925],[14.5395,120.9923],[14.5411,120.9921],[14.5428,120.9918],[14.5455,120.9912],[14.5464,120.9910],[14.5476,120.9907],[14.5507,120.9900],[14.5535,120.9892]]},
-  {name:'Aurora Blvd',roadClass:'secondary',speedKph:22,coords:[[14.6057,121.0186],[14.6086,121.0217],[14.6101,121.0245],[14.6117,121.0297],[14.6139,121.0347],[14.6167,121.0397],[14.6191,121.0435],[14.6210,121.0489],[14.6219,121.0509],[14.6238,121.0550],[14.6248,121.0572],[14.6264,121.0601],[14.6276,121.0630],[14.6293,121.0693],[14.6303,121.0711],[14.6313,121.0735]]},
-  {name:'Shaw Boulevard',roadClass:'secondary',speedKph:19,coords:[[14.5810,121.0430],[14.5808,121.0470],[14.5806,121.0510],[14.5804,121.0550],[14.5802,121.0590],[14.5798,121.0630],[14.5792,121.0660]]},
+  {name:'Aurora Blvd',roadClass:'secondary',speedKph:22,coords:[[14.5970,121.0050],[14.6010,121.0120],[14.6057,121.0186],[14.6086,121.0217],[14.6101,121.0245],[14.6117,121.0297],[14.6139,121.0347],[14.6167,121.0397],[14.6191,121.0435],[14.6210,121.0489],[14.6238,121.0560],[14.6264,121.0640],[14.6290,121.0710],[14.6310,121.0750]]},
+  {name:'Shaw Boulevard',roadClass:'secondary',speedKph:19,coords:[[14.5810,121.0430],[14.5820,121.0475],[14.5832,121.0515],[14.5840,121.0555],[14.5842,121.0600],[14.5838,121.0640],[14.5828,121.0670]]},
   {name:'Ortigas Avenue',roadClass:'secondary',speedKph:28,coords:[[14.5873,121.0568],[14.5876,121.0600],[14.5879,121.0640],[14.5882,121.0680],[14.5884,121.0720],[14.5887,121.0760],[14.5890,121.0800],[14.5894,121.0840]]},
   {name:'Marcos Highway',roadClass:'primary',speedKph:30,coords:[[14.5913,121.0862],[14.5971,121.0887],[14.6065,121.0922],[14.6095,121.0920],[14.6129,121.0921],[14.6185,121.0910],[14.6188,121.0925],[14.6199,121.0977],[14.6206,121.1018],[14.6215,121.1050],[14.6230,121.1132],[14.6232,121.1133],[14.6239,121.1177]]},
   {name:'SLEX',roadClass:'motorway',speedKph:60,coords:[[14.3657,121.0437],[14.3712,121.0424],[14.3806,121.0408],[14.3873,121.0398],[14.3908,121.0393],[14.3982,121.0390],[14.4047,121.0401],[14.4091,121.0420],[14.4112,121.0434],[14.4154,121.0454],[14.4203,121.0455],[14.4232,121.0455],[14.4295,121.0454],[14.4339,121.0455],[14.4385,121.0455],[14.4459,121.0454],[14.4518,121.0454],[14.4556,121.0454],[14.4629,121.0452],[14.4723,121.0453],[14.4852,121.0451],[14.5064,121.0353],[14.5173,121.0294],[14.5186,121.0286],[14.5192,121.0280],[14.5202,121.0276],[14.5226,121.0263]]},
-  {name:'NLEX',roadClass:'motorway',speedKph:65,coords:[[14.6938,121.0002],[14.6951,120.9998],[14.6972,120.9989],[14.7013,120.9968],[14.7039,120.9952],[14.7066,120.9939],[14.7104,120.9919],[14.7131,120.9904],[14.7157,120.9888],[14.7229,120.9850],[14.7242,120.9842],[14.7304,120.9810],[14.7352,120.9785],[14.7380,120.9768],[14.7427,120.9742],[14.7451,120.9731],[14.7476,120.9716],[14.7508,120.9700],[14.7546,120.9678],[14.7589,120.9657],[14.7622,120.9639],[14.7665,120.9616],[14.7709,120.9590],[14.7729,120.9579],[14.7787,120.9551],[14.7864,120.9509],[14.7910,120.9482],[14.7956,120.9457],[14.7987,120.9442],[14.8044,120.9418]]}
+  {name:'NLEX',roadClass:'motorway',speedKph:65,coords:[[14.6938,121.0002],[14.6951,120.9998],[14.6972,120.9989],[14.7013,120.9968],[14.7039,120.9952],[14.7066,120.9939],[14.7104,120.9919],[14.7131,120.9904],[14.7157,120.9888],[14.7229,120.9850],[14.7242,120.9842],[14.7304,120.9810],[14.7352,120.9785],[14.7380,120.9768],[14.7427,120.9742],[14.7451,120.9731],[14.7476,120.9716],[14.7508,120.9700],[14.7546,120.9678],[14.7589,120.9657],[14.7622,120.9639],[14.7665,120.9616],[14.7709,120.9590],[14.7729,120.9579],[14.7787,120.9551],[14.7864,120.9509],[14.7910,120.9482],[14.7956,120.9457],[14.7987,120.9442],[14.8044,120.9418]]},
+  {name:'Katipunan Avenue',roadClass:'secondary',speedKph:24,coords:[[14.6308,121.0723],[14.6350,121.0770],[14.6390,121.0810],[14.6430,121.0820],[14.6460,121.0836],[14.6500,121.0845],[14.6540,121.0830],[14.6570,121.0823]]},
+  {name:'C3 Road Caloocan',roadClass:'secondary',speedKph:20,coords:[[14.6500,120.9820],[14.6530,120.9830],[14.6560,120.9836],[14.6590,120.9840],[14.6620,120.9848],[14.6650,120.9855],[14.6680,120.9860],[14.6710,120.9868]]},
+  {name:'MacArthur Highway',roadClass:'primary',speedKph:22,coords:[[14.6050,120.9780],[14.6080,120.9785],[14.6110,120.9788],[14.6140,120.9790],[14.6170,120.9796],[14.6200,120.9800],[14.6230,120.9806],[14.6260,120.9810],[14.6290,120.9815],[14.6320,120.9818],[14.6350,120.9820]]},
+  {name:'Macapagal Blvd',roadClass:'primary',speedKph:38,coords:[[14.5340,120.9818],[14.5310,120.9840],[14.5280,120.9866],[14.5250,120.9890],[14.5220,120.9912],[14.5190,120.9935],[14.5160,120.9958],[14.5130,120.9980]]},
+  {name:'C6 Road',roadClass:'primary',speedKph:45,coords:[[14.4800,121.0640],[14.5000,121.0700],[14.5200,121.0790],[14.5350,121.0850],[14.5500,121.0870],[14.5650,121.0900],[14.5800,121.0920],[14.6000,121.0950]]},
+  {name:'Quirino Avenue',roadClass:'secondary',speedKph:18,coords:[[14.5620,120.9880],[14.5610,120.9910],[14.5600,120.9940],[14.5590,120.9970],[14.5580,121.0000],[14.5570,121.0030],[14.5560,121.0060]]},
+  {name:'P. Burgos Street',roadClass:'secondary',speedKph:14,coords:[[14.5560,121.0160],[14.5550,121.0185],[14.5540,121.0210],[14.5530,121.0235],[14.5520,121.0260],[14.5510,121.0285]]},
+  {name:'Tandang Sora Ave',roadClass:'secondary',speedKph:26,coords:[[14.6650,121.0250],[14.6680,121.0300],[14.6710,121.0350],[14.6740,121.0400],[14.6770,121.0450],[14.6800,121.0500],[14.6830,121.0540]]}
 ];
 
 const GTFS_LINE_PROFILE={
@@ -2004,6 +2956,7 @@ function drawRoadCongestion(){
       lineCap:'round',lineJoin:'round',interactive:false,pane:'congestion'}).addTo(leafletMap);
     roadCongestionLayers.push(l);
   });
+  lastMapUpdate=Date.now();
 }
 
 function clearRoadCongestion(){
@@ -2016,15 +2969,23 @@ function startCongestionUpdates(){
   drawRoadCongestion();
   congestionInterval=setInterval(()=>{
     ROAD_CONGESTION_DATA.forEach(road=>{
-      road.speedKph=Math.max(5,Math.min(90,road.speedKph+(Math.random()-0.5)*8));
+      road.speedKph=Math.max(5,Math.min(90,road.speedKph+(Math.random()-0.5)*5));
     });
     drawRoadCongestion();
-  },90000);
+  },30000);
 }
 
 function stopCongestionUpdates(){
   if(congestionInterval){clearInterval(congestionInterval);congestionInterval=null;}
   clearRoadCongestion();
+}
+
+function toggleCongestionLayer(){
+  congestionToggleOn=!congestionToggleOn;
+  const tog=document.getElementById('congestionToggle');
+  if(tog)tog.classList.toggle('on',congestionToggleOn);
+  if(congestionToggleOn){drawRoadCongestion();startCongestionUpdates();}
+  else{clearRoadCongestion();stopCongestionUpdates();}
 }
 
 function getActiveTrafficProvider(){
@@ -2136,7 +3097,8 @@ function startStoplights(){
   stoplightMarkers=STOPLIGHT_DATASET.items.map((sl,i)=>{
     const slHtml=`<div class="sl-icon-wrap sl-state-green"><svg viewBox="0 0 20 32" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="18" height="30" rx="4" ry="4" fill="#2a2a35" stroke="rgba(255,255,255,0.25)" stroke-width="1"/><circle cx="10" cy="8" r="4.5" class="sl-dot-red"/><circle cx="10" cy="16" r="4.5" class="sl-dot-yellow"/><circle cx="10" cy="24" r="4.5" class="sl-dot-green"/></svg></div>`;
     const icon=L.divIcon({className:'',html:slHtml,iconSize:[20,32],iconAnchor:[10,32]});
-    const m=L.marker([sl.lat,sl.lng],{icon,title:sl.name}).addTo(leafletMap);
+    const m=L.marker([sl.lat,sl.lng],{icon,title:sl.name});
+    if(leafletMap.getZoom()>=STOPLIGHT_MIN_ZOOM)m.addTo(leafletMap);
     m._slPhase=SL_PHASE_MS[i]||0;return m;
   });
   stoplightInterval=setInterval(()=>{
@@ -2152,6 +3114,33 @@ function startStoplights(){
 
 function stopStoplights(){
   if(stoplightInterval){clearInterval(stoplightInterval);stoplightInterval=null;}
+  stoplightMarkers.forEach(m=>{try{if(leafletMap?.hasLayer(m))leafletMap.removeLayer(m);}catch(e){}});
+  stoplightMarkers=[];
+}
+
+function updateStoplightZoomGuard(){
+  if(!leafletMap||stoplightMarkers.length===0)return;
+  const show=leafletMap.getZoom()>=STOPLIGHT_MIN_ZOOM;
+  stoplightMarkers.forEach(m=>{
+    try{
+      const onMap=leafletMap.hasLayer(m);
+      if(show&&!onMap)m.addTo(leafletMap);
+      else if(!show&&onMap)leafletMap.removeLayer(m);
+    }catch(e){}
+  });
+}
+
+function toggleCommuterStoplights(){
+  if(currentMode!=='commuter')return;
+  commuterStoplightsOn=!commuterStoplightsOn;
+  const btn=document.getElementById('stoplightToggleBtn');
+  if(commuterStoplightsOn){
+    startStoplights();
+    btn?.classList.add('active-state');
+  }else{
+    stopStoplights();
+    btn?.classList.remove('active-state');
+  }
 }
 
 function placeUserDot(latlng){
@@ -2181,7 +3170,7 @@ function initLeafletMap(){
   if(typeof L==='undefined')throw new Error('Leaflet not loaded');
   const containerEl=document.getElementById('map-container');
   if(!containerEl)throw new Error('No map-container');
-  const NCR_BOUNDS=L.latLngBounds(L.latLng(14.35,120.90),L.latLng(14.80,121.15));
+  const NCR_BOUNDS=L.latLngBounds(L.latLng(14.43,120.88),L.latLng(14.80,121.22));
   leafletMap=L.map('map-container',{
     center:[14.5995,120.9842],zoom:12,minZoom:11,maxZoom:17,
     maxBounds:NCR_BOUNDS,maxBoundsViscosity:1.0,zoomControl:false
@@ -2191,19 +3180,26 @@ function initLeafletMap(){
   }).addTo(leafletMap);
   leafletMap.createPane('congestion');
   leafletMap.getPane('congestion').style.zIndex='200';
-  leafletMap.on('zoomend',()=>{clearRoadCongestion();if(leafletMap.getZoom()>=12)drawRoadCongestion();});
+  leafletMap.on('zoomend',()=>{clearRoadCongestion();if(leafletMap.getZoom()>=12&&congestionToggleOn)drawRoadCongestion();updateStoplightZoomGuard();});
+  leafletMap.on('zoomend moveend',()=>{
+    if(notifQueue.length>0&&activeNotifs.length<2)showNextNotif();
+    updateNotifMapMarkerVisibility();
+  });
   placeStaticPins();
   startStoplights();
   startCongestionUpdates();
   startGPS();
+  placeNotifMapMarkers();
 }
 
 function initTrainMarkers(){
   if(!leafletMap)return;
   ['lrt1','lrt2','mrt3'].forEach(line=>{
-    ['A','B'].forEach((letter,idx)=>{
+    const TRAIN_OFF_GEO={A:0,C:HALF/2,B:0,D:HALF/2};
+    ['A','C','B','D'].forEach((letter)=>{
       const key=line+'_'+letter;
-      const pos=getTrainGeoPos(line,idx===0?0:HALF);
+      const isRev=(letter==='B'||letter==='D');
+      const pos=getTrainGeoPosSync(line,TRAIN_OFF_GEO[letter],isRev);
       const icon=L.divIcon({
         className:'',
         html:`<div class="train-dot" style="background:${TRAIN_COLORS[line]};">${TRAIN_LABELS[line]}</div>`,
@@ -2216,23 +3212,52 @@ function initTrainMarkers(){
   });
 }
 
+function getTrainGeoPosSync(lineKey,timeOffsetMs,reversed){
+  const cfg=LINE_CONFIGS[lineKey];const track=TRACK_COORDS[lineKey];const geo=GEO_COORDS[lineKey];
+  if(!cfg||!track)return getTrainGeoPos(lineKey,timeOffsetMs);
+  const fwdWp=cfg.waypoints;const n=fwdWp.length;
+  const useWp=reversed?(REVERSED_LINE_WP[lineKey]||fwdWp):fwdWp;
+  const pos=computeSVGTrainPosOneWay(useWp,timeOffsetMs);
+  const geoIdx=reversed?(n-1-pos.stationIdx):pos.stationIdx;
+  if(geo){
+    if(pos.isDwelling&&geo[geoIdx]){const st=geo[geoIdx];return[st.lat,st.lng];}
+    const nextGeoIdx=reversed?geoIdx-1:geoIdx+1;
+    if(!pos.isDwelling&&geo[geoIdx]&&geo[nextGeoIdx]){
+      const from=geo[geoIdx];const to=geo[nextGeoIdx];const t=pos.segT;
+      return[from.lat+(to.lat-from.lat)*t,from.lng+(to.lng-from.lng)*t];
+    }
+  }
+  const frac=(pos.stationIdx+(pos.isDwelling?0:pos.segT))/Math.max(1,n-1);
+  const adjustedFrac=reversed?(1-frac):frac;
+  return interpolatePolyline(track,Math.min(1,Math.max(0,adjustedFrac)))||[14.5995,120.9842];
+}
+
 function updateTrainMarkers(){
   if(!leafletMap)return;
   ['lrt1','lrt2','mrt3'].forEach(line=>{
-    ['A','B'].forEach((letter,idx)=>{
+    const TRAIN_OFF_UPD2={A:0,C:HALF/2,B:0,D:HALF/2};
+    ['A','C','B','D'].forEach((letter)=>{
       const m=trainDotMarkers[line+'_'+letter];if(!m)return;
-      m.setLatLng(getTrainGeoPos(line,idx===0?0:HALF));
+      const isRev=(letter==='B'||letter==='D');
+      m.setLatLng(getTrainGeoPosSync(line,TRAIN_OFF_UPD2[letter],isRev));
     });
   });
+  lastTransitUpdate=Date.now();
 }
 
+const LINE_FULL_NAMES={lrt1:'LRT-1 (Green Line)',lrt2:'LRT-2 (Blue Line)',mrt3:'MRT-3 (Yellow Line)'};
 function showTransitLines(){
   if(!leafletMap)return;
   hideTransitLines();
   [{key:'lrt1',geo:GEO_LRT1},{key:'lrt2',geo:GEO_LRT2},{key:'mrt3',geo:GEO_MRT3}].forEach(({key,geo})=>{
     const latlngs=geo.map(s=>[s.lat,s.lng]);
     const line=L.polyline(latlngs,{color:LINE_COLORS[key],weight:4,opacity:0.85,lineCap:'round',lineJoin:'round'}).addTo(leafletMap);
-    const dots=geo.map(s=>L.circleMarker([s.lat,s.lng],{radius:5,color:'#fff',fillColor:LINE_COLORS[key],fillOpacity:1,weight:1.5}).addTo(leafletMap));
+    const dots=geo.map(s=>{
+      const m=L.circleMarker([s.lat,s.lng],{radius:7,color:'#fff',fillColor:LINE_COLORS[key],fillOpacity:1,weight:2,interactive:true}).addTo(leafletMap);
+      m.bindPopup(`<div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:120px;"><div style="font-weight:700;font-size:12px;margin-bottom:3px;">🚉 ${s.name}</div><div style="font-size:10px;color:#888;">${LINE_FULL_NAMES[key]||key}</div></div>`,{closeButton:false,maxWidth:180,className:'station-popup'});
+      m.on('click',()=>{m.openPopup();showToast('🚉 '+s.name);});
+      return m;
+    });
     transitLineLayers.push(line,...dots);
   });
 }
@@ -2294,6 +3319,8 @@ function doRouting(query){
   const providerName=getActiveTrafficProvider()===TRAFFIC_PROVIDER_KEYS.OPEN_DATA?'Open feed':'Simulated';
   showToast(`🗺 ETA ~${etaMin} min · ${totalDist.toFixed(1)} km · ${providerName}`,'teal');
   leafletMap.fitBounds(L.polyline([userLatLng,dest]).getBounds().pad(0.15));
+  window._lastResolvedDest = query.trim().toLowerCase();
+  if (typeof renderRouteFareCard === 'function') renderRouteFareCard(query.trim().toLowerCase());
 }
 
 function clearRoute(){
@@ -2308,9 +3335,12 @@ function retryMap(){
 }
 
 function transitFollowMode(lineKey,trainLetter){
-  const idx=trainLetter==='A'?0:1;
-  const pos=getTrainGeoPos(lineKey,idx===0?0:HALF);
+  const TRAIN_OFF_FOLLOW={A:0,C:HALF/2,B:0,D:HALF/2};
+  const isRev=(trainLetter==='B'||trainLetter==='D');
+  const pos=getTrainGeoPosSync(lineKey,TRAIN_OFF_FOLLOW[trainLetter]||0,isRev);
   if(!leafletMap)return;
+  showTransitLines();
+  showTrainDots();
   switchTab('map');
   leafletMap.flyTo(pos,14,{animate:true,duration:1.2});
   const badge=document.getElementById('followingBadge');
@@ -2320,6 +3350,87 @@ function transitFollowMode(lineKey,trainLetter){
     if(followBadgeTimer)clearTimeout(followBadgeTimer);
     followBadgeTimer=setTimeout(()=>badge.classList.add('hidden'),4000);
   }
+}
+
+/* ══════════════════════════════════════════
+   COMMUNITY FORECAST DATA
+══════════════════════════════════════════ */
+const CITY_FORECASTS={
+  'Manila':     [{t:'6 AM',lvl:'low'},{t:'7 AM',lvl:'mid'},{t:'8 AM',lvl:'peak'},{t:'9 AM',lvl:'high'},{t:'10 AM',lvl:'mid'},{t:'11 AM',lvl:'low'}],
+  'Quezon City':[{t:'6 AM',lvl:'mid'},{t:'7 AM',lvl:'high'},{t:'8 AM',lvl:'peak'},{t:'9 AM',lvl:'high'},{t:'10 AM',lvl:'mid'},{t:'11 AM',lvl:'mid'}],
+  'Caloocan':   [{t:'6 AM',lvl:'low'},{t:'7 AM',lvl:'mid'},{t:'8 AM',lvl:'high'},{t:'9 AM',lvl:'peak'},{t:'10 AM',lvl:'high'},{t:'11 AM',lvl:'mid'}],
+  'Makati':     [{t:'7 AM',lvl:'mid'},{t:'8 AM',lvl:'peak'},{t:'9 AM',lvl:'peak'},{t:'10 AM',lvl:'high'},{t:'11 AM',lvl:'mid'},{t:'12 PM',lvl:'low'}],
+  'Taguig':     [{t:'6 AM',lvl:'low'},{t:'7 AM',lvl:'mid'},{t:'8 AM',lvl:'high'},{t:'9 AM',lvl:'peak'},{t:'10 AM',lvl:'mid'},{t:'11 AM',lvl:'low'}],
+  'Pasig':      [{t:'6 AM',lvl:'low'},{t:'7 AM',lvl:'high'},{t:'8 AM',lvl:'peak'},{t:'9 AM',lvl:'high'},{t:'10 AM',lvl:'mid'},{t:'11 AM',lvl:'mid'}],
+  'Marikina':   [{t:'5 AM',lvl:'low'},{t:'6 AM',lvl:'mid'},{t:'7 AM',lvl:'high'},{t:'8 AM',lvl:'peak'},{t:'9 AM',lvl:'high'},{t:'10 AM',lvl:'mid'}],
+  'Mandaluyong':[{t:'7 AM',lvl:'mid'},{t:'8 AM',lvl:'peak'},{t:'9 AM',lvl:'peak'},{t:'10 AM',lvl:'high'},{t:'11 AM',lvl:'mid'},{t:'12 PM',lvl:'low'}],
+  'Pasay':      [{t:'6 AM',lvl:'low'},{t:'7 AM',lvl:'mid'},{t:'8 AM',lvl:'high'},{t:'9 AM',lvl:'peak'},{t:'10 AM',lvl:'mid'},{t:'11 AM',lvl:'low'}],
+  'Parañaque':  [{t:'6 AM',lvl:'low'},{t:'7 AM',lvl:'mid'},{t:'8 AM',lvl:'high'},{t:'9 AM',lvl:'peak'},{t:'10 AM',lvl:'high'},{t:'11 AM',lvl:'mid'}],
+  'Las Piñas':  [{t:'5 AM',lvl:'low'},{t:'6 AM',lvl:'mid'},{t:'7 AM',lvl:'high'},{t:'8 AM',lvl:'peak'},{t:'9 AM',lvl:'high'},{t:'10 AM',lvl:'mid'}],
+  'Muntinlupa': [{t:'6 AM',lvl:'low'},{t:'7 AM',lvl:'mid'},{t:'8 AM',lvl:'high'},{t:'9 AM',lvl:'peak'},{t:'10 AM',lvl:'mid'},{t:'11 AM',lvl:'low'}],
+  'Valenzuela': [{t:'5 AM',lvl:'low'},{t:'6 AM',lvl:'mid'},{t:'7 AM',lvl:'high'},{t:'8 AM',lvl:'peak'},{t:'9 AM',lvl:'high'},{t:'10 AM',lvl:'mid'}],
+  'Navotas':    [{t:'4 AM',lvl:'mid'},{t:'5 AM',lvl:'high'},{t:'6 AM',lvl:'peak'},{t:'7 AM',lvl:'high'},{t:'8 AM',lvl:'mid'},{t:'9 AM',lvl:'low'}],
+  'Malabon':    [{t:'4 AM',lvl:'mid'},{t:'5 AM',lvl:'high'},{t:'6 AM',lvl:'peak'},{t:'7 AM',lvl:'high'},{t:'8 AM',lvl:'mid'},{t:'9 AM',lvl:'low'}],
+  'San Juan':   [{t:'7 AM',lvl:'mid'},{t:'8 AM',lvl:'high'},{t:'9 AM',lvl:'peak'},{t:'10 AM',lvl:'high'},{t:'11 AM',lvl:'mid'},{t:'12 PM',lvl:'low'}],
+  'Pateros':    [{t:'6 AM',lvl:'low'},{t:'7 AM',lvl:'mid'},{t:'8 AM',lvl:'high'},{t:'9 AM',lvl:'mid'},{t:'10 AM',lvl:'low'},{t:'11 AM',lvl:'low'}]
+};
+const CITY_LIST=Object.keys(CITY_FORECASTS);
+let currentForecastCity='Manila';
+let forecastAutoShuffleId=null;
+let forecastUserPaused=false;
+
+function updateForecastContent(city){
+  const card=document.getElementById('predCard');if(!card)return;
+  currentForecastCity=city;
+  const data=CITY_FORECASTS[city]||CITY_FORECASTS['Manila'];
+  const hdr=card.querySelector('.pred-card-hdr');
+  if(hdr)hdr.textContent='Community Forecast · '+city;
+  const rows=card.querySelectorAll('.pred-row');
+  const lblMap={low:'Light',mid:'Moderate',high:'Heavy',peak:'Peak'};
+  data.forEach((item,i)=>{
+    if(!rows[i])return;
+    const te=rows[i].querySelector('.pred-time');const be=rows[i].querySelector('.pred-bar-inner');const le=rows[i].querySelector('.pred-lbl');
+    if(te)te.textContent=item.t;
+    if(be){be.className='pred-bar-inner '+item.lvl;}
+    if(le){le.className='pred-lbl '+item.lvl;le.textContent=lblMap[item.lvl]||item.lvl;}
+  });
+  document.querySelectorAll('.pred-city-pill').forEach(p=>p.classList.toggle('active',p.dataset.city===city));
+}
+function renderForecastCity(city,direction='none'){
+  const card=document.getElementById('predCard');if(!card)return;
+  if(direction==='left'){
+    card.classList.add('swipe-left');
+    setTimeout(()=>{
+      updateForecastContent(city);
+      card.classList.remove('swipe-left');
+      card.classList.add('swipe-enter-right');
+      void card.offsetWidth;
+      card.classList.remove('swipe-enter-right');
+    },320);
+  }else if(direction==='right'){
+    card.classList.add('swipe-right');
+    setTimeout(()=>{
+      updateForecastContent(city);
+      card.classList.remove('swipe-right');
+      card.classList.add('swipe-enter-left');
+      void card.offsetWidth;
+      card.classList.remove('swipe-enter-left');
+    },320);
+  }else{
+    updateForecastContent(city);
+  }
+}
+function startForecastShuffle(){
+  if(forecastAutoShuffleId)clearInterval(forecastAutoShuffleId);
+  forecastAutoShuffleId=setInterval(()=>{
+    if(forecastUserPaused)return;
+    const idx=CITY_LIST.indexOf(currentForecastCity);
+    renderForecastCity(CITY_LIST[(idx+1)%CITY_LIST.length]);
+  },5000);
+}
+function selectForecastCity(city){
+  forecastUserPaused=true;
+  renderForecastCity(city);
 }
 
 /* ══════════════════════════════════════════
@@ -2351,11 +3462,16 @@ document.addEventListener('DOMContentLoaded',()=>{
     const cz=document.getElementById('ctrlZone');if(!cz||cz.contains(e.target))return;
     if(layerMenuOpen){layerMenuOpen=false;document.getElementById('layerMenu')?.classList.remove('open');document.getElementById('layerBtn')?.classList.remove('active-state');}
     if(mapKeyOpen){mapKeyOpen=false;document.getElementById('mapKeyPopup')?.classList.remove('open');document.getElementById('mapKeyBtn')?.classList.remove('active-state');}
+    if(rightDrawerOpen){rightDrawerOpen=false;document.getElementById('rightStackDrawer')?.classList.remove('open');document.getElementById('mapControlToggle')?.classList.remove('active-state');}
   });
 
+  initReversedWP();
+  stripWhiteFromImages();
   /* Initial mode content */
-  const mc=document.getElementById('modeContent');if(mc)mc.innerHTML=modeContent.driver;
-  updatePeekMetrics('driver');
+  const mc=document.getElementById('modeContent');if(mc)mc.innerHTML=modeContent.commuter;
+  updatePeekMetrics('commuter');
+  /* Number coding date */
+  updateNumCodingDate();
 
   /* Notifications */
   panel=document.getElementById('notifPanel');
@@ -2380,10 +3496,54 @@ document.addEventListener('DOMContentLoaded',()=>{
   try{
     initLeafletMap();
     initTrainMarkers();
-    if(currentMode==='driver')hideTrainDots();
   }catch(e){
     const fb=document.getElementById('map-fallback');if(fb)fb.classList.remove('hidden');
   }
+
+  /* City forecast search init */
+  const pcs=document.getElementById('predCitySearch');
+  const pcSug=document.getElementById('predCitySuggestions');
+  function showCitySuggestions(filter){
+    if(!pcSug)return;
+    const q=(filter||'').toLowerCase().trim();
+    const matches=q?CITY_LIST.filter(c=>c.toLowerCase().includes(q)):CITY_LIST;
+    pcSug.innerHTML='';
+    matches.forEach(city=>{
+      const item=document.createElement('div');
+      item.className='pred-city-sug-item';item.textContent=city;
+      item.onmousedown=e=>{e.preventDefault();selectForecastCity(city);if(pcs)pcs.value=city;pcSug.classList.remove('open');};
+      pcSug.appendChild(item);
+    });
+    pcSug.classList.toggle('open',matches.length>0);
+  }
+  pcs?.addEventListener('input',e=>showCitySuggestions(e.target.value));
+  pcs?.addEventListener('focus',()=>showCitySuggestions(pcs.value));
+  pcs?.addEventListener('blur',()=>setTimeout(()=>pcSug?.classList.remove('open'),200));
+  /* Swipe detection on pred card */
+  const predCardEl=document.getElementById('predCard');
+  let predSwipeX=0;
+  predCardEl?.addEventListener('touchstart',e=>{predSwipeX=e.touches[0].clientX;},{passive:true});
+  predCardEl?.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-predSwipeX;
+    if(Math.abs(dx)>45){
+      const dir=dx<0?1:-1;
+      const idx=CITY_LIST.indexOf(currentForecastCity);
+      const animDir=dx<0?'left':'right';
+      renderForecastCity(CITY_LIST[(idx+dir+CITY_LIST.length)%CITY_LIST.length],animDir);
+      forecastUserPaused=false;
+    }
+  },{passive:true});
+  startForecastShuffle();
+  scheduleNotifResolutions();
+  initTransitAllZoom();
+
+  /* Timestamp helpers */
+  function formatAgo(ts){const s=Math.floor((Date.now()-ts)/1000);if(s<10)return'just now';if(s<60)return s+'s ago';return Math.floor(s/60)+'m ago';}
+  function updateTimestamps(){
+    const ms=document.getElementById('mapUpdateStamp');if(ms)ms.innerHTML='Map updated<br>'+formatAgo(lastMapUpdate);
+    const ts=document.getElementById('transitUpdateStamp');if(ts)ts.textContent='Transit updated '+formatAgo(lastTransitUpdate);
+  }
+  setInterval(updateTimestamps,5000);
 });
 
 </script>
