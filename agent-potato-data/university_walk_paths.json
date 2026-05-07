@@ -1,0 +1,164 @@
+{
+  "generated": "2026-05-08",
+  "source": "OSM knowledge base — walking paths from transit stations to university gates",
+  "paths": {
+    "ust": {
+      "from_station": "LRT-2 Legarda",
+      "from_coords": [14.6008, 120.9925],
+      "to_university": "University of Santo Tomas",
+      "to_coords": [14.6097, 120.9892],
+      "waypoints": [
+        [14.6008, 120.9925],
+        [14.6012, 120.9920],
+        [14.6025, 120.9912],
+        [14.6040, 120.9905],
+        [14.6055, 120.9900],
+        [14.6072, 120.9895],
+        [14.6085, 120.9893],
+        [14.6097, 120.9892]
+      ],
+      "street_notes": "Exit Legarda station north side, walk west along España Blvd, turn right at UST main gate on España"
+    },
+    "up_diliman": {
+      "from_station": "MRT-3 Quezon Ave (walk/jeepney to UP gate)",
+      "from_coords": [14.6424, 121.0386],
+      "to_university": "University of the Philippines Diliman",
+      "to_coords": [14.6540, 121.0685],
+      "waypoints": [
+        [14.6424, 121.0386],
+        [14.6440, 121.0430],
+        [14.6452, 121.0480],
+        [14.6465, 121.0525],
+        [14.6480, 121.0570],
+        [14.6500, 121.0620],
+        [14.6520, 121.0655],
+        [14.6540, 121.0685]
+      ],
+      "street_notes": "From MRT Quezon Ave, jeepney or walk east on Quezon Ave then north to UP Katipunan/Quezon Hall gate"
+    },
+    "up_manila": {
+      "from_station": "LRT-1 UN Avenue",
+      "from_coords": [14.5826, 120.9846],
+      "to_university": "University of the Philippines Manila",
+      "to_coords": [14.5999, 120.9898],
+      "waypoints": [
+        [14.5826, 120.9846],
+        [14.5848, 120.9852],
+        [14.5870, 120.9858],
+        [14.5895, 120.9864],
+        [14.5920, 120.9872],
+        [14.5950, 120.9882],
+        [14.5975, 120.9890],
+        [14.5999, 120.9898]
+      ],
+      "street_notes": "Exit UN Ave station, walk north on Taft Ave past Pedro Gil intersection, UP Manila main entrance on Padre Faura"
+    },
+    "admu": {
+      "from_station": "LRT-2 Katipunan",
+      "from_coords": [14.6308, 121.0723],
+      "to_university": "Ateneo de Manila University",
+      "to_coords": [14.6407, 121.0774],
+      "waypoints": [
+        [14.6308, 121.0723],
+        [14.6328, 121.0732],
+        [14.6348, 121.0742],
+        [14.6368, 121.0752],
+        [14.6385, 121.0762],
+        [14.6400, 121.0770],
+        [14.6407, 121.0774]
+      ],
+      "street_notes": "From LRT-2 Katipunan station, walk north on Katipunan Ave (C-5 Road), Ateneo main gate (Gate 3) on Katipunan Ave"
+    },
+    "dlsu": {
+      "from_station": "LRT-1 Vito Cruz",
+      "from_coords": [14.5635, 120.9948],
+      "to_university": "De La Salle University",
+      "to_coords": [14.5649, 120.9934],
+      "waypoints": [
+        [14.5635, 120.9948],
+        [14.5638, 120.9944],
+        [14.5642, 120.9940],
+        [14.5646, 120.9937],
+        [14.5649, 120.9934]
+      ],
+      "street_notes": "DLSU main gate is directly adjacent to Vito Cruz LRT-1 station — ~80m walk across Taft Ave"
+    },
+    "feu": {
+      "from_station": "LRT-2 Legarda",
+      "from_coords": [14.6008, 120.9925],
+      "to_university": "Far Eastern University",
+      "to_coords": [14.6028, 120.9882],
+      "waypoints": [
+        [14.6008, 120.9925],
+        [14.6010, 120.9918],
+        [14.6013, 120.9910],
+        [14.6016, 120.9902],
+        [14.6020, 120.9895],
+        [14.6024, 120.9888],
+        [14.6028, 120.9882]
+      ],
+      "street_notes": "Exit Legarda station, walk south-west on España Blvd then south on Nicanor Reyes St (formerly Morayta), FEU main gate on Nicanor Reyes"
+    },
+    "ue_manila": {
+      "from_station": "LRT-2 Recto",
+      "from_coords": [14.6036, 120.9831],
+      "to_university": "University of the East Manila",
+      "to_coords": [14.6017, 120.9871],
+      "waypoints": [
+        [14.6036, 120.9831],
+        [14.6032, 120.9838],
+        [14.6028, 120.9846],
+        [14.6025, 120.9854],
+        [14.6021, 120.9862],
+        [14.6017, 120.9871]
+      ],
+      "street_notes": "Exit Recto LRT-2 station, walk east along Claro M. Recto Ave, UE Manila main gate on Recto Ave"
+    },
+    "mapua": {
+      "from_station": "LRT-1 Central Terminal",
+      "from_coords": [14.5931, 120.9815],
+      "to_university": "Mapúa University Intramuros",
+      "to_coords": [14.5921, 120.9776],
+      "waypoints": [
+        [14.5931, 120.9815],
+        [14.5928, 120.9808],
+        [14.5926, 120.9800],
+        [14.5924, 120.9792],
+        [14.5922, 120.9784],
+        [14.5921, 120.9776]
+      ],
+      "street_notes": "From Central Terminal LRT-1, walk south-west along General Luna St into Intramuros, Mapúa gate on Muralla St"
+    },
+    "pup": {
+      "from_station": "LRT-2 Pureza",
+      "from_coords": [14.6017, 121.0050],
+      "to_university": "Polytechnic University of the Philippines",
+      "to_coords": [14.5972, 121.0079],
+      "waypoints": [
+        [14.6017, 121.0050],
+        [14.6010, 121.0058],
+        [14.6002, 121.0063],
+        [14.5995, 121.0068],
+        [14.5986, 121.0073],
+        [14.5979, 121.0076],
+        [14.5972, 121.0079]
+      ],
+      "street_notes": "Exit Pureza station south side, walk south-east along Pureza St / Sta. Mesa Blvd, PUP main gate on Anonas St / Sta. Mesa Blvd"
+    },
+    "nu_manila": {
+      "from_station": "LRT-2 Legarda",
+      "from_coords": [14.6008, 120.9925],
+      "to_university": "National University Manila",
+      "to_coords": [14.6004, 120.9873],
+      "waypoints": [
+        [14.6008, 120.9925],
+        [14.6008, 120.9915],
+        [14.6007, 120.9905],
+        [14.6006, 120.9895],
+        [14.6005, 120.9884],
+        [14.6004, 120.9873]
+      ],
+      "street_notes": "Exit Legarda station, walk west then south on M.F. Jhocson St, NU Manila gate on M.F. Jhocson near España intersection"
+    }
+  }
+}
