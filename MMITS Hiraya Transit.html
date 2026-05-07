@@ -786,6 +786,18 @@ html.light .route-eta-badge{background:rgba(248,250,255,0.96);}
 .route-clear-btn{display:block;width:calc(100% - 28px);margin:10px 14px 14px;padding:11px;border-radius:14px;background:rgba(255,79,79,0.1);border:1px solid rgba(255,79,79,0.2);color:var(--red);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;text-align:center;cursor:pointer;transition:background 0.15s;}
 .route-clear-btn:active{background:rgba(255,79,79,0.18);}
 
+/* ── UNIVERSITY DESTINATION MARKER CARD ── */
+.udc-wrap{position:relative;font-family:'Plus Jakarta Sans',sans-serif;pointer-events:auto;}
+.udc-card{display:flex;align-items:flex-start;gap:7px;background:rgba(6,6,18,0.97);border:1.5px solid rgba(245,166,35,0.55);border-radius:14px;padding:8px 10px 7px;box-shadow:0 6px 24px rgba(0,0,0,0.65),0 0 0 1px rgba(245,166,35,0.15);min-width:172px;}
+html.light .udc-card{background:rgba(255,255,255,0.98);}
+.udc-emoji{font-size:19px;flex-shrink:0;line-height:1;margin-top:1px;}
+.udc-body{flex:1;min-width:0;}
+.udc-short{font-size:13px;font-weight:800;color:var(--gold);letter-spacing:-0.2px;line-height:1.1;}
+.udc-full{font-size:8.5px;color:var(--text2);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:130px;}
+.udc-row{display:flex;align-items:center;gap:4px;margin-top:4px;flex-wrap:wrap;}
+.udc-chip{font-size:8.5px;font-weight:700;padding:1px 6px;border-radius:999px;}
+.udc-arrow{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid rgba(245,166,35,0.55);margin:0 auto;display:block;}
+
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
@@ -2923,12 +2935,12 @@ const STATIC_PINS=[
 ];
 
 const NCR_DESTINATIONS={
-  'ust':[14.6099,120.9893],'up diliman':[14.6540,121.0685],
-  'up manila':[14.5997,120.9898],'admu':[14.6407,121.0774],
-  'ateneo':[14.6407,121.0774],'dlsu':[14.5648,120.9933],
-  'la salle':[14.5648,120.9933],'feu':[14.6028,120.9882],
-  'ue manila':[14.6018,120.9877],'mapua':[14.5924,120.9800],
-  'pup':[14.5970,120.9886],'nu manila':[14.6005,120.9875],
+  'ust':[14.6097,120.9892],'up diliman':[14.6512,121.0672],
+  'up manila':[14.5836,120.9882],'admu':[14.6406,121.0773],
+  'ateneo':[14.6406,121.0773],'dlsu':[14.5649,120.9934],
+  'la salle':[14.5649,120.9934],'feu':[14.6013,120.9869],
+  'ue manila':[14.6007,120.9840],'mapua':[14.5904,120.9759],
+  'pup':[14.5993,121.0102],'nu manila':[14.6018,120.9876],
   'sm mall of asia':[14.5350,120.9826],'moa':[14.5350,120.9826],
   'bgc':[14.5500,121.0500],'bonifacio':[14.5500,121.0500],
   'intramuros':[14.5920,120.9740],'trinoma':[14.6566,121.0323],
@@ -2959,18 +2971,18 @@ const UNIVERSITY_FARES={
    line: transit line key, stationName: alighting station,
    walk: [lat,lng] waypoints following real streets */
 const UNIVERSITY_WALK_PATHS = {
-  'ust':        {line:'lrt2',stationName:'Legarda',   walk:[[14.6008,120.9925],[14.6030,120.9918],[14.6055,120.9905],[14.6078,120.9896],[14.6097,120.9892]]},
-  'up diliman': {line:'lrt2',stationName:'Katipunan', walk:[[14.6308,121.0723],[14.6350,121.0712],[14.6405,121.0700],[14.6470,121.0692],[14.6540,121.0685]]},
-  'up manila':  {line:'lrt1',stationName:'Pedro Gil', walk:[[14.5766,120.9880],[14.5810,120.9876],[14.5870,120.9874],[14.5940,120.9882],[14.5999,120.9898]]},
-  'admu':       {line:'lrt2',stationName:'Katipunan', walk:[[14.6308,121.0723],[14.6340,121.0738],[14.6368,121.0754],[14.6392,121.0767],[14.6407,121.0774]]},
-  'ateneo':     {line:'lrt2',stationName:'Katipunan', walk:[[14.6308,121.0723],[14.6340,121.0738],[14.6368,121.0754],[14.6392,121.0767],[14.6407,121.0774]]},
-  'dlsu':       {line:'lrt1',stationName:'Vito Cruz', walk:[[14.5635,120.9948],[14.5640,120.9942],[14.5645,120.9936],[14.5648,120.9933]]},
-  'la salle':   {line:'lrt1',stationName:'Vito Cruz', walk:[[14.5635,120.9948],[14.5640,120.9942],[14.5645,120.9936],[14.5648,120.9933]]},
-  'feu':        {line:'lrt2',stationName:'Legarda',   walk:[[14.6008,120.9925],[14.6018,120.9912],[14.6024,120.9897],[14.6028,120.9882]]},
-  'ue manila':  {line:'lrt2',stationName:'Recto',     walk:[[14.6036,120.9831],[14.6028,120.9844],[14.6022,120.9858],[14.6017,120.9871]]},
-  'mapua':      {line:'lrt1',stationName:'C. Terminal',walk:[[14.5931,120.9815],[14.5926,120.9804],[14.5922,120.9790],[14.5921,120.9776]]},
-  'pup':        {line:'lrt2',stationName:'Pureza',    walk:[[14.6017,121.0050],[14.6005,121.0060],[14.5990,121.0068],[14.5972,121.0079]]},
-  'nu manila':  {line:'lrt2',stationName:'Legarda',   walk:[[14.6008,120.9925],[14.6007,120.9910],[14.6005,120.9892],[14.6004,120.9873]]},
+  'ust':        {line:'lrt2',stationName:'Legarda',   walk:[[14.6008,120.9925],[14.6012,120.9920],[14.6025,120.9912],[14.6040,120.9905],[14.6055,120.9900],[14.6072,120.9895],[14.6085,120.9893],[14.6097,120.9892]]},
+  'up diliman': {line:'lrt2',stationName:'Katipunan', walk:[[14.6308,121.0723],[14.6330,121.0732],[14.6355,121.0742],[14.6380,121.0752],[14.6410,121.0760],[14.6445,121.0720],[14.6475,121.0700],[14.6512,121.0672]]},
+  'up manila':  {line:'lrt1',stationName:'UN Ave',    walk:[[14.5826,120.9846],[14.5829,120.9855],[14.5832,120.9865],[14.5834,120.9872],[14.5836,120.9882]]},
+  'admu':       {line:'lrt2',stationName:'Katipunan', walk:[[14.6308,121.0723],[14.6328,121.0732],[14.6348,121.0742],[14.6368,121.0752],[14.6385,121.0762],[14.6400,121.0770],[14.6406,121.0773]]},
+  'ateneo':     {line:'lrt2',stationName:'Katipunan', walk:[[14.6308,121.0723],[14.6328,121.0732],[14.6348,121.0742],[14.6368,121.0752],[14.6385,121.0762],[14.6400,121.0770],[14.6406,121.0773]]},
+  'dlsu':       {line:'lrt1',stationName:'Vito Cruz', walk:[[14.5635,120.9948],[14.5638,120.9944],[14.5642,120.9940],[14.5646,120.9937],[14.5649,120.9934]]},
+  'la salle':   {line:'lrt1',stationName:'Vito Cruz', walk:[[14.5635,120.9948],[14.5638,120.9944],[14.5642,120.9940],[14.5646,120.9937],[14.5649,120.9934]]},
+  'feu':        {line:'lrt2',stationName:'Legarda',   walk:[[14.6008,120.9925],[14.6010,120.9918],[14.6013,120.9910],[14.6016,120.9902],[14.6020,120.9895],[14.6024,120.9888],[14.6028,120.9882],[14.6013,120.9869]]},
+  'ue manila':  {line:'lrt2',stationName:'Recto',     walk:[[14.6036,120.9831],[14.6032,120.9838],[14.6028,120.9846],[14.6025,120.9854],[14.6021,120.9862],[14.6007,120.9840]]},
+  'mapua':      {line:'lrt1',stationName:'C. Terminal',walk:[[14.5931,120.9815],[14.5928,120.9808],[14.5926,120.9800],[14.5924,120.9792],[14.5922,120.9784],[14.5918,120.9775],[14.5910,120.9765],[14.5904,120.9759]]},
+  'pup':        {line:'lrt2',stationName:'Pureza',    walk:[[14.6017,121.0050],[14.6012,121.0060],[14.6010,121.0068],[14.6006,121.0078],[14.6002,121.0088],[14.5998,121.0096],[14.5993,121.0102]]},
+  'nu manila':  {line:'lrt2',stationName:'Legarda',   walk:[[14.6008,120.9925],[14.6008,120.9915],[14.6007,120.9905],[14.6006,120.9895],[14.6005,120.9884],[14.6018,120.9876]]},
 };
 
 /* University display list for search dropdown */
@@ -3543,28 +3555,65 @@ function nearestTrackIdx(trackArr, pos) {
 }
 
 function buildRoadAlignedPath(from, to) {
-  const steps = 6;
-  const pts = [from];
-  for (let i = 1; i < steps; i++) {
-    const t = i / steps;
-    const baseLat = from[0] + (to[0] - from[0]) * t;
-    const baseLng = from[1] + (to[1] - from[1]) * t;
-    let nearest = null, nearestDist = Infinity;
-    ROAD_CONGESTION_DATA.forEach(road => {
-      road.coords.forEach(c => {
-        const d = Math.hypot(c[0] - baseLat, c[1] - baseLng);
-        if (d < nearestDist && d < 0.006) { nearestDist = d; nearest = c; }
-      });
+  const straightDist = Math.hypot(to[0]-from[0], to[1]-from[1]);
+  const corridor = straightDist * 0.9 + 0.010;
+
+  // Collect road coords within the bounding corridor
+  const cands = [];
+  ROAD_CONGESTION_DATA.forEach(road => {
+    road.coords.forEach(c => {
+      const dF = Math.hypot(c[0]-from[0], c[1]-from[1]);
+      const dT = Math.hypot(c[0]-to[0],   c[1]-to[1]);
+      if (dF < corridor && dT < corridor) cands.push({pt:c, dF, dT});
     });
-    if (nearest && nearestDist < 0.004) {
-      const blend = 0.55;
-      pts.push([baseLat + (nearest[0] - baseLat) * blend, baseLng + (nearest[1] - baseLng) * blend]);
-    } else {
-      pts.push([baseLat, baseLng]);
-    }
+  });
+  if (cands.length < 2) return [from, to];
+
+  // Snap start/end to nearest road points
+  const snapFrom = cands.reduce((a,b) => a.dF < b.dF ? a : b).pt;
+  const snapTo   = cands.reduce((a,b) => a.dT < b.dT ? a : b).pt;
+
+  // Greedy graph walk: always step toward goal along road network
+  const path = [snapFrom];
+  let cur = snapFrom;
+  const seen = new Set([`${snapFrom[0].toFixed(4)},${snapFrom[1].toFixed(4)}`]);
+
+  for (let i = 0; i < 18; i++) {
+    const curDist = Math.hypot(cur[0]-snapTo[0], cur[1]-snapTo[1]);
+    if (curDist < 0.0015) break;
+    let best = null, bestScore = Infinity;
+    cands.forEach(({pt, dT}) => {
+      const k = `${pt[0].toFixed(4)},${pt[1].toFixed(4)}`;
+      if (seen.has(k)) return;
+      const step = Math.hypot(pt[0]-cur[0], pt[1]-cur[1]);
+      if (step > 0.015 || dT >= curDist) return; // too far or backwards
+      const score = dT + step * 0.25;
+      if (score < bestScore) { bestScore = score; best = pt; }
+    });
+    if (!best) break;
+    path.push(best);
+    seen.add(`${best[0].toFixed(4)},${best[1].toFixed(4)}`);
+    cur = best;
   }
-  pts.push(to);
-  return pts;
+
+  if (path[path.length-1] !== snapTo) path.push(snapTo);
+  return [from, ...path, to];
+}
+
+function renderTrafficColoredPath(pts, weight, dashArray) {
+  const layers = [];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p1 = pts[i], p2 = pts[i+1];
+    const mid = [(p1[0]+p2[0])/2, (p1[1]+p2[1])/2];
+    const spd = nearestTrafficSpeed(mid[0], mid[1]);
+    const ts  = speedToTrafficState(spd);
+    const seg = L.polyline([p1, p2], {
+      color: ts ? ts.color : '#ffffff',
+      weight, opacity: 0.85, dashArray, lineCap: 'round'
+    });
+    layers.push(seg);
+  }
+  return layers;
 }
 
 function buildUniversityRoute(univKey, pref) {
@@ -3625,9 +3674,9 @@ function buildUniversityRoute(univKey, pref) {
   const totalMin    = Math.round((walk1Min + transitMin + walk2Min) * prefMult);
   const totalDistKm = (walk1DistKm + transitDistKm + walk2DistKm).toFixed(1);
 
-  // Render walk leg 1 (dashed white)
-  const walkStyle1 = {color:'#ffffff', weight:3, opacity:0.6, dashArray:'6 6', lineCap:'round'};
-  const walkLayer1 = L.polyline(walkToBoardPath, walkStyle1).addTo(leafletMap);
+  // Render walk leg 1 — traffic-colored dashed segments
+  const walkSegs1 = renderTrafficColoredPath(walkToBoardPath, 4, '6 5');
+  walkSegs1.forEach(seg => seg.addTo(leafletMap));
 
   // Render transit leg (solid line color, thick)
   if (transitPath.length > 1) {
@@ -3643,16 +3692,32 @@ function buildUniversityRoute(univKey, pref) {
     univRouteLayers.push(aMarker);
   }
 
-  // Render walk leg 2 (dashed teal)
-  const walkStyle2 = {color:'#3ecfcf', weight:3, opacity:0.7, dashArray:'5 5', lineCap:'round'};
-  const walkLayer2 = L.polyline(walk2Path, walkStyle2).addTo(leafletMap);
+  // Render walk leg 2 — traffic-colored dashed segments
+  const walkSegs2 = renderTrafficColoredPath(walk2Path, 3, '4 4');
+  walkSegs2.forEach(seg => seg.addTo(leafletMap));
 
-  // University destination marker
+  // Rich university destination marker card
+  const lineChipColor = {lrt1:'#3ecf8e','LRT-1':'#3ecf8e',lrt2:'#4a90ff','LRT-2':'#4a90ff',mrt3:'#f5a623','MRT-3':'#f5a623'}[lineKey] || lineColor;
+  const destHtml = `<div class="udc-wrap">
+    <div class="udc-card">
+      <div class="udc-emoji">${univInfo.icon}</div>
+      <div class="udc-body">
+        <div class="udc-short">${univInfo.short}</div>
+        <div class="udc-full">${univInfo.name}</div>
+        <div class="udc-row">
+          <span class="udc-chip" style="background:${lineChipColor}22;color:${lineChipColor};border:1px solid ${lineChipColor}44;">🚉 ${alightSt.name}</span>
+          <span class="udc-chip" style="background:rgba(62,207,142,0.12);color:var(--green);border:1px solid rgba(62,207,142,0.3);">₱${totalFare}</span>
+          <span class="udc-chip" style="background:rgba(62,207,207,0.1);color:var(--teal);border:1px solid rgba(62,207,207,0.25);">~${totalMin}min</span>
+        </div>
+      </div>
+    </div>
+    <div class="udc-arrow"></div>
+  </div>`;
   const destMarker = L.marker(univCoords, {
-    icon: L.divIcon({className:'', html:`<div style="background:var(--gold);border:2px solid #fff;border-radius:999px;padding:4px 8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;color:#000;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.4);">${univInfo.short}</div>`, iconAnchor:[20,14]})
+    icon: L.divIcon({className:'', html:destHtml, iconAnchor:[86, 68], iconSize:[172, 68]})
   }).addTo(leafletMap);
 
-  univRouteLayers.push(walkLayer1, walkLayer2, destMarker);
+  univRouteLayers.push(...walkSegs1, ...walkSegs2, destMarker);
 
   // Fit map to route bounds
   try {
@@ -3727,6 +3792,13 @@ function renderRouteInstructions(steps, destName, totalMin, totalFare, prefLabel
     <div class="route-header">
       <div class="route-header-title">🗺️ Route to ${destName}</div>
       <div class="route-header-sub">${prefLabel} · ~${totalMin} min · ₱${totalFare} total</div>
+      <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;">
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;color:var(--muted);">Route colors:</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;"><span style="color:#3ecf8e;">━</span> Free flow</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;"><span style="color:#f5a623;">━</span> Slow</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;"><span style="color:#ff8c00;">━</span> Heavy</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;"><span style="color:#ff4f4f;">━</span> Gridlock</span>
+      </div>
     </div>
     ${stepsHtml}
     <div class="route-clear-btn" onclick="clearUniversityRoute()">✕ Clear Route</div>`;
