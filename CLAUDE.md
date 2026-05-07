@@ -696,4 +696,87 @@ Move `#mapUpdateStamp` out of the absolute map overlay into the bottom sheet's p
 - `MMITS Hiraya Transit.html` — all changes inline
 - `agent-potato-data/university_data.json` — new file
 
+---
+
+## 19. New Features — v16.6 (2026-05-08)
+
+### A. University Search Dropdown ✅
+- Map search bar (`#univSearchInput`) triggers `#univSearchDropdown` showing filtered university list
+- `UNIVERSITY_LIST` array: 10 entries with `{key, name, short, icon, line, station}` for dropdown display
+- `initUniversitySearch()` wires input + dropdown filtering + keyboard/click selection
+- Selecting a university opens `#routePrefModal` before building any route
+
+### B. Route Preference Modal ✅
+- `#routePrefModal` — glass modal with 3 large cards: ⚡ Efficiency, 🛋️ Convenience, 💰 Budget
+- Preference selection calls `buildUniversityRoute(univKey, pref)` and closes modal
+- Modal has an `×` dismiss button; ESC key also closes it
+
+### C. Multi-Leg University Route Builder ✅
+- `buildUniversityRoute(univKey, pref)` orchestrates 3-leg routing:
+  1. Walk leg: user position → nearest LRT/MRT station (road-snapped polyline)
+  2. Transit leg: station → alight station (Leaflet polyline along TRACK_LRT1/2/MRT3 coords)
+  3. Final walk leg: alight station → university gate (UNIVERSITY_WALK_PATHS waypoints)
+- Preference multipliers from `COMMUTER_CHOICE_MODES` applied to ETA calculation
+- `UNIVERSITY_WALK_PATHS` constant: 10 universities with `{line, stationName, walk:[...]}` per entry
+- Walk waypoints follow actual streets; station → gate paths hand-matched to real Manila roads
+
+### D. Route Instructions in Bottom Sheet ✅
+- `renderRouteInstructions(route)` builds step-by-step HTML inside `.sheet-body`
+- Each step shows: icon, action text, duration/distance chip
+- Transit steps show line name and direction with colored badge
+- Route header: destination name + traffic legend (green/yellow/orange/red key)
+
+### E. ETA Badge ✅
+- `#routeEtaBadge` — glass pill anchored above bottom nav; shows "ETA ~X min · Y.X km"
+- Appears on route build, dismissed when `clearUniversityRoute()` is called
+- ETA adjusts based on preference mode multiplier and simulated traffic
+
+### F. Clear Route ✅
+- `clearUniversityRoute()` removes all route polylines, destination marker, ETA badge, and resets bottom sheet
+
+### Key files modified
+- `MMITS Hiraya Transit.html` — all changes inline
+- `agent-potato-data/university_walk_paths.json` — new file (10 universities, 10–12 waypoints each)
+
+---
+
+## 20. New Features — v16.7 (2026-05-08)
+
+### A. Road-Snapped Routing ✅
+- `buildRoadAlignedPath(from, to)` replaces straight-line walk legs
+- Algorithm: collect road coordinate points within a corridor (90% of straight-line distance + 10m buffer) from `ROAD_CONGESTION_DATA`, snap endpoints to nearest road point, then greedy-walk toward destination choosing road-network edges
+- Max 18 greedy steps; falls back to straight line if < 2 road points in corridor
+- Walk-to-station and final-walk legs both use this function
+
+### B. Traffic-Colored Walk Legs ✅
+- `renderTrafficColoredPath(pts, weight, dashArray)` splits a polyline into individual 2-point segments
+- Each segment colored by `nearestTrafficSpeed()` → `speedToTrafficState()` lookup
+- Walk legs render with `weight:3, dashArray:'6 4'`; transit legs are solid with higher weight
+
+### C. Rich Destination Marker ✅
+- `.udc-card` Leaflet divIcon replaces the simple gold pill marker
+- Card shows: university emoji icon, university name, nearest station chip (line color), fare chip (₱ amount), ETA chip
+- CSS arrow pointer anchors card to exact coordinate
+- Z-index placed above route polylines
+
+### D. Corrected University Coordinates ✅
+- `NCR_DESTINATIONS` and `UNIVERSITY_WALK_PATHS` updated:
+  - UP Manila: `[14.5836, 120.9882]` (near LRT-1 UN Avenue, PGH area — was ~2.5km north)
+  - PUP: `[14.5993, 121.0102]` (Sta. Mesa campus — now matches LRT-2 Pureza walk)
+  - FEU walk path corrected to start from LRT-2 Recto `[14.6036, 120.9831]` (not Legarda)
+  - NU Manila walk path corrected to start from LRT-2 Recto `[14.6036, 120.9831]` (not Legarda)
+
+### E. Traffic Legend in Route Header ✅
+- Route instructions header includes a 4-state traffic legend row: 🟢 Flow · 🟡 Slow · 🟠 Heavy · 🔴 Stop
+
+### F. Agent Potato Walk Path Verification ✅
+- `agent-potato-data/university_walk_paths.json` updated with Agent Potato's verified paths:
+  - All 10 universities, 10–16 waypoints each
+  - Street descriptions verified against real Manila road layout
+  - Paths follow named streets (España Blvd, Katipunan Ave, Nicanor Reyes St, Muralla St, etc.)
+
+### Key files modified
+- `MMITS Hiraya Transit.html` — all changes inline
+- `agent-potato-data/university_walk_paths.json` — updated with verified paths
+
 *End of CLAUDE.md — MMITS Hiraya Transit v16*
